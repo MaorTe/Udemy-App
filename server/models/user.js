@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const validator = require('validator');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const Task = require('../models/task');
+const Course = require('./course');
 
 //middleware is to run some functions before or after given events occur for example validate,save...
 //mongoose converts the second argument to a schema and in order to take advantage of the middleware functionality we have to create the schema first and then pass that in
@@ -18,7 +18,6 @@ const userSchema = new mongoose.Schema({
 		required: true,
 		trim: true,
 		lowercase: true,
-
 		validate(value) {
 			if (!validator.isEmail(value)) {
 				throw new Error('Email is invalid');
@@ -30,7 +29,6 @@ const userSchema = new mongoose.Schema({
 		required: true,
 		minlength: 7,
 		trim: true,
-
 		validate(value) {
 			if (value.toLowerCase().includes('password')) {
 				throw new Error('Password cannot contain "password"');
@@ -40,13 +38,33 @@ const userSchema = new mongoose.Schema({
 	age: {
 		type: Number,
 		default: 0,
-
 		validate(value) {
 			if (value < 0) {
 				throw new Error('Age must be a postive number');
 			}
 		},
 	},
+	courses: [
+		{
+			courseImage: {
+				type: String,
+				required: true,
+				validate(val) {
+					if (!val.includes('.jpg')) {
+						throw new Error('not a jpg image');
+					}
+				},
+			},
+			courseName: {
+				type: String,
+				required: true,
+			},
+			courseDescription: {
+				type: String,
+				required: true,
+			},
+		},
+	],
 	tokens: [
 		{
 			token: {
@@ -57,10 +75,12 @@ const userSchema = new mongoose.Schema({
 	],
 });
 
-//virtual property is not actual data stored in the DB, its a relationship between 2 entities in this case between our user and task
+//virtual property
+//--is not actual data stored in the DB, its a relationship between 2 entities--
+//in this case between our user and course
 //its virtual cuz we r not actually changing what we stored for the user doc,its just a way for mongoose to figure out how these 2 things are related
-userSchema.virtual('tasks', {
-	ref: 'Task',
+userSchema.virtual('courses', {
+	ref: 'Course',
 	localField: '_id',
 	foreignField: 'owner',
 });
@@ -123,7 +143,7 @@ userSchema.pre('save', async function (next) {
 
 userSchema.pre('remove', async function (next) {
 	const user = this;
-	await Task.deleteMany({ owner: user._id });
+	await Course.deleteMany({ owner: user._id });
 	next();
 });
 //passing the schema as a second argument to model

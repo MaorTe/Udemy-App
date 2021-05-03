@@ -3,7 +3,6 @@ const User = require('../models/user');
 const auth = require('../middleware/auth');
 const router = new express.Router();
 
-//hash is good for when a user is created
 router.post('/api/users', async (req, res) => {
 	const user = new User(req.body);
 
