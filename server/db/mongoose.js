@@ -7,7 +7,7 @@ if (process.env.NODE_ENV) {
 	url = require('./atlas');
 }
 
-mongoose.connect('mongodb://127.0.0.1:27017/fullstack-mern-api', {
+mongoose.connect(url, {
 	useNewUrlParser: true,
 	useCreateIndex: true,
 	useFindAndModify: false,
