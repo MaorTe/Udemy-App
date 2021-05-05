@@ -16,7 +16,8 @@ app.use(courseRouter);
 app.listen(port, () => {
 	console.log('Server is up on port ' + port);
 });
-
+console.log(__dirname);
+console.log(path.join(__dirname, '../client/build'));
 //deploy to heroku
 app.use(express.static(path.join(__dirname, '../client/build')));
 app.get('/*', (req, res) => {
