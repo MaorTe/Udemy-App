@@ -4,6 +4,8 @@ import { LoginForm } from './loginForm';
 import { motion } from 'framer-motion';
 import { AccountContext } from './accountContext';
 import { SignupForm } from './signupForm';
+// import React, { useRef, useState } from 'react';
+import api from './API/api';
 
 const BoxContainer = styled.div`
 	width: 280px;
@@ -99,9 +101,17 @@ const expandingTransition = {
 };
 
 export function AccountBox(props) {
+	//animation
 	const [isExpanded, setExpanded] = useState(false);
 	const [active, setActive] = useState('signin');
 
+	//create new user
+	const [userData, setUserData] = useState([]);
+	const createUser = async () => {
+		const { data } = await api.post('users');
+		setUserData([data]);
+	};
+	//animation functions
 	const playExpandingAnimation = () => {
 		setExpanded(true);
 		setTimeout(() => {
@@ -123,7 +133,7 @@ export function AccountBox(props) {
 		}, 400);
 	};
 
-	const contextValue = { switchToSignup, switchToSignin };
+	const contextValue = { switchToSignup, switchToSignin ,createUser};
 
 	return (
 		<AccountContext.Provider value={contextValue}>

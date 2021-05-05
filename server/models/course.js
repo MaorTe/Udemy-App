@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
-const Course = mongoose.model('Course', {
+const userSchema = new mongoose.Schema({
+	// const Course = mongoose.model('Course', {
 	courses: [
 		{
 			courseImage: {
@@ -33,5 +34,6 @@ userSchema.virtual('videos', {
 	localField: '_id',
 	foreignField: 'owner',
 });
+const Course = mongoose.model('Course', userSchema);
 
 module.exports = Course;
