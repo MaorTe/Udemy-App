@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
 import { LoginForm } from './loginForm';
 import { motion } from 'framer-motion';
 import { AccountContext } from './accountContext';
 import { SignupForm } from './signupForm';
-// import React, { useRef, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import api from '../../API/api';
 
 const BoxContainer = styled.div`
@@ -101,14 +101,17 @@ const expandingTransition = {
 };
 
 export function AccountBox(props) {
+	const { push } = useHistory();
 	//animation
 	const [isExpanded, setExpanded] = useState(false);
 	const [active, setActive] = useState('signin');
 
 	//create new user
 	const [userData, setUserData] = useState([]);
+	const refUser = useRef(null);
+	// const refID = useRef(null);
 	const createUser = async () => {
-		const { data } = await api.post('users');
+		const { data } = await api.post('/users');
 		setUserData([data]);
 	};
 	//animation functions
@@ -123,6 +126,8 @@ export function AccountBox(props) {
 		playExpandingAnimation();
 		setTimeout(() => {
 			setActive('signup');
+			push(`/Signup`);
+			// console.log(push);
 		}, 400);
 	};
 
@@ -130,10 +135,11 @@ export function AccountBox(props) {
 		playExpandingAnimation();
 		setTimeout(() => {
 			setActive('signin');
+			push(`/Signin`);
 		}, 400);
 	};
 
-	const contextValue = { switchToSignup, switchToSignin, createUser };
+	const contextValue = { switchToSignup, switchToSignin, createUser, refUser };
 
 	return (
 		<AccountContext.Provider value={contextValue}>

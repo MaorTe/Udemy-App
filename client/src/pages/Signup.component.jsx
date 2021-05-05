@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { AccountBox } from '../components/accountBox';
 
-const SignupPageContainer = styled.div`
+const SigninPageContainer = styled.div`
 	width: 100%;
 	height: 100%;
 	display: flex;
@@ -12,9 +12,9 @@ const SignupPageContainer = styled.div`
 
 function Signin() {
 	return (
-		<SignupPageContainer>
+		<SigninPageContainer>
 			<AccountBox />
-		</SignupPageContainer>
+		</SigninPageContainer>
 	);
 }
 

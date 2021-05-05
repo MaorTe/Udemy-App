@@ -22,6 +22,11 @@ const Navbar = () => {
 						<h3>Signin</h3>
 					</NavLink>
 				</LI>
+				<LI>
+					<NavLink to="/Signup">
+						<h3>Signup</h3>
+					</NavLink>
+				</LI>
 			</UL>
 		</NavbarContainer>
 	);
