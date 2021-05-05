@@ -9,18 +9,6 @@ const app = express();
 const router = new express.Router();
 const port = process.env.PORT || 3000;
 
-// app.use((req, res, next) => {
-//     if (req.method === 'GET') {
-//         res.send('GET requests are disabled')
-//     } else {
-//         next()
-//     }
-// })
-
-// app.use((req, res, next) => {
-// 	res.status(503).send('Site is currently down. Check back soon!');
-// });
-
 app.use(cors());
 app.use(express.json());
 app.use(userRouter);
@@ -30,10 +18,10 @@ app.listen(port, () => {
 });
 
 //deploy to heroku
-// app.use(express.static(path.join(__dirname, 'build')));
-// app.get('/*', (req, res) => {
-// 	res.sendFile(path.join(__dirname, 'build', 'index.html'));
-// });
+app.use(express.static(path.join(__dirname, 'build')));
+app.get('/*', (req, res) => {
+	res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
 
 const jwt = require('jsonwebtoken');
 
