@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import { AccountContext } from './accountContext';
 import { SignupForm } from './signupForm';
 // import React, { useRef, useState } from 'react';
-import api from './API/api';
+import api from '../../API/api';
 
 const BoxContainer = styled.div`
 	width: 280px;
@@ -133,7 +133,7 @@ export function AccountBox(props) {
 		}, 400);
 	};
 
-	const contextValue = { switchToSignup, switchToSignin ,createUser};
+	const contextValue = { switchToSignup, switchToSignin, createUser };
 
 	return (
 		<AccountContext.Provider value={contextValue}>
