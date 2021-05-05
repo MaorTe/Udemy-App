@@ -1,0 +1,23 @@
+{
+	"name": "Fullstack_mern",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"start": "npm start --prefix server",
+    "heroku-postbuild":"npm build --prefix client"
+
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/MaorTe/fullstack_project.git"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/MaorTe/fullstack_project/issues"
+	},
+	"homepage": "https://github.com/MaorTe/fullstack_project#readme"
+}
