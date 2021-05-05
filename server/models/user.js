@@ -40,31 +40,31 @@ const userSchema = new mongoose.Schema({
 		default: 0,
 		validate(value) {
 			if (value < 0) {
-				throw new Error('Age must be a postive number');
+				throw new Error('Age must be a positive number');
 			}
 		},
 	},
-	courses: [
-		{
-			courseImage: {
-				type: String,
-				required: true,
-				validate(val) {
-					if (!val.includes('.jpg')) {
-						throw new Error('not a jpg image');
-					}
-				},
-			},
-			courseName: {
-				type: String,
-				required: true,
-			},
-			courseDescription: {
-				type: String,
-				required: true,
-			},
-		},
-	],
+	// courses: [
+	// 	{
+	// 		courseImage: {
+	// 			type: String,
+	// 			required: true,
+	// 			validate(val) {
+	// 				if (!val.includes('.jpg')) {
+	// 					throw new Error('not a jpg image');
+	// 				}
+	// 			},
+	// 		},
+	// 		courseName: {
+	// 			type: String,
+	// 			required: true,
+	// 		},
+	// 		courseDescription: {
+	// 			type: String,
+	// 			required: true,
+	// 		},
+	// 	},
+	// ],
 	tokens: [
 		{
 			token: {

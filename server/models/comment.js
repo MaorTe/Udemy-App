@@ -35,7 +35,7 @@ const Comment = mongoose.model('Comment', {
 	owner: {
 		type: mongoose.Schema.Types.ObjectId,
 		required: true,
-		ref: 'Course',
+		ref: 'Video',
 	},
 });
 

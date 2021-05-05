@@ -107,7 +107,7 @@ router.patch('/api/users/me', auth, async (req, res) => {
 		//1)
 		// const user = await User.findById(req.params.id);
 
-		//2)and now to update, we cant change it hardcoded its different everytime so we will use this loop for dynamic updates
+		//2)and now to update, we cant change it hardcoded its different every time so we will use this loop for dynamic updates
 		updates.forEach((update) => (req.user[update] = req.body[update]));
 		//3)this is where our middleware actually get executed
 		await req.user.save();

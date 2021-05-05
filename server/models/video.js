@@ -15,6 +15,41 @@ const userSchema = new mongoose.Schema({
 		type: Boolean,
 		default: false,
 	},
+	// comments: [
+	// 	{
+	// 		userAvatar: {
+	// 			type: String,
+	// 			required: true,
+	// 			validate(val) {
+	// 				if (!val.includes('.jpg')) {
+	// 					throw new Error('not a jpg image');
+	// 				}
+	// 			},
+	// 		},
+	// 		userName: {
+	// 			type: String,
+	// 			required: true,
+	// 		},
+	// 		dateAdded: {
+	// 			type: Date,
+	// 			default: Date.now(),
+	// 			validate(value) {
+	// 				if (!validator.isDate(value)) {
+	// 					console.log(value);
+	// 					throw new Error('is not a valid date');
+	// 				}
+	// 			},
+	// 		},
+	// 		content: {
+	// 			type: String,
+	// 			required: true,
+	// 			trim: true,
+	// 		},
+	// 		likes: {
+	// 			type: Number,
+	// 		},
+	// 	},
+	// ],
 	owner: {
 		type: mongoose.Schema.Types.ObjectId,
 		required: true,
@@ -28,5 +63,5 @@ userSchema.virtual('comments', {
 	foreignField: 'owner',
 });
 
-const Course = mongoose.model('Course', userSchema);
-module.exports = Course;
+const Video = mongoose.model('Video', userSchema);
+module.exports = Video;

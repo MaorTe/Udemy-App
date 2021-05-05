@@ -28,5 +28,10 @@ const Course = mongoose.model('Course', {
 		},
 	],
 });
+userSchema.virtual('videos', {
+	ref: 'Video',
+	localField: '_id',
+	foreignField: 'owner',
+});
 
 module.exports = Course;
