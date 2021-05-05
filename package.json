@@ -1,12 +1,12 @@
 {
-	"name": "Fullstack_mern",
+	"name": "fullstack_mern",
 	"version": "1.0.0",
 	"description": "",
 	"main": "index.js",
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"start": "npm start --prefix server",
-		"heroku-postbuild": "npm build --prefix client && npm install --prefix server"
+		"heroku-postbuild": "npm install --prefix client && npm build --prefix client && npm install --prefix server"
 	},
 	"repository": {
 		"type": "git",
