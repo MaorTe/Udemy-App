@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-
+import { Link } from 'react-router-dom';
 export const BoxContainer = styled.div`
 	width: 100%;
 	display: flex;
@@ -14,15 +14,15 @@ export const FormContainer = styled.form`
 	flex-direction: column;
 	box-shadow: 0px 0px 2.5px rgba(15, 15, 15, 0.19);
 `;
-
-export const MutedLink = styled.a`
+// export const NavLink = styled(Link)`
+export const MutedLink = styled(Link)`
 	font-size: 16px;
 	color: rgba(200, 200, 200, 0.8);
 	font-weight: 500;
 	text-decoration: none;
 `;
 
-export const BoldLink = styled.a`
+export const BoldLink = styled(Link)`
 	font-size: 16px;
 	color: rgb(241, 196, 15);
 	font-weight: 500;

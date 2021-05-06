@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+// import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { LoginForm } from './loginForm';
 import { motion } from 'framer-motion';
 import { AccountContext } from './accountContext';
 import { SignupForm } from './signupForm';
+import { useHistory } from 'react-router-dom';
+import api from '../../API/api';
 
 const BoxContainer = styled.div`
 	width: 280px;
@@ -16,6 +19,12 @@ const BoxContainer = styled.div`
 	box-shadow: 0 0 2px rgba(15, 15, 15, 0.28);
 	position: relative;
 	overflow: hidden;
+	@media all and (min-width: 1024px) {
+		top: 120px;
+		width: 310px;
+		transform: scale(1.2);
+		/* width: 800px; */
+	}
 `;
 
 const TopContainer = styled.div`
@@ -77,6 +86,7 @@ const InnerContainer = styled.div`
 	padding: 0 1.8em;
 `;
 
+//animation
 const backdropVariants = {
 	expanded: {
 		width: '233%',
@@ -99,31 +109,118 @@ const expandingTransition = {
 };
 
 export function AccountBox(props) {
+	const { location } = useHistory();
+	//animation
 	const [isExpanded, setExpanded] = useState(false);
-	const [active, setActive] = useState('signin');
 
-	const playExpandingAnimation = () => {
-		setExpanded(true);
+	// const params = useParams();
+
+	useEffect(() => {
+		const type = location.pathname.slice(1);
+		// const Checktype = async () => {
+		setActive(type);
+		// };
+		// Checktype();
+	}, []);
+	// create new user
+	const [userData, setUserData] = useState([]);
+	const [userInfo, setUserInfo] = useState({
+		name: '',
+		age: '',
+		email: '',
+		password: '',
+	});
+	const [loginInfo, setLoginInfo] = useState({
+		email: '',
+		password: '',
+	});
+	const createUser = async () => {
+		try {
+			const { data } = await api.post('users', userInfo);
+			setUserData([data]);
+		} catch (e) {
+			console.dir(e);
+		}
+		//set profile name on navbar and redirect to homepage
+	};
+	const loginUser = async () => {
+		try {
+			const { data } = await api.post('users/login', loginInfo);
+			setUserInfo([data]);
+		} catch (e) {
+			console.dir(e);
+		}
+		//set profile name on navbar and redirect to homepage
+	};
+	//animation functions
+	const playExpandingAnimation = async () => {
+		await setExpanded(true);
 		setTimeout(() => {
 			setExpanded(false);
 		}, expandingTransition.duration * 1000 - 1500);
 	};
 
-	const switchToSignup = () => {
-		playExpandingAnimation();
-		setTimeout(() => {
-			setActive('signup');
-		}, 400);
-	};
+	const [active, setActive] = useState(null);
+	const [preActive, setPreActive] = useState(null);
+	// const switchToSignup = () => {
+	// 	setActive('')
+	// 	playExpandingAnimation();
+	// 	setTimeout(() => {
+	// 		const type = location.pathname.slice(1);
+	// 		// replace(`/Signup`);
+	// 		setActive(type);
+	// 	}, expandingTransition.duration * 1000 - 1500);
+	// };
 
 	const switchToSignin = () => {
-		playExpandingAnimation();
-		setTimeout(() => {
-			setActive('signin');
-		}, 400);
+		const type = location.pathname.slice(1);
+		setPreActive(type);
+		// playExpandingAnimation();
+		// setTimeout(() => {
+		// 	setActive(type);
+		// }, 4000);
+		// setTimeout(() => {
+		// 	// replace(`/Signin`);
+		// 	setActive(type);
+		// }, 400);
+	};
+	// const renderForm = async () => {
+	// 	return setTimeout(() => {
+	// 		return (
+	// 			<InnerContainer>
+	// 				{active === 'Signin' ? (
+	// 					<LoginForm />
+	// 				) : active === 'Signup' ? (
+	// 					<SignupForm />
+	// 				) : (
+	// 					''
+	// 				)}
+	// 				{/* {active === 'Signin' && <LoginForm />}
+	// 				{active === 'Signup' && <SignupForm />} */}
+	// 			</InnerContainer>
+	// 		);
+	// 	}, 1000);
+	// };
+	const contextValue = {
+		// switchToSignup,
+		switchToSignin,
+		//passing new user
+		createUser,
+		userInfo,
+		setUserInfo,
+		//passing login
+		loginUser,
+		loginInfo,
+		setLoginInfo,
 	};
 
-	const contextValue = { switchToSignup, switchToSignin };
+	useEffect(() => {
+		playExpandingAnimation();
+		const type = location.pathname.slice(1);
+		setTimeout(() => {
+			setActive(type);
+		}, 4000);
+	}, [preActive]);
 
 	return (
 		<AccountContext.Provider value={contextValue}>
@@ -135,24 +232,28 @@ export function AccountBox(props) {
 						variants={backdropVariants}
 						transition={expandingTransition}
 					/>
-					{active === 'signin' && (
-						<HeaderContainer>
-							<HeaderText>Welcome</HeaderText>
-							<HeaderText>Back</HeaderText>
-							<SmallText>Please sign-in to continue!</SmallText>
-						</HeaderContainer>
-					)}
-					{active === 'signup' && (
-						<HeaderContainer>
-							<HeaderText>Create</HeaderText>
-							<HeaderText>Account</HeaderText>
-							<SmallText>Please sign-up to continue!</SmallText>
-						</HeaderContainer>
-					)}
+					<HeaderContainer>
+						<HeaderText>
+							{active === 'Signin' ? 'Welcome' : 'Create'}
+						</HeaderText>
+						<HeaderText>{active === 'Signin' ? 'Back' : 'Account'}</HeaderText>
+						<SmallText>
+							{active === 'Signin'
+								? 'Please sign-in to continue!'
+								: 'Please sign-up to continue!'}
+						</SmallText>
+					</HeaderContainer>
 				</TopContainer>
 				<InnerContainer>
-					{active === 'signin' && <LoginForm />}
-					{active === 'signup' && <SignupForm />}
+					{active === 'Signin' ? (
+						<LoginForm />
+					) : active === 'Signup' ? (
+						<SignupForm />
+					) : (
+						''
+					)}
+					{/* {active === 'Signin' && <LoginForm />}
+					{active === 'Signup' && <SignupForm />} */}
 				</InnerContainer>
 			</BoxContainer>
 		</AccountContext.Provider>

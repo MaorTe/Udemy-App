@@ -3,6 +3,7 @@ import Navbar from './components/NavBar/Navbar.component';
 import Homepage from './pages/Homepage.component';
 import NotFound from './pages/NotFound.component';
 import Signin from './pages/Signin.component';
+import Signup from './pages/Signup.component';
 import { useEffect } from 'react';
 // import MovieDetails from './pages/MovieDetails.component';
 // import SearchResults from './pages/SearchResults.component';
@@ -34,6 +35,7 @@ function App() {
 						// component={() => <Homepage movieData={topRatedMovies} />}
 					/>
 					<Route exact path="/Signin" component={Signin} />
+					<Route exact path="/Signup" component={Signup} />
 					{/* <Route
 						exact
 						path="/MovieDetails/:type/:id"
