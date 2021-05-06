@@ -35,7 +35,7 @@ function App() {
 						// component={() => <Homepage movieData={topRatedMovies} />}
 					/>
 					<Route exact path="/Signin" component={Signin} />
-					<Route exact path="/Signup" component={Signup} />
+					<Route exact path="/api/users" component={Signup} />
 					{/* <Route
 						exact
 						path="/MovieDetails/:type/:id"

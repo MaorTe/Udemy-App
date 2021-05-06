@@ -28,7 +28,7 @@ export function LoginForm(props) {
 
 			<Marginer direction="vertical" margin="1em" />
 			<MutedLink to="/">Don't have an account?</MutedLink>
-			<BoldLink to="/Signup" onClick={switchToSignup}>
+			<BoldLink to="/api/users" onClick={switchToSignup}>
 				Signup
 			</BoldLink>
 		</BoxContainer>
