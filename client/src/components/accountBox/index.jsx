@@ -110,6 +110,8 @@ const expandingTransition = {
 
 export function AccountBox(props) {
 	const { location } = useHistory();
+	const history = useHistory();
+
 	//animation
 	const [isExpanded, setExpanded] = useState(false);
 
@@ -138,19 +140,21 @@ export function AccountBox(props) {
 		try {
 			const { data } = await api.post('users', userInfo);
 			setUserData([data]);
+			//set profile name on navbar and redirect to homepage
+			history.push('/Signin');
 		} catch (e) {
 			console.dir(e);
 		}
-		//set profile name on navbar and redirect to homepage
 	};
 	const loginUser = async () => {
 		try {
 			const { data } = await api.post('users/login', loginInfo);
 			setUserInfo([data]);
+			//set profile name on navbar and redirect to homepage
+			history.push('/');
 		} catch (e) {
 			console.dir(e);
 		}
-		//set profile name on navbar and redirect to homepage
 	};
 	//animation functions
 	const playExpandingAnimation = async () => {
