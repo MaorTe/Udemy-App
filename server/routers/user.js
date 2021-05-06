@@ -8,7 +8,6 @@ router.post('/api/users', async (req, res) => {
 
 	try {
 		await user.save();
-
 		const token = await user.generateAuthToken();
 		res.status(201).send({ user, token });
 	} catch (e) {
@@ -28,6 +27,7 @@ router.post('/api/users/login', async (req, res) => {
 		//generateAuthToken exist only on the instances
 		const token = await user.generateAuthToken();
 		//when we send an obj, behind the scenes it stringify toJSON
+		console.log(token);
 		res.send({ user, token });
 	} catch (e) {
 		res.status(400).send();

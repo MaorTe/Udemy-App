@@ -31,7 +31,8 @@ const userSchema = new mongoose.Schema({
 		trim: true,
 		validate(value) {
 			if (value.toLowerCase().includes('password')) {
-				throw new Error('Password cannot contain "password"');
+				// throw new Error('Password cannot contain "password"');
+				throw 'random text';
 			}
 		},
 	},
