@@ -140,18 +140,32 @@ export function AccountBox(props) {
 		try {
 			const { data } = await api.post('users', userInfo);
 			setUserData([data]);
-			//set profile name on navbar and redirect to homepage
+			//redirect to homepage
 			history.push('/Signin');
 		} catch (e) {
 			console.dir(e);
 		}
 	};
+
 	const loginUser = async () => {
 		try {
 			const { data } = await api.post('users/login', loginInfo);
 			setUserInfo([data]);
+			console.log(data);
 			//set profile name on navbar and redirect to homepage
+			const localData = JSON.parse(localStorage.getItem('localData'));
+
+			// if (isTokenExist === -1) {
+			localData.push({ token: data.token });
+			localStorage.setItem('localData', JSON.stringify(localData));
 			history.push('/');
+			const isTokenExist = localData.findIndex((el) => el.token && el);
+			console.log(isTokenExist);
+			return isTokenExist;
+
+			// } else {
+			// throw new Error('user already logged in');
+			// }
 		} catch (e) {
 			console.dir(e);
 		}
