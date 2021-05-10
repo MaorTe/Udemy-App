@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const userSchema = new mongoose.Schema({
+const videoSchema = new mongoose.Schema({
 	videoLink: {
 		type: String,
 		required: true,
@@ -15,53 +15,18 @@ const userSchema = new mongoose.Schema({
 		type: Boolean,
 		default: false,
 	},
-	// comments: [
-	// 	{
-	// 		userAvatar: {
-	// 			type: String,
-	// 			required: true,
-	// 			validate(val) {
-	// 				if (!val.includes('.jpg')) {
-	// 					throw new Error('not a jpg image');
-	// 				}
-	// 			},
-	// 		},
-	// 		userName: {
-	// 			type: String,
-	// 			required: true,
-	// 		},
-	// 		dateAdded: {
-	// 			type: Date,
-	// 			default: Date.now(),
-	// 			validate(value) {
-	// 				if (!validator.isDate(value)) {
-	// 					console.log(value);
-	// 					throw new Error('is not a valid date');
-	// 				}
-	// 			},
-	// 		},
-	// 		content: {
-	// 			type: String,
-	// 			required: true,
-	// 			trim: true,
-	// 		},
-	// 		likes: {
-	// 			type: Number,
-	// 		},
-	// 	},
-	// ],
-	owner: {
+	courseId: {
 		type: mongoose.Schema.Types.ObjectId,
 		required: true,
-		ref: 'User',
+		ref: 'Course',
 	},
 });
 
-userSchema.virtual('comments', {
+videoSchema.virtual('comments', {
 	ref: 'Comment',
 	localField: '_id',
-	foreignField: 'owner',
+	foreignField: 'videoId',
 });
 
-const Video = mongoose.model('Video', userSchema);
+const Video = mongoose.model('Video', videoSchema);
 module.exports = Video;

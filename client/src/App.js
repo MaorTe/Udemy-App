@@ -3,11 +3,12 @@ import Navbar from './components/NavBar/Navbar.component';
 import NotFound from './pages/NotFound/NotFound.component';
 import Signin from './pages/Signin.component';
 import Signup from './pages/Signup.component';
-import Logout from './pages/Logout/llllLogout.component';
+// import Logout from './pages/Logout/llllLogout.component';
 import { useEffect, useState } from 'react';
 import { AccountContext } from './components/accountBox/accountContext';
 import Homepage from './pages/Homepage/Homepage.component';
 import api from './API/api';
+import Courses from './pages/Courses/Courses.component';
 
 function App() {
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -35,7 +36,7 @@ function App() {
 				const localData = JSON.parse(localStorage.getItem('localData'));
 				const token = localData.find((el) => el.token);
 
-				const { data } = await api.get('users/me', {
+				await api.get('users/me', {
 					headers: { Authorization: token.token },
 				});
 				setIsLoggedIn(true);
@@ -59,25 +60,16 @@ function App() {
 						)}
 					/> */}
 					<Switch>
-						{/* <Route exact path="/" component={Homepage} /> */}
 						<Route
 							exact
 							path="/Signin"
 							component={() => <Signin getUser={getUser} />}
 						/>
 						<Route exact path="/" component={Homepage} />
+						{/* <Route exact path="/Profile" component={Profile} /> */}
 						<Route exact path="/Signup" component={Signup} />
-						{/* <Route
-							exact
-							path="/Logout"
-							component={() => <Logout getUser={getUser} />}
-						/> */}
-						{/* <Route
-						exact
-						path="/MovieDetails/:type/:id"
-						component={MovieDetails}
-					/>
-					<Route exact path="/Categories/:type" component={Categories} />
+						<Route exact path="/Courses" component={Courses} />
+						{/* <Route exact path="/Categories/:type" component={Categories} />
 					<Route
 						exact
 						path="/SearchResults/:type/q=:query"

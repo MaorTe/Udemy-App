@@ -67,11 +67,11 @@ code {
 	z-index: 1;
 	color: #000;
 }
+
 .slick-prev:before,
 .slick-next:before {
-	font-size: 36px;
-	/* color: #777; */
-	background: #777;
+	font-size: 36px !important;
+	color: #777 !important;
 }
 .font-small {
 	text-align: center;

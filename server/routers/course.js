@@ -7,7 +7,6 @@ router.post('/api/courses', auth, async (req, res) => {
 	// const course = new Course(req.body);
 	const course = new Course({
 		...req.body,
-		owner: req.user._id,
 	});
 
 	try {
@@ -18,12 +17,11 @@ router.post('/api/courses', auth, async (req, res) => {
 	}
 });
 
-router.get('/api/courses', auth, async (req, res) => {
+router.get('/api/courses', async (req, res) => {
 	try {
-		//const courses = await Course.find({});
-		await req.user.populate('courses').execPopulate();
-		//res.send(courses);
-		res.send(req.user.courses);
+		const { tag } = req.query;
+		const courses = await Course.find({ tag });
+		res.send();
 	} catch (e) {
 		res.status(500).send();
 	}

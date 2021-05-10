@@ -27,7 +27,13 @@ const Navbar = ({ getUser, isLoggedIn }) => {
 						<span>Welcome {userName()}</span>
 					</LI>
 				)}
-
+				{isLoggedIn && (
+					<LI>
+						<NavLink to="/Courses">
+							<h3> My Courses</h3>
+						</NavLink>
+					</LI>
+				)}
 				<LI>
 					<NavLink to="/">
 						<h3>Home</h3>
@@ -46,7 +52,6 @@ const Navbar = ({ getUser, isLoggedIn }) => {
 						<NavLink to="/" onClick={() => logoutUser()}>
 							<h3>Logout</h3>
 						</NavLink>
-						{/* <button onClick={() => logoutUser()}>Logout</button> */}
 					</LI>
 				)}
 

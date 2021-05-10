@@ -58,6 +58,34 @@ router.post('/api/users/logoutAll', auth, async (req, res) => {
 	}
 });
 
+router.post('/api/users/addcourse', auth, async (req, res) => {
+	try {
+		//populate allow us to populate data from a relationship
+		// await req.user.populate({ path: 'courses.courseId' }).execPopulate();
+		//res.send(courses);
+		const newCourse = { courseId: req.body.id };
+		req.user.courses.push(newCourse);
+		req.user.save();
+		res.send(req.user.courses);
+	} catch (e) {
+		res.status(500).send();
+	}
+});
+
+router.get('/api/users/mycourses', auth, async (req, res) => {
+	try {
+		//populate allow us to populate data from a relationship
+		await req.user
+			.populate({
+				path: 'courses.courseId',
+			})
+			.execPopulate();
+		res.send(req.user.courses);
+	} catch (e) {
+		res.status(500).send();
+	}
+});
+
 //Without middleware: new request → run route handler
 //With middleware:    new request → do something → run route handler
 

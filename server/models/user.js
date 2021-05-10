@@ -12,6 +12,15 @@ const userSchema = new mongoose.Schema({
 		required: true,
 		trim: true,
 	},
+	avatar: {
+		type: String,
+		required: true,
+		validate(val) {
+			if (!val.includes('.jpg')) {
+				throw new Error('not a jpg image');
+			}
+		},
+	},
 	email: {
 		type: String,
 		unique: true,
@@ -45,27 +54,15 @@ const userSchema = new mongoose.Schema({
 			}
 		},
 	},
-	// courses: [
-	// 	{
-	// 		courseImage: {
-	// 			type: String,
-	// 			required: true,
-	// 			validate(val) {
-	// 				if (!val.includes('.jpg')) {
-	// 					throw new Error('not a jpg image');
-	// 				}
-	// 			},
-	// 		},
-	// 		courseName: {
-	// 			type: String,
-	// 			required: true,
-	// 		},
-	// 		courseDescription: {
-	// 			type: String,
-	// 			required: true,
-	// 		},
-	// 	},
-	// ],
+	courses: [
+		{
+			courseId: {
+				type: mongoose.Schema.Types.ObjectId,
+				required: true,
+				ref: 'Course',
+			},
+		},
+	],
 	tokens: [
 		{
 			token: {
@@ -80,11 +77,11 @@ const userSchema = new mongoose.Schema({
 //--is not actual data stored in the DB, its a relationship between 2 entities--
 //in this case between our user and course
 //its virtual cuz we r not actually changing what we stored for the user doc,its just a way for mongoose to figure out how these 2 things are related
-userSchema.virtual('courses', {
-	ref: 'Course',
-	localField: '_id',
-	foreignField: 'owner',
-});
+// userSchema.virtual('courses', {
+// 	ref: 'Course',
+// 	localField: '_id',
+// 	foreignField: 'owner',
+// });
 
 userSchema.methods.toJSON = function () {
 	const user = this;

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import api from '../../API/api';
 import Carousel from '../../components/Carousel/Carousel';
 
 const Homepage = () => {
@@ -9,6 +10,21 @@ const Homepage = () => {
 	useEffect(() => {
 		window.addEventListener('resize', updateWidth);
 		return () => window.removeEventListener('resize', updateWidth);
+	}, []);
+
+	useEffect(() => {
+		const fetchUser = async () => {
+			try {
+				const localData = JSON.parse(localStorage.getItem('localData'));
+				const token = localData.find((el) => el.token);
+
+				const { data } = await api.get('/courses');
+				console.log(data);
+			} catch (e) {
+				console.log(e.message);
+			}
+		};
+		fetchUser();
 	}, []);
 
 	return (

@@ -68,8 +68,8 @@ const Carousel = ({ data, onPictureClick, width }) => {
 					onButtonClick={onPictureClick}
 				/>
 				<CourseCard
-					key={1}
-					id={1}
+					key={2}
+					id={2}
 					title={'title'}
 					poster={
 						'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQUXn9EndVF5AuFcyVece-nVEhyTLmF3J-vY0ifinxnn0pcLgwfWE6aBEIvFtWGqBIWPHI&usqp=CAU'
@@ -80,8 +80,8 @@ const Carousel = ({ data, onPictureClick, width }) => {
 					onButtonClick={onPictureClick}
 				/>
 				<CourseCard
-					key={1}
-					id={1}
+					key={3}
+					id={3}
 					title={'title'}
 					poster={
 						'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRiKDq4s8xYwI5CAiuSPqQ_WlmEuk6DsmaNWOiUBqWm_CHF9IhV6_nHI5-8DRfggVjNRDc&usqp=CAU'
