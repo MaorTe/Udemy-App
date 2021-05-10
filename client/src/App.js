@@ -1,55 +1,77 @@
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Navbar from './components/NavBar/Navbar.component';
-import Homepage from './pages/Homepage/Homepage.component';
 import NotFound from './pages/NotFound/NotFound.component';
 import Signin from './pages/Signin.component';
 import Signup from './pages/Signup.component';
-import Logout from './pages/Logout/Logout.component';
+import Logout from './pages/Logout/llllLogout.component';
 import { useEffect, useState } from 'react';
 import { AccountContext } from './components/accountBox/accountContext';
+import Homepage from './pages/Homepage/Homepage.component';
+import api from './API/api';
 
 function App() {
-	const [isLoggedIn, setIsLoggedIn] = useState(-1);
+	const [isLoggedIn, setIsLoggedIn] = useState(false);
 	useEffect(() => {
 		const createLocalStorage = () => {
 			if (!Array.isArray(JSON.parse(localStorage.getItem('localData')))) {
 				localStorage.setItem('localData', JSON.stringify([]));
 			}
 		};
+		// isLoggedIn && getUser();
 		createLocalStorage();
 	}, []);
 
+	const [user, setUser] = useState(null);
+
+	const getUser = (user) => {
+		setUser(user);
+		setIsLoggedIn(!isLoggedIn);
+		console.log(isLoggedIn);
+	};
+
 	useEffect(() => {
-		const isTokenExists = () => {
-			const localData = JSON.parse(localStorage.getItem('localData'));
-			if (localData) {
-				const isTokenExist = localData.findIndex((el) => el.token && el);
-				setIsLoggedIn(isTokenExist);
+		const fetchUser = async () => {
+			try {
+				const localData = JSON.parse(localStorage.getItem('localData'));
+				const token = localData.find((el) => el.token);
+
+				const { data } = await api.get('users/me', {
+					headers: { Authorization: token.token },
+				});
+				setIsLoggedIn(true);
 				console.log(isLoggedIn);
+			} catch (e) {
+				console.log(e.message);
 			}
 		};
-		isTokenExists();
-	}, [isLoggedIn]);
-
+		fetchUser();
+	}, []);
 	return (
 		<div>
-			<AccountContext.Provider value={isLoggedIn}>
+			<AccountContext.Provider value={'a'}>
 				<Router>
-					<Navbar isTokenExist={isLoggedIn} />
-					<Switch>
-						{/* <Route
-						path="/dashboard"
-						render={(props) => <Homepage {...props} topRated={data} />}
+					<Navbar user={user} isLoggedIn={isLoggedIn} getUser={getUser} />
+					{/* <Route
+						exact
+						path="/"
+						component={() => (
+							<Navbar user={user} isLoggedIn={isLoggedIn} getUser={getUser} />
+						)}
 					/> */}
+					<Switch>
+						{/* <Route exact path="/" component={Homepage} /> */}
 						<Route
 							exact
-							path="/"
-							component={Homepage}
-							// component={() => <Homepage movieData={topRatedMovies} />}
+							path="/Signin"
+							component={() => <Signin getUser={getUser} />}
 						/>
-						<Route exact path="/Signin" component={Signin} />
+						<Route exact path="/" component={Homepage} />
 						<Route exact path="/Signup" component={Signup} />
-						<Route exact path="/Logout" component={Logout} />
+						{/* <Route
+							exact
+							path="/Logout"
+							component={() => <Logout getUser={getUser} />}
+						/> */}
 						{/* <Route
 						exact
 						path="/MovieDetails/:type/:id"

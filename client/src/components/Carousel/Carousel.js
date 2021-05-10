@@ -59,7 +59,69 @@ const Carousel = ({ data, onPictureClick, width }) => {
 					key={1}
 					id={1}
 					title={'title'}
-					poster={'pic'}
+					poster={
+						'https://campustechnology.com/-/media/EDU/CampusTechnology/2019-Images/20191209online.jpg'
+					}
+					type={'type'}
+					width={244}
+					height={140}
+					onButtonClick={onPictureClick}
+				/>
+				<CourseCard
+					key={1}
+					id={1}
+					title={'title'}
+					poster={
+						'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQUXn9EndVF5AuFcyVece-nVEhyTLmF3J-vY0ifinxnn0pcLgwfWE6aBEIvFtWGqBIWPHI&usqp=CAU'
+					}
+					type={'type'}
+					width={244}
+					height={140}
+					onButtonClick={onPictureClick}
+				/>
+				<CourseCard
+					key={1}
+					id={1}
+					title={'title'}
+					poster={
+						'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRiKDq4s8xYwI5CAiuSPqQ_WlmEuk6DsmaNWOiUBqWm_CHF9IhV6_nHI5-8DRfggVjNRDc&usqp=CAU'
+					}
+					type={'type'}
+					width={244}
+					height={140}
+					onButtonClick={onPictureClick}
+				/>
+				<CourseCard
+					key={1}
+					id={1}
+					title={'title'}
+					poster={
+						'https://campustechnology.com/-/media/EDU/CampusTechnology/2019-Images/20191209online.jpg'
+					}
+					type={'type'}
+					width={244}
+					height={140}
+					onButtonClick={onPictureClick}
+				/>
+				<CourseCard
+					key={1}
+					id={1}
+					title={'title'}
+					poster={
+						'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRiKDq4s8xYwI5CAiuSPqQ_WlmEuk6DsmaNWOiUBqWm_CHF9IhV6_nHI5-8DRfggVjNRDc&usqp=CAU'
+					}
+					type={'type'}
+					width={244}
+					height={140}
+					onButtonClick={onPictureClick}
+				/>
+				<CourseCard
+					key={1}
+					id={1}
+					title={'title'}
+					poster={
+						'https://campustechnology.com/-/media/EDU/CampusTechnology/2019-Images/20191209online.jpg'
+					}
 					type={'type'}
 					width={244}
 					height={140}

@@ -7,7 +7,7 @@ import {
 	ParagraphSmall,
 	SmallCircle,
 	Title,
-	url,
+	// url,
 } from './NotFound.style';
 
 const NotFound = () => {

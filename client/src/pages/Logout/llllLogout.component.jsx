@@ -7,25 +7,28 @@ const Container = styled.div`
 	text-align: center;
 `;
 
-const Logout = () => {
+const Logout = ({ getUser, isLoggedIn }) => {
 	useEffect(() => {
 		const localData = JSON.parse(localStorage.getItem('localData'));
 		const indexId = localData.findIndex((el) => el.token);
 		localData.splice(indexId, 1);
 		localStorage.setItem('localData', JSON.stringify(localData));
+
+		console.log(isLoggedIn);
 	}, []);
 
 	const history = useHistory();
-	function redirectToHomepage() {
-		setTimeout(() => {
-			//redirect to homepage
-			history.push('/');
-		}, 1500);
-	}
+	// function redirectToHomepage() {
+	// 	getUser();
+	// 	setTimeout(() => {
+	// 		// redirect to homepage
+	// 		history.push('/');
+	// 	}, 1500);
+	// }
 	return (
 		<Container>
 			<h1>Logged out successfully</h1>
-			{redirectToHomepage()}
+			{/* {redirectToHomepage()} */}
 		</Container>
 	);
 };

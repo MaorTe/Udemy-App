@@ -12,10 +12,9 @@ const CourseCard = ({
 }) => {
 	return (
 		<div className="movie-card-container">
-			<Link to={`/MovieDetails/${type}/${id}`}>
-				{/* <img src={poster} className="img-select" alt="" width={width} /> */}
+			<Link to={`/`}>
 				<LazyLoadImage
-					alt={''}
+					alt={'a'}
 					src={poster} // use normal <img> attributes as props
 					width={width}
 					height={height}

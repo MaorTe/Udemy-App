@@ -32,3 +32,47 @@ code {
 	width: 100%;
 	height: 100%;
 }
+
+.slick-dots li button:before {
+	font-size: 16px !important;
+	color: gray !important;
+}
+.slick-dots li.slick-active button:before {
+	color: #fff !important;
+}
+.homepage .slick-list {
+	padding: 1.5rem 0 0.5rem 0;
+}
+.homepage .slick-dots {
+	margin-bottom: 25px;
+}
+.slick-slide img {
+	margin: 0 auto;
+}
+/* .homepage .slick-next {
+	right: -10px !important;
+	z-index: 1;
+}
+.homepage .slick-prev {
+	left: -10px !important;
+	z-index: 1;
+} */
+.homepage .slick-prev {
+	left: 1% !important;
+	z-index: 1;
+	/* background: #000; */
+}
+.homepage .slick-next {
+	right: 1% !important;
+	z-index: 1;
+	color: #000;
+}
+.slick-prev:before,
+.slick-next:before {
+	font-size: 36px;
+	/* color: #777; */
+	background: #777;
+}
+.font-small {
+	text-align: center;
+}

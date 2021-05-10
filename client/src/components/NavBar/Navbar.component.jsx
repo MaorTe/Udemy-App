@@ -1,46 +1,60 @@
 // import React, { useContext } from 'react';
 // import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
 import logo from '../../img/logo.png';
 import { NavbarContainer, UL, LI, NavLink } from './Navbar.style';
 // import { AccountContext } from '../accountBox/accountContext';
 
-const Navbar = ({ isTokenExist }) => {
-	// const { isLoggedIn } = useContext(AccountContext);
+const Navbar = ({ getUser, isLoggedIn }) => {
+	const localData = JSON.parse(localStorage.getItem('localData'));
+	const userName = () => {
+		const user = localData.find((el) => el.user);
+		return user.user.name;
+	};
 
-	// const [state, setState] = useState(-1);
-	// useEffect(() => {
-	// 	const test = () => {
-	// 		setState(aa);
-	// 		console.log(aa);
-	// 	};
-	// 	test();
-	// }, [aa, state]);
+	const logoutUser = () => {
+		const indexId = localData.findIndex((el) => el.token);
+		localData.splice(indexId, 1);
+		localStorage.setItem('localData', JSON.stringify(localData));
+		getUser();
+	};
+
 	return (
 		<NavbarContainer>
 			<UL>
-				<LI>
-					{/* <Link to="/"> */}
-					<img src={logo} alt="" width="115" />
-					{/* </Link> */}
-				</LI>
+				{isLoggedIn && (
+					<LI>
+						<span>Welcome {userName()}</span>
+					</LI>
+				)}
+
 				<LI>
 					<NavLink to="/">
 						<h3>Home</h3>
 					</NavLink>
 				</LI>
-				{isTokenExist === -1 ? (
+
+				{!isLoggedIn && (
 					<LI>
 						<NavLink to="/Signin">
 							<h3> Signin</h3>
 						</NavLink>
 					</LI>
-				) : (
+				)}
+				{isLoggedIn && (
 					<LI>
-						<NavLink to="/Logout">
+						<NavLink to="/" onClick={() => logoutUser()}>
 							<h3>Logout</h3>
 						</NavLink>
+						{/* <button onClick={() => logoutUser()}>Logout</button> */}
 					</LI>
 				)}
+
+				<LI>
+					{/* <Link to="/"> */}
+					<img src={logo} alt="" width="115" />
+					{/* </Link> */}
+				</LI>
 			</UL>
 		</NavbarContainer>
 	);

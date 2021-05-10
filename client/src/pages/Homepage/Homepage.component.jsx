@@ -1,19 +1,24 @@
+import React, { useEffect, useState } from 'react';
 import Carousel from '../../components/Carousel/Carousel';
 
 const Homepage = () => {
+	const [token] = useState(localStorage.getItem('localData'));
+
+	const [width, setWidth] = React.useState(window.innerWidth);
+	const updateWidth = () => setWidth(window.innerWidth);
+	useEffect(() => {
+		window.addEventListener('resize', updateWidth);
+		return () => window.removeEventListener('resize', updateWidth);
+	}, []);
+
 	return (
-		<div>
+		<div className="homepage">
 			<h1>Homepage</h1>
-			<div className="flex">
-				{/* font-size: 2.4rem; */}
-				<h2>Top courses in Web Development</h2>
-			</div>
-			<Carousel></Carousel>
-			<div className="flex">
-				{/* font-size: 2.4rem; */}
-				<h2>Newest courses in JavaScript</h2>
-			</div>
-			<Carousel></Carousel>
+			<h1>Welcome {token}</h1>
+			<h2>Top courses in Web Development</h2>
+			<Carousel width={width}></Carousel>
+			<h2>Newest courses in JavaScript</h2>
+			<Carousel width={width}></Carousel>
 		</div>
 	);
 };
