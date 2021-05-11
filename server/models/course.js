@@ -1,8 +1,6 @@
 const mongoose = require('mongoose');
 
-const userSchema = new mongoose.Schema({
-	// const Course = mongoose.model('Course', {
-
+const courseSchema = new mongoose.Schema({
 	courseImage: {
 		type: String,
 		required: true,
@@ -30,11 +28,11 @@ const userSchema = new mongoose.Schema({
 	// 	ref: 'User',
 	// },
 });
-userSchema.virtual('videos', {
+courseSchema.virtual('videos', {
 	ref: 'Video',
 	localField: '_id',
 	foreignField: 'courseId',
 });
-const Course = mongoose.model('Course', userSchema);
+const Course = mongoose.model('Course', courseSchema);
 
 module.exports = Course;

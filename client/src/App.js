@@ -9,6 +9,7 @@ import { AccountContext } from './components/accountBox/accountContext';
 import Homepage from './pages/Homepage/Homepage.component';
 import api from './API/api';
 import Courses from './pages/Courses/Courses.component';
+import Profile from './pages/Profile/Profile.component';
 
 function App() {
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -52,21 +53,14 @@ function App() {
 			<AccountContext.Provider value={'a'}>
 				<Router>
 					<Navbar user={user} isLoggedIn={isLoggedIn} getUser={getUser} />
-					{/* <Route
-						exact
-						path="/"
-						component={() => (
-							<Navbar user={user} isLoggedIn={isLoggedIn} getUser={getUser} />
-						)}
-					/> */}
 					<Switch>
 						<Route
 							exact
 							path="/Signin"
 							component={() => <Signin getUser={getUser} />}
 						/>
+						<Route exact path="/Profile" component={Profile} />
 						<Route exact path="/" component={Homepage} />
-						{/* <Route exact path="/Profile" component={Profile} /> */}
 						<Route exact path="/Signup" component={Signup} />
 						<Route exact path="/Courses" component={Courses} />
 						{/* <Route exact path="/Categories/:type" component={Categories} />

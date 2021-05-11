@@ -2,8 +2,8 @@
 // import { Link } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import logo from '../../img/logo.png';
-import { NavbarContainer, UL, LI, NavLink } from './Navbar.style';
-// import { AccountContext } from '../accountBox/accountContext';
+// import { NavbarContainer, UL, LI, NavLink, NavLinkLogo } from './Navbar.style';
+import * as S from './Navbar.style';
 
 const Navbar = ({ getUser, isLoggedIn }) => {
 	const localData = JSON.parse(localStorage.getItem('localData'));
@@ -19,49 +19,62 @@ const Navbar = ({ getUser, isLoggedIn }) => {
 		getUser();
 	};
 
+	// const displayNavbarItems = () => {
+	// 	if (isLoggedIn) {
+	// 		<>
+	// 			<li></li>
+	// 			<li></li>
+	// 			<li></li>
+	// 		</>;
+	// 	} else {
+	// 		<>
+	// 			<li></li>
+	// 			<li></li>
+	// 		</>;
+	// 	}
+	// };
+
 	return (
-		<NavbarContainer>
-			<UL>
-				{isLoggedIn && (
-					<LI>
-						<span>Welcome {userName()}</span>
-					</LI>
-				)}
-				{isLoggedIn && (
-					<LI>
-						<NavLink to="/Courses">
-							<h3> My Courses</h3>
-						</NavLink>
-					</LI>
-				)}
-				<LI>
-					<NavLink to="/">
-						<h3>Home</h3>
-					</NavLink>
-				</LI>
+		<S.NavbarContainer>
+			<div>
+				<S.NavLinkLogo to="/">
+					<img src={logo} alt="Home" width="115" />
+				</S.NavLinkLogo>
+			</div>
 
-				{!isLoggedIn && (
-					<LI>
-						<NavLink to="/Signin">
+			{isLoggedIn && (
+				<S.li>
+					<span>Welcome {userName()}</span>
+				</S.li>
+			)}
+			<S.ul>
+				{isLoggedIn ? (
+					<>
+						<S.li>
+							<S.NavLink to="/Profile">
+								<h3>Profile</h3>
+							</S.NavLink>
+						</S.li>
+						<S.li>
+							<S.NavLink to="/Courses">
+								<h3> My Courses</h3>
+							</S.NavLink>
+						</S.li>
+						<S.li>
+							<S.NavLink to="/" onClick={() => logoutUser()}>
+								<h3>Logout</h3>
+							</S.NavLink>
+						</S.li>
+					</>
+				) : (
+					<S.li>
+						<S.NavLink to="/Signin">
 							<h3> Signin</h3>
-						</NavLink>
-					</LI>
+						</S.NavLink>
+					</S.li>
 				)}
-				{isLoggedIn && (
-					<LI>
-						<NavLink to="/" onClick={() => logoutUser()}>
-							<h3>Logout</h3>
-						</NavLink>
-					</LI>
-				)}
-
-				<LI>
-					{/* <Link to="/"> */}
-					<img src={logo} alt="" width="115" />
-					{/* </Link> */}
-				</LI>
-			</UL>
-		</NavbarContainer>
+			</S.ul>
+		</S.NavbarContainer>
 	);
 };
 

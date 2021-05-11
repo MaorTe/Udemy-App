@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import api from '../../API/api';
 import CourseCard from '../../components/CourseCard/CourseCard';
+import { gridContainer } from './Courses.style';
 // import MyLoader from '../components/MyLoader';
 
 const Courses = () => {
@@ -17,7 +18,7 @@ const Courses = () => {
 	// }, [localData.length]);
 
 	useEffect(() => {
-		const fetchUser = async () => {
+		const fetchCourses = async () => {
 			try {
 				const localData = JSON.parse(localStorage.getItem('localData'));
 				const token = localData.find((el) => el.token);
@@ -25,12 +26,12 @@ const Courses = () => {
 				const { data } = await api.get('/users/mycourses', {
 					headers: { Authorization: token.token },
 				});
-				console.log(data);
+				setCoursesList(data);
 			} catch (e) {
 				console.log(e.message);
 			}
 		};
-		fetchUser();
+		fetchCourses();
 	}, []);
 
 	const onButtonClick = () => {
@@ -38,7 +39,7 @@ const Courses = () => {
 		setCoursesList(localData.map((el) => el));
 	};
 	return (
-		<div className="grid-container">
+		<gridContainer>
 			{coursesList.length ? (
 				coursesList.map((movie, index) => (
 					<CourseCard
@@ -55,7 +56,7 @@ const Courses = () => {
 			) : (
 				<h1>coursesList is empty</h1>
 			)}
-		</div>
+		</gridContainer>
 	);
 };
 

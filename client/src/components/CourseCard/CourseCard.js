@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 // import AddOrRemoveBtn from './AddOrRemoveBtn';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
-import AddOrRemoveBtn from '../AddOrRemoveBtn/AddOrRemoveBtn';
+import AddOrRemoveBtn from '../AddOrRemoveBtn/AddOrRemoveBtn.component';
 const CourseCard = ({
 	title,
 	poster,
@@ -25,10 +25,7 @@ const CourseCard = ({
 			</Link>
 			<div className="font-small">{title}</div>
 			<AddOrRemoveBtn
-				// id={id}
-				title={title}
-				poster={poster}
-				// type={type}
+				id={id}
 				onButtonClick={onButtonClick}
 			/>
 		</div>

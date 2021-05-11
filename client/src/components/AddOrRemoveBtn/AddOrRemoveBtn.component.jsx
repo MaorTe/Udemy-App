@@ -1,11 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import api from '../../API/api';
-// import MyUtilFunc from '../utils/MyUtilFunc';
-
-const AddOrRemoveBtn = ({ id, poster, title, type, onButtonClick }) => {
+import * as S from './AddOrRemoveBtn.style';
+const AddOrRemoveBtn = ({ id }) => {
 	const [isExist, setIsExist] = useState(null);
 
 	useEffect(() => {
+		const fetchCourses = async () => {
+			try {
+				const localData = JSON.parse(localStorage.getItem('localData'));
+				const token = localData.find((el) => el.token);
+
+				const { data } = await api.get('/users/mycourses', {
+					headers: { Authorization: token.token },
+				});
+				setIsExist(true);
+			} catch (e) {
+				console.log(e.message);
+			}
+		};
+		fetchCourses();
+
 		const buttonInit = () => {
 			const localData = JSON.parse(localStorage.getItem('localData'));
 			const isIdExist = localData.findIndex((el) => el.id === id);
@@ -40,11 +54,11 @@ const AddOrRemoveBtn = ({ id, poster, title, type, onButtonClick }) => {
 		return false;
 	};
 	return (
-		<div className="flex-center">
+		<S.AddOrRemoveBtn>
 			<button className="btn third" onClick={() => onPosterClick()}>
 				{isExist ? 'Remove from Watchlist' : 'Add To Watchlist'}
 			</button>
-		</div>
+		</S.AddOrRemoveBtn>
 	);
 };
 

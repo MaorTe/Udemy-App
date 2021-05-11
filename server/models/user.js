@@ -14,7 +14,7 @@ const userSchema = new mongoose.Schema({
 	},
 	avatar: {
 		type: String,
-		required: true,
+		// required: true,
 		validate(val) {
 			if (!val.includes('.jpg')) {
 				throw new Error('not a jpg image');

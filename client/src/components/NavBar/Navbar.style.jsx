@@ -17,17 +17,16 @@ export const NavbarContainer = styled.div`
 	height: auto;
 	z-index: 5;
 `;
-export const UL = styled.ul`
+export const ul = styled.ul`
 	display: flex;
 	justify-content: center;
 	align-items: center;
 `;
-export const LI = styled.li`
+export const li = styled.li`
 	list-style-type: none;
 `;
 
 export const NavLink = styled(Link)`
-	/* .category-link { */
 	display: block;
 	padding: 20px;
 	text-decoration: none;
@@ -41,5 +40,22 @@ export const NavLink = styled(Link)`
 	&:focus {
 		color: #bbbbc1;
 		background: #201f32;
+	}
+`;
+
+export const NavLinkLogo = styled(Link)`
+	display: block;
+	text-decoration: none;
+	color: #fff;
+	font-family: sans-serif;
+	font-size: 1rem;
+	&:hover {
+		/* color: #bbbbc1; */
+		/* background: rgba(255, 255, 249, 0.376); */
+		transform: scale(1.2);
+	}
+	&:focus {
+		/* color: #bbbbc1;
+		background: #201f32; */
 	}
 `;
