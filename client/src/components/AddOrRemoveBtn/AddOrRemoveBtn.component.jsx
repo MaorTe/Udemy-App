@@ -56,7 +56,7 @@ const AddOrRemoveBtn = ({ id }) => {
 	return (
 		<S.AddOrRemoveBtn>
 			<button className="btn third" onClick={() => onPosterClick()}>
-				{isExist ? 'Remove from Watchlist' : 'Add To Watchlist'}
+				{!isExist ? 'Remove from my courses' : 'Add To my courses'}
 			</button>
 		</S.AddOrRemoveBtn>
 	);

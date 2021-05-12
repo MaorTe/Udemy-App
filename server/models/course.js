@@ -4,11 +4,11 @@ const courseSchema = new mongoose.Schema({
 	courseImage: {
 		type: String,
 		required: true,
-		validate(val) {
-			if (!val.includes('.jpg')) {
-				throw new Error('not a jpg image');
-			}
-		},
+		// validate(val) {
+		// 	if (!val.includes('.jpg')) {
+		// 		throw new Error('not a jpg image');
+		// 	}
+		// },
 	},
 	courseName: {
 		type: String,

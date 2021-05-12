@@ -6,16 +6,15 @@ import CourseCard from '../CourseCard/CourseCard';
 import api from '../../API/api';
 // import NextArrow from './NextArrow';
 // import PrevArrow from './PrevArrow';
-const Carousel = ({ data, onPictureClick, width }) => {
+const Carousel = ({ tag, onPictureClick, width }) => {
 	const [coursesList, setCoursesList] = useState([]);
 	useEffect(() => {
 		const fetchCourses = async () => {
 			try {
-				const localData = JSON.parse(localStorage.getItem('localData'));
-				const token = localData.find((el) => el.token);
-
-				const { data } = await api.get('/courses', 'top', {
-					headers: { Authorization: token.token },
+				// const localData = JSON.parse(localStorage.getItem('localData'));
+				// const token = localData.find((el) => el.token);
+				const { data } = await api.get('/courses/:tag', {
+					params: { tag },
 				});
 				setCoursesList(data);
 			} catch (e) {
@@ -74,15 +73,13 @@ const Carousel = ({ data, onPictureClick, width }) => {
 	return (
 		<div>
 			<Slider {...settings}>
-				{coursesList.map((movie) => (
+				{coursesList.map((courses) => (
 					<CourseCard
-						key={1}
-						id={1}
-						title={'title'}
-						poster={
-							'https://campustechnology.com/-/media/EDU/CampusTechnology/2019-Images/20191209online.jpg'
-						}
-						tag={'type'}
+						key={courses.id}
+						id={courses.id}
+						title={courses.title}
+						poster={courses.courseImage}
+						tag={tag}
 						width={244}
 						height={140}
 						onButtonClick={onPictureClick}

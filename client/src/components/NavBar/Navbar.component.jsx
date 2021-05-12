@@ -42,14 +42,17 @@ const Navbar = ({ getUser, isLoggedIn }) => {
 				</S.NavLinkLogo>
 			</div>
 
-			{isLoggedIn && (
+			{/* {isLoggedIn && (
 				<S.li>
 					<span>Welcome {userName()}</span>
 				</S.li>
-			)}
+			)} */}
 			<S.ul>
 				{isLoggedIn ? (
 					<>
+						<S.li>
+							<span>Welcome {userName()}</span>
+						</S.li>
 						<S.li>
 							<S.NavLink to="/Profile">
 								<h3>Profile</h3>

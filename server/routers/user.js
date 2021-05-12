@@ -60,7 +60,6 @@ router.post('/api/users/logoutAll', auth, async (req, res) => {
 
 router.post('/api/users/addcourse', auth, async (req, res) => {
 	try {
-		//populate allow us to populate data from a relationship
 		// await req.user.populate({ path: 'courses.courseId' }).execPopulate();
 		//res.send(courses);
 		const newCourse = { courseId: req.body.id };

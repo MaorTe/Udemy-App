@@ -44,10 +44,13 @@ code {
 	padding: 1.5rem 0 0.5rem 0;
 }
 .homepage .slick-dots {
-	margin-bottom: 25px;
+	/* margin-bottom: 25px; */
 }
 .slick-slide img {
 	margin: 0 auto;
+}
+.slick-slider {
+	margin-bottom: 2rem !important;
 }
 /* .homepage .slick-next {
 	right: -10px !important;

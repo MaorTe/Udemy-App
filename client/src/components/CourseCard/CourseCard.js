@@ -15,19 +15,15 @@ const CourseCard = ({
 		<div className="movie-card-container">
 			<Link to={`/`}>
 				<LazyLoadImage
-					alt={'a'}
-					src={poster} // use normal <img> attributes as props
+					alt={'pic'}
+					src={poster}
 					width={width}
 					height={height}
 					className="img-select"
-					// height={100}
 				/>
 			</Link>
 			<div className="font-small">{title}</div>
-			<AddOrRemoveBtn
-				id={id}
-				onButtonClick={onButtonClick}
-			/>
+			<AddOrRemoveBtn id={id} onButtonClick={onButtonClick} />
 		</div>
 	);
 };

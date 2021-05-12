@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import api from '../../API/api';
 import CourseCard from '../../components/CourseCard/CourseCard';
-import { gridContainer } from './Courses.style';
+import * as S from './Courses.style';
 // import MyLoader from '../components/MyLoader';
 
 const Courses = () => {
@@ -39,7 +39,7 @@ const Courses = () => {
 		setCoursesList(localData.map((el) => el));
 	};
 	return (
-		<gridContainer>
+		<S.GridContainer>
 			{coursesList.length ? (
 				coursesList.map((movie, index) => (
 					<CourseCard
@@ -56,7 +56,7 @@ const Courses = () => {
 			) : (
 				<h1>coursesList is empty</h1>
 			)}
-		</gridContainer>
+		</S.GridContainer>
 	);
 };
 

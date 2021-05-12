@@ -17,12 +17,10 @@ router.post('/api/courses', auth, async (req, res) => {
 	}
 });
 
-router.get('/api/courses', async (req, res) => {
+router.get('/api/courses/:tag', async (req, res) => {
 	try {
-		// const { tag } = req.body;
-		const { tag } = req.body;
-		console.log(tag);
-		const courses = await Course.find({});
+		const { tag } = req.query;
+		const courses = await Course.find({ tag });
 		res.send(courses);
 	} catch (e) {
 		res.status(500).send();
