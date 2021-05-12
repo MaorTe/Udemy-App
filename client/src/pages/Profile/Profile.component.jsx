@@ -26,17 +26,12 @@ const Profile = () => {
 			<h2>User profile, upload picture and edit details</h2>
 			{user.map((info) => {
 				return (
-					<>
+					<div key={info._id}>
 						<h3>{'user Avatar'}</h3>
 						<h3>{info.name}</h3>
 						<h3>{info.age}</h3>
 						<h3>{info.email}</h3>
-						<h3>
-							{info.courses.map((course) => {
-								return <>{course}</>;
-							})}
-						</h3>
-					</>
+					</div>
 				);
 			})}
 		</div>

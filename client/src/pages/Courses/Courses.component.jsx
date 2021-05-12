@@ -5,7 +5,8 @@ import * as S from './Courses.style';
 // import MyLoader from '../components/MyLoader';
 
 const Courses = () => {
-	const [coursesList, setCoursesList] = useState([]);
+	const [coursesList, setCoursesList] = useState(null);
+	// const [falsy, setFalsy] = useState(false);
 	// const localData = JSON.parse(localStorage.getItem('localData'));
 	//iterate over the local storage and set items to coursesList
 	// useEffect(() => {
@@ -38,19 +39,23 @@ const Courses = () => {
 		const localData = JSON.parse(localStorage.getItem('localData'));
 		setCoursesList(localData.map((el) => el));
 	};
+
+	console.log(coursesList);
 	return (
 		<S.GridContainer>
-			{coursesList.length ? (
-				coursesList.map((movie, index) => (
+			{coursesList ? (
+				coursesList.map((course) => (
 					<CourseCard
-						key={1}
-						id={1}
-						title={'title'}
-						// poster={'pic'}
-						type={movie.type}
-						width={200}
-						height={300}
-						onButtonClick={onButtonClick}
+						key={course._id}
+						// id={course._id}
+						// title={course.courseName}
+						// poster={course.courseImage}
+						// desc={course.courseDescription}
+						// falsy={falsy}
+						width={244}
+						height={140}
+						onButtonClick={'onPictureClick'}
+						course={course.courseId}
 					/>
 				))
 			) : (

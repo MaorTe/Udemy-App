@@ -60,11 +60,28 @@ router.post('/api/users/logoutAll', auth, async (req, res) => {
 
 router.post('/api/users/addcourse', auth, async (req, res) => {
 	try {
-		// await req.user.populate({ path: 'courses.courseId' }).execPopulate();
-		//res.send(courses);
+		console.log(req.body);
 		const newCourse = { courseId: req.body.id };
+		console.log(newCourse);
 		req.user.courses.push(newCourse);
 		req.user.save();
+		res.send(req.user.courses);
+	} catch (e) {
+		res.status(500).send();
+	}
+});
+router.patch('/api/users/deletecourse', auth, async (req, res) => {
+	try {
+		await User.updateOne(
+			{
+				_id: req.user.id,
+			},
+			{
+				$pull: {
+					courses: { courseId: req.body.id },
+				},
+			}
+		);
 		res.send(req.user.courses);
 	} catch (e) {
 		res.status(500).send();
@@ -73,7 +90,6 @@ router.post('/api/users/addcourse', auth, async (req, res) => {
 
 router.get('/api/users/mycourses', auth, async (req, res) => {
 	try {
-		//populate allow us to populate data from a relationship
 		await req.user
 			.populate({
 				path: 'courses.courseId',

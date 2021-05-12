@@ -26,7 +26,6 @@ export function AccountBox({ getUser }) {
 	const [isExpanded, setExpanded] = useState(false);
 
 	// const params = useParams();
-
 	useEffect(() => {
 		const type = location.pathname.slice(1);
 		// const Checktype = async () => {

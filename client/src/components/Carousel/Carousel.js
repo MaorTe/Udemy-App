@@ -8,6 +8,7 @@ import api from '../../API/api';
 // import PrevArrow from './PrevArrow';
 const Carousel = ({ tag, onPictureClick, width }) => {
 	const [coursesList, setCoursesList] = useState([]);
+	const [isAdded, setIsAdded] = useState();
 	useEffect(() => {
 		const fetchCourses = async () => {
 			try {
@@ -16,6 +17,7 @@ const Carousel = ({ tag, onPictureClick, width }) => {
 				const { data } = await api.get('/courses/:tag', {
 					params: { tag },
 				});
+				console.log(data);
 				setCoursesList(data);
 			} catch (e) {
 				console.log(e.message);
@@ -63,26 +65,22 @@ const Carousel = ({ tag, onPictureClick, width }) => {
 		// 	},
 		// ],
 	};
-	// 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQUXn9EndVF5AuFcyVece-nVEhyTLmF3J-vY0ifinxnn0pcLgwfWE6aBEIvFtWGqBIWPHI&usqp=CAU'
 
-	// 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRiKDq4s8xYwI5CAiuSPqQ_WlmEuk6DsmaNWOiUBqWm_CHF9IhV6_nHI5-8DRfggVjNRDc&usqp=CAU'
-
-	// 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRiKDq4s8xYwI5CAiuSPqQ_WlmEuk6DsmaNWOiUBqWm_CHF9IhV6_nHI5-8DRfggVjNRDc&usqp=CAU'
-
-	// 'https://campustechnology.com/-/media/EDU/CampusTechnology/2019-Images/20191209online.jpg'
 	return (
 		<div>
 			<Slider {...settings}>
-				{coursesList.map((courses) => (
+				{coursesList.map((course) => (
 					<CourseCard
-						key={courses.id}
-						id={courses.id}
-						title={courses.title}
-						poster={courses.courseImage}
+						// key={courses.id}
+						// id={courses._id}
+						// title={courses.courseName}
+						// poster={courses.courseImage}
+						// desc={courses.courseDescription}
 						tag={tag}
 						width={244}
 						height={140}
 						onButtonClick={onPictureClick}
+						course={course}
 					/>
 				))}
 			</Slider>
