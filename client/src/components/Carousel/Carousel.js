@@ -1,23 +1,19 @@
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import CourseCard from '../CourseCard/CourseCard';
 import api from '../../API/api';
-// import NextArrow from './NextArrow';
-// import PrevArrow from './PrevArrow';
+
 const Carousel = ({ tag, onPictureClick, width }) => {
 	const [coursesList, setCoursesList] = useState([]);
-	const [isAdded, setIsAdded] = useState();
+	const [coursesListId, setCoursesListId] = useState(null);
 	useEffect(() => {
 		const fetchCourses = async () => {
 			try {
-				// const localData = JSON.parse(localStorage.getItem('localData'));
-				// const token = localData.find((el) => el.token);
 				const { data } = await api.get('/courses/:tag', {
 					params: { tag },
 				});
-				console.log(data);
 				setCoursesList(data);
 			} catch (e) {
 				console.log(e.message);
@@ -26,6 +22,22 @@ const Carousel = ({ tag, onPictureClick, width }) => {
 		fetchCourses();
 	}, []);
 
+	useEffect(() => {
+		const fetchUser = async () => {
+			try {
+				const localData = JSON.parse(localStorage.getItem('localData'));
+				const token = localData.find((el) => el.token);
+
+				const { data } = await api.get('/users/me', {
+					headers: { Authorization: token.token },
+				});
+				setCoursesListId(data.courses.map((course) => course.courseId));
+			} catch (e) {
+				console.log(e.message);
+			}
+		};
+		fetchUser();
+	}, [coursesList.length > 0]);
 	const settings = {
 		dots: true,
 		infinite: false,
@@ -71,7 +83,7 @@ const Carousel = ({ tag, onPictureClick, width }) => {
 			<Slider {...settings}>
 				{coursesList.map((course) => (
 					<CourseCard
-						// key={courses.id}
+						key={course._id}
 						// id={courses._id}
 						// title={courses.courseName}
 						// poster={courses.courseImage}
@@ -81,6 +93,7 @@ const Carousel = ({ tag, onPictureClick, width }) => {
 						height={140}
 						onButtonClick={onPictureClick}
 						course={course}
+						coursesListId={coursesListId}
 					/>
 				))}
 			</Slider>

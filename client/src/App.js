@@ -3,7 +3,6 @@ import Navbar from './components/NavBar/Navbar.component';
 import NotFound from './pages/NotFound/NotFound.component';
 import Signin from './pages/Signin.component';
 import Signup from './pages/Signup.component';
-// import Logout from './pages/Logout/llllLogout.component';
 import { useEffect, useState } from 'react';
 import { AccountContext } from './components/accountBox/accountContext';
 import Homepage from './pages/Homepage/Homepage.component';
@@ -19,7 +18,6 @@ function App() {
 				localStorage.setItem('localData', JSON.stringify([]));
 			}
 		};
-		// isLoggedIn && getUser();
 		createLocalStorage();
 	}, []);
 
@@ -28,7 +26,6 @@ function App() {
 	const getUser = (user) => {
 		setUser(user);
 		setIsLoggedIn(!isLoggedIn);
-		console.log(isLoggedIn);
 	};
 
 	useEffect(() => {
@@ -41,16 +38,16 @@ function App() {
 					headers: { Authorization: token.token },
 				});
 				setIsLoggedIn(true);
-				console.log(isLoggedIn);
 			} catch (e) {
 				console.log(e.message);
 			}
 		};
 		fetchUser();
 	}, []);
+
 	return (
 		<div>
-			<AccountContext.Provider value={'a'}>
+			<AccountContext.Provider value={'coursesListId'}>
 				<Router>
 					<Navbar user={user} isLoggedIn={isLoggedIn} getUser={getUser} />
 					<Switch>

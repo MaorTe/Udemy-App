@@ -3,37 +3,28 @@ import { Link } from 'react-router-dom';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import AddOrRemoveBtn from '../AddOrRemoveBtn/AddOrRemoveBtn.component';
 import api from '../../API/api';
+import { useEffect, useState } from 'react';
 const CourseCard = ({
-	// title,
-	// poster,
-	// id,
-	// type,
-	// desc,
 	onButtonClick,
 	width,
 	height,
 	course,
+	coursesListId,
 }) => {
-	// console.log(poster);
-	console.log(course);
-	// const addCourse = async () => {
-	// 	try {
-	// 		const localData = JSON.parse(localStorage.getItem('localData'));
-	// 		const token = localData.find((el) => el.token);
-
-	// 		await api.post('/users/addcourse', {
-	// 			headers: { Authorization: token.token },
-	// 			data: { id },
-	// 		});
-	// 	} catch (e) {
-	// 		console.log(e.message);
-	// 	}
-	// };
+	const [isCourseExist, setIsCourseExist] = useState(null);
+	useEffect(() => {
+		const checkIfCourseExists = () => {
+			const isExist =
+				coursesListId && coursesListId.find((el) => el === course._id);
+			setIsCourseExist(isExist);
+		};
+		checkIfCourseExists();
+	});
 	return (
 		<div className="movie-card-container">
 			<Link to={`/`}>
 				<LazyLoadImage
-					alt={'pic'}
+					alt={'picture'}
 					src={course.courseImage}
 					width={width}
 					height={height}
@@ -42,7 +33,7 @@ const CourseCard = ({
 			</Link>
 			<div className="font-small">{course.courseName}</div>
 			<div className="font-small">{course.courseDescription}</div>
-			<AddOrRemoveBtn id={course._id} />
+			<AddOrRemoveBtn id={course._id} isCourseExist={isCourseExist} />
 		</div>
 	);
 };
