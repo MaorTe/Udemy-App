@@ -10,7 +10,7 @@ const SigninPageContainer = styled.div`
 	justify-content: center;
 `;
 
-function Signin() {
+function Signup() {
 	return (
 		<SigninPageContainer>
 			<AccountBox />
@@ -18,4 +18,4 @@ function Signin() {
 	);
 }
 
-export default Signin;
+export default Signup;

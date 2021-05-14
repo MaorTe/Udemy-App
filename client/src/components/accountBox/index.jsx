@@ -5,18 +5,7 @@ import { AccountContext } from './accountContext';
 import { SignupForm } from './signupForm';
 import { useHistory } from 'react-router-dom';
 import api from '../../API/api';
-import {
-	BoxContainer,
-	BackDrop,
-	backdropVariants,
-	expandingTransition,
-	HeaderContainer,
-	HeaderText,
-	InnerContainer,
-	SmallText,
-	TopContainer,
-} from './index.style';
-// import { BoxContainer } from './common.styles';
+import * as S from './index.style';
 
 export function AccountBox({ getUser }) {
 	const { location } = useHistory();
@@ -80,7 +69,7 @@ export function AccountBox({ getUser }) {
 		await setExpanded(true);
 		setTimeout(() => {
 			setExpanded(false);
-		}, expandingTransition.duration * 1000 - 1500);
+		}, S.expandingTransition.duration * 1000 - 1500);
 	};
 
 	const [active, setActive] = useState(null);
@@ -147,27 +136,29 @@ export function AccountBox({ getUser }) {
 
 	return (
 		<AccountContext.Provider value={contextValue}>
-			<BoxContainer>
-				<TopContainer>
-					<BackDrop
+			<S.BoxContainer>
+				<S.TopContainer>
+					<S.BackDrop
 						initial={false}
 						animate={isExpanded ? 'expanded' : 'collapsed'}
-						variants={backdropVariants}
-						transition={expandingTransition}
+						variants={S.backdropVariants}
+						transition={S.expandingTransition}
 					/>
-					<HeaderContainer>
-						<HeaderText>
+					<S.HeaderContainer>
+						<S.HeaderText>
 							{active === 'Signin' ? 'Welcome' : 'Create'}
-						</HeaderText>
-						<HeaderText>{active === 'Signin' ? 'Back' : 'Account'}</HeaderText>
-						<SmallText>
+						</S.HeaderText>
+						<S.HeaderText>
+							{active === 'Signin' ? 'Back' : 'Account'}
+						</S.HeaderText>
+						<S.SmallText>
 							{active === 'Signin'
 								? 'Please sign-in to continue!'
 								: 'Please sign-up to continue!'}
-						</SmallText>
-					</HeaderContainer>
-				</TopContainer>
-				<InnerContainer>
+						</S.SmallText>
+					</S.HeaderContainer>
+				</S.TopContainer>
+				<S.InnerContainer>
 					{active === 'Signin' ? (
 						<LoginForm />
 					) : active === 'Signup' ? (
@@ -177,8 +168,8 @@ export function AccountBox({ getUser }) {
 					)}
 					{/* {active === 'Signin' && <LoginForm />}
 					{active === 'Signup' && <SignupForm />} */}
-				</InnerContainer>
-			</BoxContainer>
+				</S.InnerContainer>
+			</S.BoxContainer>
 		</AccountContext.Provider>
 	);
 }

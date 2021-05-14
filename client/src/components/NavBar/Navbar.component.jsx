@@ -5,13 +5,8 @@ import logo from '../../img/logo.png';
 // import { NavbarContainer, UL, LI, NavLink, NavLinkLogo } from './Navbar.style';
 import * as S from './Navbar.style';
 
-const Navbar = ({ getUser, isLoggedIn }) => {
+const Navbar = ({ getUser, isLoggedIn, user }) => {
 	const localData = JSON.parse(localStorage.getItem('localData'));
-	const userName = () => {
-		const user = localData.find((el) => el.user);
-		return user.user.name;
-	};
-
 	const logoutUser = () => {
 		const indexId = localData.findIndex((el) => el.token);
 		localData.splice(indexId, 1);
@@ -51,7 +46,7 @@ const Navbar = ({ getUser, isLoggedIn }) => {
 				{isLoggedIn ? (
 					<>
 						<S.li>
-							<span>Welcome {userName()}</span>
+							<span>Welcome {user}</span>
 						</S.li>
 						<S.li>
 							<S.NavLink to="/Profile">

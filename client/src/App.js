@@ -23,8 +23,7 @@ function App() {
 
 	const [user, setUser] = useState(null);
 
-	const getUser = (user) => {
-		setUser(user);
+	const getUser = () => {
 		setIsLoggedIn(!isLoggedIn);
 	};
 
@@ -34,9 +33,10 @@ function App() {
 				const localData = JSON.parse(localStorage.getItem('localData'));
 				const token = localData.find((el) => el.token);
 
-				await api.get('users/me', {
+				const { data } = await api.get('users/me', {
 					headers: { Authorization: token.token },
 				});
+				setUser(data.name);
 				setIsLoggedIn(true);
 			} catch (e) {
 				console.log(e.message);
