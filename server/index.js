@@ -4,6 +4,7 @@ const path = require('path');
 require('./db/mongoose');
 const userRouter = require('./routers/user');
 const courseRouter = require('./routers/course');
+const videoRouter = require('./routers/video');
 
 const app = express();
 const router = new express.Router();
@@ -13,11 +14,15 @@ app.use(cors());
 app.use(express.json());
 app.use(userRouter);
 app.use(courseRouter);
+app.use(videoRouter);
+
 app.listen(port, () => {
 	console.log('Server is up on port ' + port);
 });
+
 console.log(__dirname);
 console.log(path.join(__dirname, '../client/build'));
+
 //deploy to heroku
 app.use(express.static(path.join(__dirname, '../client/build')));
 app.get('/*', (req, res) => {

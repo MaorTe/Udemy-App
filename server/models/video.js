@@ -4,12 +4,12 @@ const videoSchema = new mongoose.Schema({
 	videoLink: {
 		type: String,
 		required: true,
-		trim: true,
+		// trim: true,
 	},
-	description: {
+	videoDescription: {
 		type: String,
 		required: true,
-		trim: true,
+		// trim: true,
 	},
 	completed: {
 		type: Boolean,

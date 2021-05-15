@@ -60,9 +60,9 @@ router.post('/api/users/logoutAll', auth, async (req, res) => {
 
 router.post('/api/users/addcourse', auth, async (req, res) => {
 	try {
-		console.log(req.body);
+		// console.log(req.body);
 		const newCourse = { courseId: req.body.id };
-		console.log(newCourse);
+		// console.log(newCourse);
 		req.user.courses.push(newCourse);
 		req.user.save();
 		res.send(req.user.courses);

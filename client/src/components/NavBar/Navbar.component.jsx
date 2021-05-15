@@ -51,6 +51,11 @@ const Navbar = ({ getUser, isLoggedIn, user }) => {
 							</S.NavLink>
 						</S.li>
 						<S.li>
+							<S.NavLink to="/Courses/Videos/AddVideo">
+								<h3>Add Video</h3>
+							</S.NavLink>
+						</S.li>
+						<S.li>
 							<S.NavLink to="/Courses">
 								<h3> My Courses</h3>
 							</S.NavLink>

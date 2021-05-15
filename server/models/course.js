@@ -22,6 +22,15 @@ const courseSchema = new mongoose.Schema({
 		type: String,
 		required: true,
 	},
+	courseVideos: [
+		{
+			videoId: {
+				type: mongoose.Schema.Types.ObjectId,
+				required: true,
+				ref: 'Video',
+			},
+		},
+	],
 	// owner: {
 	// 	type: mongoose.Schema.Types.ObjectId,
 	// 	required: true,

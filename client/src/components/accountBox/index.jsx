@@ -49,16 +49,12 @@ export function AccountBox({ getUser }) {
 		try {
 			const { data } = await api.post('users/login', loginInfo);
 			setUserInfo([data]);
-			// console.log(data);
 			//set profile name on navbar and redirect to homepage
 			const localData = JSON.parse(localStorage.getItem('localData'));
 			localData.push({ token: data.token, user: data.user });
 			localStorage.setItem('localData', JSON.stringify(localData));
 			getUser();
 			history.push('/');
-			// const isTokenExist = localData.findIndex((el) => el.token && el);
-			// console.log(isTokenExist);
-			// return isTokenExist;
 		} catch (e) {
 			console.dir(e);
 		}
