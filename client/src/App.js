@@ -9,6 +9,7 @@ import Homepage from './pages/Homepage/Homepage.component';
 import api from './API/api';
 import Courses from './pages/Courses/Courses.component';
 import Profile from './pages/Profile/Profile.component';
+import Video from './pages/VideoPage/Video.component';
 
 function App() {
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -60,8 +61,8 @@ function App() {
 						<Route exact path="/" component={Homepage} />
 						<Route exact path="/Signup" component={Signup} />
 						<Route exact path="/Courses" component={Courses} />
-						{/* <Route exact path="/Categories/:type" component={Categories} />
-					<Route
+						<Route exact path="/Course/Video/:id" component={Video} />
+						{/*<Route
 						exact
 						path="/SearchResults/:type/q=:query"
 						component={SearchResults}

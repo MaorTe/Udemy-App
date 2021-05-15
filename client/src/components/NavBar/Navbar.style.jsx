@@ -7,13 +7,14 @@ export const NavbarContainer = styled.div`
 	align-items: center;
 	/* background: #3a497d; */
 	/* background: #3498db; */
-	background: #2980b9;
-	background: rgb(241, 196, 15);
+	/* background: #2980b9; */
+	background: #29303b;
+	/* background: rgb(241, 196, 15);
 	background: linear-gradient(
 		58deg,
 		rgba(241, 196, 15, 1) 20%,
 		rgba(243, 172, 18, 1) 100%
-	);
+	); */
 	height: auto;
 	z-index: 5;
 `;
@@ -21,6 +22,7 @@ export const ul = styled.ul`
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	color: #fff;
 `;
 export const li = styled.li`
 	list-style-type: none;

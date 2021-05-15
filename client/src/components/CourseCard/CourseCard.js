@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom';
-// import AddOrRemoveBtn from './AddOrRemoveBtn';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import AddOrRemoveBtn from '../AddOrRemoveBtn/AddOrRemoveBtn.component';
 import api from '../../API/api';
@@ -20,9 +19,11 @@ const CourseCard = ({
 		};
 		checkIfCourseExists();
 	});
+
+	//fetch video from db
 	return (
 		<div className="movie-card-container">
-			<Link to={`/`}>
+			<Link to={`/${'Course'}/Video/${1}`}>
 				<LazyLoadImage
 					alt={'picture'}
 					src={course.courseImage}

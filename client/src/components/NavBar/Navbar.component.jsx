@@ -1,8 +1,5 @@
-// import React, { useContext } from 'react';
-// import { Link } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import logo from '../../img/logo.png';
-// import { NavbarContainer, UL, LI, NavLink, NavLinkLogo } from './Navbar.style';
 import * as S from './Navbar.style';
 
 const Navbar = ({ getUser, isLoggedIn, user }) => {
