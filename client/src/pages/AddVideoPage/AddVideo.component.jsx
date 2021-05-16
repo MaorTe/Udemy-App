@@ -6,13 +6,14 @@ import { useParams } from 'react-router';
 import { Marginer } from '../../components/marginer';
 
 const AddVideo = () => {
-	const { courseName, courseId } = useParams();
-	console.log(courseName, courseId);
+	// const { courseName, courseId } = useParams();
+	// console.log(courseName, courseId);
 	const [user, setUser] = useState();
 	const [videoInfo, setVideoInfo] = useState({
 		videoLink: '',
+		videoTitle: '',
 		videoDescription: '',
-		courseId: courseId,
+		courseId: '60a0fd1526e5d32e14690612',
 	});
 	useEffect(() => {
 		const fetchUser = async () => {
@@ -58,6 +59,12 @@ const AddVideo = () => {
 					type="text"
 					placeholder="Video Link"
 					required
+				/>
+				<S.Input
+					name={'videoTitle'}
+					onChange={changeHandler}
+					type="text"
+					placeholder="Video title"
 				/>
 				<S.Input
 					name={'videoDescription'}

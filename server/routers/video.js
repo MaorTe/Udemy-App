@@ -1,5 +1,6 @@
 const express = require('express');
 const Video = require('../models/video');
+const Course = require('../models/course');
 const auth = require('../middleware/auth');
 const router = new express.Router();
 
@@ -11,13 +12,11 @@ router.post('/api/video/addvideo', auth, async (req, res) => {
 	});
 	try {
 		//attach the video to the correct course
-		const newCourse = { courseId: req.body.id };
-		req.user.courses.push(newCourse);
-		req.user.save();
-		res.send(req.user.courses);
-		//
+		const course = await Course.findById(req.body.courseId);
+		course.courseVideos.push({ videoId: video._id });
+		await course.save();
 		await video.save();
-		res.status(201).send(video);
+		res.status(201).send({ video, course });
 	} catch (e) {
 		res.status(400).send(e);
 	}
@@ -26,14 +25,7 @@ router.post('/api/video/addvideo', auth, async (req, res) => {
 router.get('/api/users/courses/video/', auth, async (req, res) => {
 	try {
 		const video = await Video.find({});
-		// await req.query
-		// 	.populate({
-		// 		path: 'comments',
-		// 		populate: { path: 'courseId', select: 'name avatar-_id' },
-		// 	})
-		// 	.execPopulate();
-
-		res.send(req.user.courses);
+		res.send(video);
 	} catch (e) {
 		res.status(500).send();
 	}

@@ -5,7 +5,7 @@ import * as S from './Courses.style';
 // import MyLoader from '../components/MyLoader';
 
 const Courses = () => {
-	const [coursesList, setCoursesList] = useState(null);
+	const [coursesList, setCoursesList] = useState([]);
 	// const [falsy, setFalsy] = useState(false);
 	// const localData = JSON.parse(localStorage.getItem('localData'));
 	//iterate over the local storage and set items to coursesList
@@ -43,15 +43,10 @@ const Courses = () => {
 	console.log(coursesList);
 	return (
 		<S.GridContainer>
-			{coursesList ? (
+			{coursesList.length ? (
 				coursesList.map((course) => (
 					<CourseCard
 						key={course._id}
-						// id={course._id}
-						// title={course.courseName}
-						// poster={course.courseImage}
-						// desc={course.courseDescription}
-						// falsy={falsy}
 						width={244}
 						height={140}
 						onButtonClick={'onPictureClick'}

@@ -23,7 +23,7 @@ const CourseCard = ({
 	//fetch video from db
 	return (
 		<div className="movie-card-container">
-			<Link to={`/${course.courseName}/Videos/${course._id}`}>
+			<Link to={`/Courses/${course.courseName}/Videos/${course._id}`}>
 				<LazyLoadImage
 					alt={'picture'}
 					src={course.courseImage}
