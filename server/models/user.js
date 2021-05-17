@@ -3,7 +3,6 @@ const validator = require('validator');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const Course = require('./course');
-
 //middleware is to run some functions before or after given events occur for example validate,save...
 //mongoose converts the second argument to a schema and in order to take advantage of the middleware functionality we have to create the schema first and then pass that in
 const userSchema = new mongoose.Schema({
@@ -13,13 +12,13 @@ const userSchema = new mongoose.Schema({
 		trim: true,
 	},
 	avatar: {
-		type: String,
+		type: Buffer,
 		// required: true,
-		validate(val) {
-			if (!val.includes('.jpg')) {
-				throw new Error('not a jpg image');
-			}
-		},
+		// validate(val) {
+		// 	if (!val.includes('.jpg')) {
+		// 		throw new Error('not a jpg image');
+		// 	}
+		// },
 	},
 	email: {
 		type: String,
@@ -77,11 +76,6 @@ const userSchema = new mongoose.Schema({
 //--is not actual data stored in the DB, its a relationship between 2 entities--
 //in this case between our user and course
 //its virtual cuz we r not actually changing what we stored for the user doc,its just a way for mongoose to figure out how these 2 things are related
-// userSchema.virtual('courses', {
-// 	ref: 'Course',
-// 	localField: '_id',
-// 	foreignField: 'owner',
-// });
 
 userSchema.methods.toJSON = function () {
 	const user = this;
