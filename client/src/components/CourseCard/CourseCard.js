@@ -23,7 +23,13 @@ const CourseCard = ({
 	//fetch video from db
 	return (
 		<div className="movie-card-container">
-			<Link to={`/Courses/${course.courseName}/Videos/${course._id}`}>
+			<Link
+				to={{
+					pathname: `/Courses/${course.courseName}/Videos/${course._id}`,
+					state: {
+						courseDesc: course.courseDescription,
+					},
+				}}>
 				<LazyLoadImage
 					alt={'picture'}
 					src={course.courseImage}

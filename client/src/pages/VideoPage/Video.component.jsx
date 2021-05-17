@@ -3,15 +3,19 @@ import api from '../../API/api';
 import ReactPlayer from 'react-player';
 // import * as S from './Video.style';
 import * as S from './Video.style';
-import { useParams } from 'react-router';
+import { useLocation, useParams } from 'react-router';
 import { Link } from 'react-router-dom';
 
 const Video = () => {
+	const { courseDesc } = useLocation().state;
+
 	const { courseName, courseId } = useParams();
 	console.log(courseName, courseId);
 	const [user, setUser] = useState('');
 	const [showVideo, setShowVideo] = useState('');
 	const [videosList, setVideosList] = useState([]);
+
+	//fetch user to check for token
 	useEffect(() => {
 		const fetchUser = async () => {
 			try {
@@ -29,6 +33,7 @@ const Video = () => {
 		fetchUser();
 	}, []);
 
+	//fetch videos of the chosen course
 	useEffect(() => {
 		const fetchVideos = async () => {
 			try {
@@ -48,7 +53,7 @@ const Video = () => {
 
 	return (
 		<div>
-			<S.PageContainer>
+			<S.UpperPageContainer>
 				<S.VideoPageContainer>
 					{/* <S.VideoContainer> */}
 					{user ? (
@@ -56,7 +61,7 @@ const Video = () => {
 						<ReactPlayer
 							// fluid={true}
 							width={'100%'}
-							height={'70vh'}
+							height={'60vh'}
 							url={
 								showVideo || (videosList.length > 0 && videosList[0].videoLink)
 							}
@@ -69,7 +74,7 @@ const Video = () => {
 					)}
 					{/* </S.VideoContainer> */}
 				</S.VideoPageContainer>
-				<S.VideosMenuContainer containerHeight={'70vh'}>
+				<S.VideosMenuContainer containerHeight={'60vh'}>
 					<S.videosMenuTitle>Course content</S.videosMenuTitle>
 					{videosList ? (
 						videosList.map((video) => (
@@ -83,8 +88,17 @@ const Video = () => {
 						</S.NavLink>
 					)}
 				</S.VideosMenuContainer>
-			</S.PageContainer>
-			<div>hello</div>
+			</S.UpperPageContainer>
+			<S.LowerPageContainer>
+				<S.CommentContainer>
+					<h2>About this course</h2>
+					{courseDesc}
+				</S.CommentContainer>
+				<S.CommentContainer>
+					<h2>About this course</h2>
+					{courseDesc}
+				</S.CommentContainer>
+			</S.LowerPageContainer>
 		</div>
 	);
 };

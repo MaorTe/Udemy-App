@@ -34,10 +34,11 @@ function App() {
 			try {
 				const localData = JSON.parse(localStorage.getItem('localData'));
 				const token = localData.find((el) => el.token);
-
 				const { data } = await api.get('users/me', {
 					headers: { Authorization: token.token },
 				});
+				console.log(data);
+				localStorage.setItem('token2', data.token);
 				setUser(data.name);
 				setIsLoggedIn(true);
 			} catch (e) {

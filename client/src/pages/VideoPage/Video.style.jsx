@@ -13,10 +13,20 @@ export const PlayerWrapper = styled.div`
 	position: relative;
 `;
 
-export const PageContainer = styled.div`
+export const UpperPageContainer = styled.div`
 	display: flex;
 	flex-direction: row;
 `;
+export const LowerPageContainer = styled(UpperPageContainer)`
+	justify-content: space-around;
+	border: 1px solid green;
+`;
+export const CommentContainer = styled(VideoContainer)`
+	flex-direction: column;
+	/* justify-content: flex-start;
+	align-items: flex-start; */
+`;
+
 export const VideoPageContainer = styled.div`
 	width: 75vw;
 	/* height: 'calc(100vh-69px)'; */
@@ -38,7 +48,8 @@ export const VideosMenuContainer = styled.div`
 	flex-direction: column;
 	justify-content: flex-start;
 	/* align-items: center; */
-	border: 1px solid blue;
+	padding-bottom: 20px;
+	border-bottom: 2px solid #555;
 	height: ${(props) => props.containerHeight && props.containerHeight};
 	overflow-y: ${(props) => props.containerHeight && 'auto'};
 `;
