@@ -5,6 +5,7 @@ require('./db/mongoose');
 const userRouter = require('./routers/user');
 const courseRouter = require('./routers/course');
 const videoRouter = require('./routers/video');
+const commentRouter = require('./routers/comment');
 
 const app = express();
 const router = new express.Router();
@@ -15,6 +16,7 @@ app.use(express.json());
 app.use(userRouter);
 app.use(courseRouter);
 app.use(videoRouter);
+app.use(commentRouter);
 
 app.listen(port, () => {
 	console.log('Server is up on port ' + port);

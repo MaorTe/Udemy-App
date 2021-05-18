@@ -4,46 +4,55 @@ const Comment = require('../models/comment');
 const Video = require('../models/video');
 const router = new express.Router();
 
-router.post('/api/comments', auth, async (req, res) => {
+// add comment
+router.post('/api/comments/newcomment', auth, async (req, res) => {
 	try {
+		console.log(req.body);
 		const comment = await Comment.findOne({ videoId: req.body.videoId });
 		const newComment = { content: req.body.content, owner: req.user._id };
 		comment.comments.unshift(newComment);
 		await comment.save();
 		res.send(newComment);
 	} catch (e) {
+		console.dir(e);
 		res.status(500).send();
 	}
 });
 
+// get comment
 router.get('/api/comments/:videoId', auth, async (req, res) => {
 	try {
 		const comment = await Comment.findOne({
 			videoId: req.params.videoId,
-		}).populate({ path: 'comments.owner', select: 'name' });
-
+		}).populate({ path: 'comments.owner', select: 'name avatar' });
 		res.status(200).send(comment.comments);
 	} catch (e) {
 		res.status(500).send();
 	}
 });
+// edit comment
 router.patch('/api/comments/:videoId', auth, async (req, res) => {
 	try {
+		// console.log(req.body.commentId);
 		const comment = await Comment.findOne({
 			videoId: req.params.videoId,
 		});
-
+		console.log(comment.comments);
 		const foundComment = comment.comments.findIndex(
-			(el) => el._id === req.body.commentId
+			// (el) => el._id === req.body.commentId
+			(el) => console.log(el._id)
 		);
+		console.log(foundComment);
 		comment.comments[foundComment].content = req.body.content;
 		await comment.save();
 		res.status(200).send(comment.comments);
 	} catch (e) {
+		console.dir(e);
 		res.status(500).send();
 	}
 });
 
+// delete comment
 router.delete('/api/comments/:videoId', auth, async (req, res) => {
 	try {
 		const comment = await Comment.findOne({

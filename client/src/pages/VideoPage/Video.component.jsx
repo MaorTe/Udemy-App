@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import api from '../../API/api';
 import ReactPlayer from 'react-player';
 // import * as S from './Video.style';
+import CommentBox from '../../components/CommentSection/CommentBox.component';
 import * as S from './Video.style';
 import { useLocation, useParams } from 'react-router';
 import { Link } from 'react-router-dom';
@@ -12,7 +13,11 @@ const Video = () => {
 	const [user, setUser] = useState('');
 	const [showVideo, setShowVideo] = useState('');
 	const [videosList, setVideosList] = useState([]);
-
+	const [videoId, setVideoId] = useState(null);
+	const [comments, setComments] = useState('');
+	const [state, setState] = useState('');
+	const [commentId, setCommentId] = useState('');
+	const [commentState, setCommentState] = useState(false);
 	//fetch user to check for token
 	useEffect(() => {
 		const fetchUser = async () => {
@@ -38,7 +43,10 @@ const Video = () => {
 					headers: { Authorization: token },
 				});
 				setVideosList(data);
+				// console.log(data);
+				setVideoId(data[0]._id);
 				console.log(videosList);
+				console.log(videoId);
 			} catch (e) {
 				console.log(e.message);
 			}
@@ -46,6 +54,66 @@ const Video = () => {
 		fetchVideos();
 	}, []);
 
+	//---------------Get comment---------------
+	useEffect(() => {
+		const getComment = async () => {
+			try {
+				const token = localStorage.getItem('token');
+				const { data } = await api.get(`comments/${videoId}`, {
+					headers: { Authorization: token },
+				});
+				setComments(data);
+				console.log(comments);
+			} catch (e) {
+				console.log(e.message);
+			}
+		};
+		getComment();
+	}, videoId);
+
+	//---------------Add new comment---------------
+	const addNewComment = async () => {
+		try {
+			const token = localStorage.getItem('token');
+			const { data } = await api.post(
+				`comments/newcomment`,
+				{ content: 'comment body1', videoId: videoId },
+				{
+					headers: { Authorization: token },
+				}
+			);
+			// setState(data);
+			// console.log(state);
+		} catch (e) {
+			console.log(e.message);
+		}
+	};
+
+	//---------------Edit comment---------------
+	const editComment = async () => {
+		try {
+			const token = localStorage.getItem('token');
+			setCommentId(comments[0]._id);
+			console.log(commentId);
+			const { data } = await api.patch(
+				`comments/${videoId}`,
+				{ content: 'updated comment body', commentId: commentId },
+				{
+					headers: { Authorization: token },
+				}
+			);
+			setCommentState(false);
+			console.log(data);
+		} catch (e) {
+			console.log(e.message);
+		}
+	};
+
+	const showNewVideo = (video) => {
+		setVideoId(video._id);
+		setShowVideo(video.videoLink);
+	};
+	const changeHandler = (e) => setState({ [e.target.name]: e.target.value });
 	return (
 		<div>
 			<S.UpperPageContainer>
@@ -74,7 +142,7 @@ const Video = () => {
 					{videosList ? (
 						videosList.map((video) => (
 							<div key={videosList._id}>
-								<button onClick={() => setShowVideo(video.videoLink)}>
+								<button onClick={() => showNewVideo(video)}>
 									{video.videoTitle}
 								</button>
 							</div>
@@ -92,8 +160,40 @@ const Video = () => {
 					{courseDesc}
 				</S.CommentContainer>
 				<S.CommentContainer>
-					<h2>About this course</h2>
-					{courseDesc}
+					{/* <CommentBox></CommentBox> */}
+					{comments.length && (
+						<>
+							<label>{comments.map((el) => el.owner.name)}</label>
+							<input
+								value={comments.map((el) => el.content)}
+								name={'name'}
+								// onChange={changeHandler}
+								type="text"
+								placeholder="get new comment"
+								required
+							/>
+						</>
+					)}
+					<input
+						// value={'userInfo.name'}
+						name={'name'}
+						onChange={changeHandler}
+						type="text"
+						placeholder="Add new comment"
+						required
+					/>
+					<button onClick={addNewComment}>Post Comment</button>
+					{!commentState && (
+						<button onClick={() => setCommentState(true)}>Edit Comment</button>
+					)}
+					{commentState && (
+						<>
+							<button onClick={editComment}>Save Changes</button>
+							<button onClick={() => setCommentState(false)}>
+								Cancel Changes
+							</button>
+						</>
+					)}
 				</S.CommentContainer>
 			</S.LowerPageContainer>
 		</div>
