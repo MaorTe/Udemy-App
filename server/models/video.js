@@ -25,13 +25,17 @@ const videoSchema = new mongoose.Schema({
 		required: true,
 		ref: 'Course',
 	},
+	comments: {
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'Comment',
+	},
 });
 
-videoSchema.virtual('comments', {
-	ref: 'Comment',
-	localField: '_id',
-	foreignField: 'videoId',
-});
+// videoSchema.virtual('comments', {
+// 	ref: 'Comment',
+// 	localField: '_id',
+// 	foreignField: 'videoId',
+// });
 
 const Video = mongoose.model('Video', videoSchema);
 module.exports = Video;

@@ -1,7 +1,65 @@
 const express = require('express');
 const auth = require('../middleware/auth');
+const Comment = require('../models/comment');
 const Video = require('../models/video');
 const router = new express.Router();
+
+router.post('/api/comments', auth, async (req, res) => {
+	try {
+		const comment = await Comment.findOne({ videoId: req.body.videoId });
+		const newComment = { content: req.body.content, owner: req.user._id };
+		comment.comments.unshift(newComment);
+		await comment.save();
+		res.send(newComment);
+	} catch (e) {
+		res.status(500).send();
+	}
+});
+
+router.get('/api/comments/:videoId', auth, async (req, res) => {
+	try {
+		const comment = await Comment.findOne({
+			videoId: req.params.videoId,
+		}).populate({ path: 'comments.owner', select: 'name' });
+
+		res.status(200).send(comment.comments);
+	} catch (e) {
+		res.status(500).send();
+	}
+});
+router.patch('/api/comments/:videoId', auth, async (req, res) => {
+	try {
+		const comment = await Comment.findOne({
+			videoId: req.params.videoId,
+		});
+
+		const foundComment = comment.comments.findIndex(
+			(el) => el._id === req.body.commentId
+		);
+		comment.comments[foundComment].content = req.body.content;
+		await comment.save();
+		res.status(200).send(comment.comments);
+	} catch (e) {
+		res.status(500).send();
+	}
+});
+
+router.delete('/api/comments/:videoId', auth, async (req, res) => {
+	try {
+		const comment = await Comment.findOne({
+			videoId: req.params.videoId,
+		});
+
+		const foundComment = comment.comments.findIndex(
+			(el) => el._id === req.body.commentId
+		);
+		comment.comments.splice(foundComment, 1);
+		await comment.save();
+		res.status(200).send(comment.comments);
+	} catch (e) {
+		res.status(500).send();
+	}
+});
 
 router.get('/api/users/courses/video/comments', auth, async (req, res) => {
 	try {

@@ -21,11 +21,9 @@ const Courses = () => {
 	useEffect(() => {
 		const fetchCourses = async () => {
 			try {
-				const localData = JSON.parse(localStorage.getItem('localData'));
-				const token = localData.find((el) => el.token);
-
+				const token = localStorage.getItem('token');
 				const { data } = await api.get('/users/mycourses', {
-					headers: { Authorization: token.token },
+					headers: { Authorization: token },
 				});
 				setCoursesList(data);
 			} catch (e) {

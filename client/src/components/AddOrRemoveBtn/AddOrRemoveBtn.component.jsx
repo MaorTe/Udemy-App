@@ -16,13 +16,12 @@ const AddOrRemoveBtn = ({ id, isCourseExist }) => {
 
 	const addCourse = async () => {
 		try {
-			const localData = JSON.parse(localStorage.getItem('localData'));
-			const token = localData.find((el) => el.token);
+			const token = localStorage.getItem('token');
 			const data = await api.post(
 				'/users/addcourse',
 				{ id },
 				{
-					headers: { Authorization: token.token },
+					headers: { Authorization: token },
 				}
 			);
 			setIsCourseInFavorites(true);

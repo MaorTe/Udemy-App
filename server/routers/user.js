@@ -64,6 +64,7 @@ router.post('/api/users/logoutAll', auth, async (req, res) => {
 });
 
 // -----------------Add course from favorite courses-----------------
+//adminAuth
 router.post('/api/users/addcourse', auth, async (req, res) => {
 	try {
 		const newCourse = { courseId: req.body.id };
@@ -201,7 +202,6 @@ router.delete('/users/me/avatar', auth, async (req, res) => {
 // -----------------Get user avatar-----------------
 router.get('/users/:id/avatar', async (req, res) => {
 	try {
-		console.log('asd');
 		const user = await User.findById(req.params.id);
 
 		if (!user || !user.avatar) {

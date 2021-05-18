@@ -25,11 +25,9 @@ const Carousel = ({ tag, onPictureClick, width }) => {
 	useEffect(() => {
 		const fetchUser = async () => {
 			try {
-				const localData = JSON.parse(localStorage.getItem('localData'));
-				const token = localData.find((el) => el.token);
-
+				const token = localStorage.getItem('token');
 				const { data } = await api.get('/users/me', {
-					headers: { Authorization: token.token },
+					headers: { Authorization: token },
 				});
 				setCoursesListId(data.courses.map((course) => course.courseId));
 			} catch (e) {

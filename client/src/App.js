@@ -14,15 +14,6 @@ import AddVideo from './pages/AddVideoPage/AddVideo.component';
 
 function App() {
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
-	useEffect(() => {
-		const createLocalStorage = () => {
-			if (!Array.isArray(JSON.parse(localStorage.getItem('localData')))) {
-				localStorage.setItem('localData', JSON.stringify([]));
-			}
-		};
-		createLocalStorage();
-	}, []);
-
 	const [user, setUser] = useState(null);
 
 	const getUser = () => {
@@ -32,13 +23,11 @@ function App() {
 	useEffect(() => {
 		const fetchUser = async () => {
 			try {
-				const localData = JSON.parse(localStorage.getItem('localData'));
-				const token = localData.find((el) => el.token);
+				const token = localStorage.getItem('token');
 				const { data } = await api.get('users/me', {
-					headers: { Authorization: token.token },
+					headers: { Authorization: token },
 				});
 				console.log(data);
-				localStorage.setItem('token2', data.token);
 				setUser(data.name);
 				setIsLoggedIn(true);
 			} catch (e) {

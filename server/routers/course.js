@@ -21,6 +21,7 @@ router.get('/api/courses/:tag', async (req, res) => {
 	try {
 		const { tag } = req.query;
 		const courses = await Course.find({ tag });
+		// .populate('videos');
 		res.send(courses);
 	} catch (e) {
 		res.status(500).send();

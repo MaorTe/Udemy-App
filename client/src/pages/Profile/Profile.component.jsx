@@ -4,19 +4,13 @@ import api from '../../API/api';
 
 const Profile = () => {
 	const [user, setUser] = useState([]);
-	const [token, setToken] = useState('');
 	const [selectedFile, setSelectedFile] = useState(null);
 	useEffect(() => {
 		const fetchUser = async () => {
 			try {
-				const localData = JSON.parse(localStorage.getItem('localData'));
-				const token = localData.find((el) => el.token);
-				const newToken = localStorage.getItem('token');
-				// console.log(newToken);
-				// console.log(token);
-				setToken(token);
+				const token = localStorage.getItem('token');
 				const { data } = await api.get('/users/me', {
-					headers: { Authorization: newToken },
+					headers: { Authorization: token },
 				});
 				console.log(data);
 				setUser([data]);
@@ -30,8 +24,9 @@ const Profile = () => {
 	// useEffect(() => {
 	const uploadFile = async () => {
 		try {
+			const token = localStorage.getItem('token');
 			const { data } = await api.get(`/users/${user[0]._id}/avatar`, {
-				headers: { Authorization: token.token },
+				headers: { Authorization: token },
 			});
 			console.log(data);
 			// setUser([data]);
@@ -42,30 +37,19 @@ const Profile = () => {
 	// uploadFile();
 	// }, [user]);
 
-	// const filesSelectedHandler = (e) => {
-	// 	setSelectedFile(e.target.files[0]);
-	// 	console.log(selectedFile);
-	// };
-
 	const fileUploadHandler = async () => {
 		try {
-			// const localData = JSON.parse(localStorage.getItem('localData'));
-			// const token = localData.find((el) => el.token);
-
+			const token = localStorage.getItem('token');
 			const fd = new FormData();
 			fd.append('avatar', selectedFile);
-			console.log(fd.get('avatar'));
 
-			const { data } = await axios.post(
-				`http://localhost:3001/api/users/special/me/avatar`,
-				fd,
-				{
-					headers: {
-						Authorization: token.token,
-						'Content-Type': 'multipart/form-data',
-					},
-				}
-			);
+			const { data } = await axios.post(`/api/users/special/me/avatar`, fd, {
+				headers: {
+					Authorization: token,
+					'Content-Type': 'multipart/form-data',
+				},
+			});
+			setUser((prev) => prev);
 			console.log(data);
 		} catch (e) {
 			console.log(e.message);
@@ -102,7 +86,8 @@ const Profile = () => {
 						<h3>{info.name}</h3>
 						<h3>{info.age}</h3>
 						<h3>{info.email}</h3>
-						<img src={`data: image/png;base64,${user[0].avatar}`} alt="" />
+						{/* <img src={`data: image/png;base64,${user[0].avatar}`} alt="" /> */}
+						<img src={`/users/${user[0]._id}/avatar?v=${Date.now()}`} alt="" />
 					</div>
 				);
 			})}

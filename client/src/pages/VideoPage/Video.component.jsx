@@ -8,9 +8,7 @@ import { Link } from 'react-router-dom';
 
 const Video = () => {
 	const { courseDesc } = useLocation().state;
-
 	const { courseName, courseId } = useParams();
-	console.log(courseName, courseId);
 	const [user, setUser] = useState('');
 	const [showVideo, setShowVideo] = useState('');
 	const [videosList, setVideosList] = useState([]);
@@ -19,11 +17,9 @@ const Video = () => {
 	useEffect(() => {
 		const fetchUser = async () => {
 			try {
-				const localData = JSON.parse(localStorage.getItem('localData'));
-				const token = localData.find((el) => el.token);
-
+				const token = localStorage.getItem('token');
 				const { data } = await api.get('/users/me', {
-					headers: { Authorization: token.token },
+					headers: { Authorization: token },
 				});
 				setUser(data);
 			} catch (e) {
@@ -37,13 +33,12 @@ const Video = () => {
 	useEffect(() => {
 		const fetchVideos = async () => {
 			try {
-				const localData = JSON.parse(localStorage.getItem('localData'));
-				const token = localData.find((el) => el.token);
-
-				const { data } = await api.get('users/courses/video/', {
-					headers: { Authorization: token.token },
+				const token = localStorage.getItem('token');
+				const { data } = await api.get(`users/courses/video/${courseId}`, {
+					headers: { Authorization: token },
 				});
 				setVideosList(data);
+				console.log(videosList);
 			} catch (e) {
 				console.log(e.message);
 			}
@@ -78,9 +73,11 @@ const Video = () => {
 					<S.videosMenuTitle>Course content</S.videosMenuTitle>
 					{videosList ? (
 						videosList.map((video) => (
-							<button onClick={() => setShowVideo(video.videoLink)}>
-								{video.videoTitle}
-							</button>
+							<div key={videosList._id}>
+								<button onClick={() => setShowVideo(video.videoLink)}>
+									{video.videoTitle}
+								</button>
+							</div>
 						))
 					) : (
 						<S.NavLink to="/Courses/Videos/AddVideo">

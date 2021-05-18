@@ -6,24 +6,21 @@ import { useParams } from 'react-router';
 import { Marginer } from '../../components/marginer';
 
 const AddVideo = () => {
-	// const { courseName, courseId } = useParams();
-	// console.log(courseName, courseId);
 	const [user, setUser] = useState();
 	const [videoInfo, setVideoInfo] = useState({
 		videoLink: '',
 		videoTitle: '',
 		videoDescription: '',
-		courseId: '60a0fd1526e5d32e14690612',
+		courseId: '60a19412e08c96510412dd6f',
 	});
 	useEffect(() => {
 		const fetchUser = async () => {
 			try {
-				const localData = JSON.parse(localStorage.getItem('localData'));
-				const token = localData.find((el) => el.token);
-
+				const token = localStorage.getItem('token');
 				const { data } = await api.get('/users/me', {
-					headers: { Authorization: token.token },
+					headers: { Authorization: token },
 				});
+
 				setUser(data);
 			} catch (e) {
 				console.log(e.message);
@@ -34,18 +31,14 @@ const AddVideo = () => {
 
 	const addVideo = async () => {
 		try {
-			const localData = JSON.parse(localStorage.getItem('localData'));
-			const token = localData.find((el) => el.token);
+			const token = localStorage.getItem('token');
 			const data = await api.post('/video/addvideo', videoInfo, {
-				headers: { Authorization: token.token },
+				headers: { Authorization: token },
 			});
 		} catch (e) {
 			console.log(e.message);
 		}
 	};
-
-	// const { switchToSignin, createUser, userInfo, setUserInfo } =
-	// 	useContext(AccountContext);
 
 	const changeHandler = (e) =>
 		setVideoInfo({ ...videoInfo, [e.target.name]: e.target.value });
@@ -53,7 +46,6 @@ const AddVideo = () => {
 		<S.BoxContainer>
 			<S.FormContainer>
 				<S.Input
-					// value={userInfo.name}
 					name={'videoLink'}
 					onChange={changeHandler}
 					type="text"

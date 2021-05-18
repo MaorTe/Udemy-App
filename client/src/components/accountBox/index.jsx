@@ -50,10 +50,11 @@ export function AccountBox({ getUser }) {
 			const { data } = await api.post('users/login', loginInfo);
 			setUserInfo([data]);
 			//set profile name on navbar and redirect to homepage
-			const localData = JSON.parse(localStorage.getItem('localData'));
-			localData.push({ token: data.token, user: data.user });
 
-			localStorage.setItem('localData', JSON.stringify(localData));
+			// const localData = JSON.parse(localStorage.getItem('localData'));
+			// localData.push({ token: data.token, user: data.user });
+			// localStorage.setItem('localData', JSON.stringify(localData));
+
 			localStorage.setItem('token', data.token);
 			getUser();
 			history.push('/');

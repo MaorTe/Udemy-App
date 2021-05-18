@@ -3,11 +3,8 @@ import logo from '../../img/logo.png';
 import * as S from './Navbar.style';
 
 const Navbar = ({ getUser, isLoggedIn, user }) => {
-	const localData = JSON.parse(localStorage.getItem('localData'));
 	const logoutUser = () => {
-		const indexId = localData.findIndex((el) => el.token);
-		localData.splice(indexId, 1);
-		localStorage.setItem('localData', JSON.stringify(localData));
+		localStorage.removeItem('token');
 		getUser();
 	};
 
