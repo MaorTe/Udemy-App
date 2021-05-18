@@ -1,18 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import api from '../../API/api';
 import ReactPlayer from 'react-player';
-import * as S from './AddVideo.style';
+import * as S from './AddCourse.style';
 import { useParams } from 'react-router';
 import { Marginer } from '../../components/marginer';
 
-const AddVideo = () => {
-	const { courseId } = useParams();
+const AddCourse = () => {
 	const [user, setUser] = useState();
-	const [videoInfo, setVideoInfo] = useState({
-		videoLink: '',
-		videoTitle: '',
-		videoDescription: '',
-		courseId: courseId,
+	const [courseInfo, setCourseInfo] = useState({
+		courseImage: '',
+		courseName: '',
+		courseDescription: '',
+		tag: '',
 	});
 	useEffect(() => {
 		const fetchUser = async () => {
@@ -30,10 +29,10 @@ const AddVideo = () => {
 		fetchUser();
 	}, []);
 
-	const addVideo = async () => {
+	const addCourse = async () => {
 		try {
 			const token = localStorage.getItem('token');
-			const data = await api.post('/video/addvideo', videoInfo, {
+			const data = await api.post('/courses/addcourse', courseInfo, {
 				headers: { Authorization: token },
 			});
 		} catch (e) {
@@ -42,36 +41,42 @@ const AddVideo = () => {
 	};
 
 	const changeHandler = (e) =>
-		setVideoInfo({ ...videoInfo, [e.target.name]: e.target.value });
+		setCourseInfo({ ...courseInfo, [e.target.name]: e.target.value });
 	return (
 		<S.BoxContainer>
-			<h1>Add new video</h1>
+			<h1>Add new course</h1>
 			<S.FormContainer>
 				<S.Input
-					name={'videoLink'}
+					name={'courseImage'}
 					onChange={changeHandler}
 					type="text"
-					placeholder="Video Link"
+					placeholder="Course image"
 					required
 				/>
 				<S.Input
-					name={'videoTitle'}
+					name={'courseName'}
 					onChange={changeHandler}
 					type="text"
-					placeholder="Video title"
+					placeholder="Course name"
 				/>
 				<S.Input
-					name={'videoDescription'}
+					name={'courseDescription'}
 					onChange={changeHandler}
 					type="text"
-					placeholder="Video description"
+					placeholder="Course description"
+				/>
+				<S.Input
+					name={'tag'}
+					onChange={changeHandler}
+					type="text"
+					placeholder="Tag"
 				/>
 			</S.FormContainer>
 			<Marginer direction="vertical" margin={10} />
-			<S.SubmitButton type="submit" onClick={() => addVideo()}>
-				Create Video
+			<S.SubmitButton type="submit" onClick={() => addCourse()}>
+				Create Course
 			</S.SubmitButton>
 		</S.BoxContainer>
 	);
 };
-export default AddVideo;
+export default AddCourse;

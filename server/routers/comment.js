@@ -24,7 +24,7 @@ router.get('/api/comments/:videoId', auth, async (req, res) => {
 	try {
 		const comment = await Comment.findOne({
 			videoId: req.params.videoId,
-		}).populate({ path: 'comments.owner', select: 'name avatar' });
+		}).populate({ path: 'comments.owner', select: 'name' });
 		res.status(200).send(comment.comments);
 	} catch (e) {
 		res.status(500).send();
@@ -39,8 +39,8 @@ router.patch('/api/comments/:videoId', auth, async (req, res) => {
 		});
 		console.log(comment.comments);
 		const foundComment = comment.comments.findIndex(
-			// (el) => el._id === req.body.commentId
-			(el) => console.log(el._id)
+			(el) => el._id === req.body.commentId
+			// (el) => console.log(el._id)
 		);
 		console.log(foundComment);
 		comment.comments[foundComment].content = req.body.content;

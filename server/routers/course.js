@@ -3,7 +3,7 @@ const Course = require('../models/course');
 const auth = require('../middleware/auth');
 const router = new express.Router();
 
-router.post('/api/courses', auth, async (req, res) => {
+router.post('/api/courses/addcourse', auth, async (req, res) => {
 	// const course = new Course(req.body);
 	const course = new Course({
 		...req.body,

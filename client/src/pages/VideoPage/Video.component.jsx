@@ -10,13 +10,14 @@ import { Link } from 'react-router-dom';
 const Video = () => {
 	const { courseDesc } = useLocation().state;
 	const { courseName, courseId } = useParams();
+
 	const [user, setUser] = useState('');
 	const [showVideo, setShowVideo] = useState('');
 	const [videosList, setVideosList] = useState([]);
 	const [videoId, setVideoId] = useState(null);
 	const [comments, setComments] = useState('');
 	const [state, setState] = useState('');
-	const [commentId, setCommentId] = useState('');
+	const [commentId, setCommentId] = useState(null);
 	const [commentState, setCommentState] = useState(false);
 	//fetch user to check for token
 	useEffect(() => {
@@ -43,7 +44,6 @@ const Video = () => {
 					headers: { Authorization: token },
 				});
 				setVideosList(data);
-				// console.log(data);
 				setVideoId(data[0]._id);
 				console.log(videosList);
 				console.log(videoId);
@@ -63,6 +63,8 @@ const Video = () => {
 					headers: { Authorization: token },
 				});
 				setComments(data);
+				//get the correct commend and set to state
+				setCommentId(comments[0]._id);
 				console.log(comments);
 			} catch (e) {
 				console.log(e.message);
@@ -109,6 +111,25 @@ const Video = () => {
 		}
 	};
 
+	//---------------delete comment---------------
+	const deleteComment = async () => {
+		try {
+			const token = localStorage.getItem('token');
+			setCommentId(comments[0]._id);
+			console.log(commentId);
+			const { data } = await api.patch(
+				`comments/${videoId}`,
+				{ content: 'updated comment body', commentId: commentId },
+				{
+					headers: { Authorization: token },
+				}
+			);
+			setCommentState(false);
+			console.log(data);
+		} catch (e) {
+			console.log(e.message);
+		}
+	};
 	const showNewVideo = (video) => {
 		setVideoId(video._id);
 		setShowVideo(video.videoLink);
@@ -116,6 +137,7 @@ const Video = () => {
 	const changeHandler = (e) => setState({ [e.target.name]: e.target.value });
 	return (
 		<div>
+			{/* --------Video Player & Video links-------- */}
 			<S.UpperPageContainer>
 				<S.VideoPageContainer>
 					{/* <S.VideoContainer> */}
@@ -139,7 +161,7 @@ const Video = () => {
 				</S.VideoPageContainer>
 				<S.VideosMenuContainer containerHeight={'60vh'}>
 					<S.videosMenuTitle>Course content</S.videosMenuTitle>
-					{videosList ? (
+					{videosList.length > 0 ? (
 						videosList.map((video) => (
 							<div key={videosList._id}>
 								<button onClick={() => showNewVideo(video)}>
@@ -148,12 +170,14 @@ const Video = () => {
 							</div>
 						))
 					) : (
-						<S.NavLink to="/Courses/Videos/AddVideo">
+						<S.NavLink to={`/Courses/Videos/AddVideo/${courseId}`}>
 							<h3>Add new videos</h3>
 						</S.NavLink>
 					)}
 				</S.VideosMenuContainer>
 			</S.UpperPageContainer>
+
+			{/* --------Comments & About-------- */}
 			<S.LowerPageContainer>
 				<S.CommentContainer>
 					<h2>About this course</h2>
@@ -161,6 +185,13 @@ const Video = () => {
 				</S.CommentContainer>
 				<S.CommentContainer>
 					{/* <CommentBox></CommentBox> */}
+					{comments.length && (
+						<img
+							src={`/users/${user._id}/avatar?v=${Date.now()}`}
+							alt="user"
+							width="100"
+						/>
+					)}
 					{comments.length && (
 						<>
 							<label>{comments.map((el) => el.owner.name)}</label>
@@ -194,6 +225,7 @@ const Video = () => {
 							</button>
 						</>
 					)}
+					<button onClick={deleteComment}>Delete Comment</button>
 				</S.CommentContainer>
 			</S.LowerPageContainer>
 		</div>
