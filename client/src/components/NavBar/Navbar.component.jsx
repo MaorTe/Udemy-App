@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react';
+import api from '../../API/api';
 import logo from '../../img/logo.png';
 import * as S from './Navbar.style';
 
 const Navbar = ({ getUser, isLoggedIn, user }) => {
+	const [userAdmin, setUserAdmin] = useState(null);
 	const logoutUser = () => {
 		localStorage.removeItem('token');
 		getUser();
 	};
-
+	console.log(userAdmin);
 	// const displayNavbarItems = () => {
 	// 	if (isLoggedIn) {
 	// 		<>
@@ -23,6 +25,20 @@ const Navbar = ({ getUser, isLoggedIn, user }) => {
 	// 	}
 	// };
 
+	useEffect(() => {
+		const fetchUser = async () => {
+			try {
+				const token = localStorage.getItem('token');
+				const { data } = await api.get('users/me', {
+					headers: { Authorization: token },
+				});
+				setUserAdmin(data);
+			} catch (e) {
+				console.log(e.message);
+			}
+		};
+		fetchUser();
+	}, []);
 	return (
 		<S.NavbarContainer>
 			<div>
@@ -47,11 +63,13 @@ const Navbar = ({ getUser, isLoggedIn, user }) => {
 								<h3>Profile</h3>
 							</S.NavLink>
 						</S.li>
-						<S.li>
-							<S.NavLink to="/Courses/AddCourse">
-								<h3>Add Course</h3>
-							</S.NavLink>
-						</S.li>
+						{userAdmin.userRole === 'admin' && (
+							<S.li>
+								<S.NavLink to="/Courses/AddCourse">
+									<h3>Add Course</h3>
+								</S.NavLink>
+							</S.li>
+						)}
 						<S.li>
 							<S.NavLink to="/Courses">
 								<h3> My Courses</h3>

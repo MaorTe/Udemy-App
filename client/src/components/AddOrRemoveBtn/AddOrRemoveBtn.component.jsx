@@ -2,17 +2,18 @@ import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router';
 import api from '../../API/api';
 import * as S from './AddOrRemoveBtn.style';
-const AddOrRemoveBtn = ({ id, isCourseExist }) => {
-	const [isCourseInFavorites, setIsCourseInFavorites] = useState(isCourseExist);
-	useEffect(() => {
-		const buttonInit = () => {
-			setIsCourseInFavorites(isCourseExist);
-		};
-		buttonInit();
-	}, [isCourseExist]);
+const AddOrRemoveBtn = ({ id, isCourseExist, setIsCourseExist, type }) => {
+	// const [isCourseInFavorites, setIsCourseInFavorites] = useState(isCourseExist);
 
-	const { location } = useHistory();
-	const type = location.pathname.slice(1);
+	// useEffect(() => {
+	// 	const buttonInit = () => {
+	// 		setIsCourseInFavorites(isCourseExist);
+	// 	};
+	// 	buttonInit();
+	// }, [isCourseExist]);
+
+	// const { location } = useHistory();
+	// const type = location.pathname.slice(1);
 
 	const addCourse = async () => {
 		try {
@@ -24,35 +25,35 @@ const AddOrRemoveBtn = ({ id, isCourseExist }) => {
 					headers: { Authorization: token },
 				}
 			);
-			setIsCourseInFavorites(true);
+			setIsCourseExist((prev) => !prev);
 		} catch (e) {
 			console.log(e.message);
 		}
 	};
 	const removeCourse = async () => {
 		try {
-			const localData = JSON.parse(localStorage.getItem('localData'));
-			const token = localData.find((el) => el.token);
+			const token = localStorage.getItem('token');
 			const data = await api.patch(
 				'/users/deletecourse',
 				{ id },
 				{
-					headers: { Authorization: token.token },
+					headers: { Authorization: token },
 				}
 			);
-			setIsCourseInFavorites(false);
+			setIsCourseExist((prev) => !prev);
 		} catch (e) {
 			console.log(e.message);
 		}
 	};
 	const onPosterClick = () => {
-		isCourseInFavorites ? removeCourse() : addCourse();
-		type === 'Courses' && removeCourse();
+		if (type === 'Courses') removeCourse();
+		else if (isCourseExist) removeCourse();
+		else addCourse();
 	};
 	return (
 		<S.AddOrRemoveBtn>
 			<button className="btn third" onClick={() => onPosterClick()}>
-				{!type && (isCourseInFavorites ? 'Remove course' : 'Add course')}
+				{!type && (isCourseExist ? 'Remove course' : 'Add course')}
 				{type && 'Remove course'}
 			</button>
 		</S.AddOrRemoveBtn>

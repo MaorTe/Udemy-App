@@ -20,7 +20,6 @@ const AddCourse = () => {
 				const { data } = await api.get('/users/me', {
 					headers: { Authorization: token },
 				});
-
 				setUser(data);
 			} catch (e) {
 				console.log(e.message);

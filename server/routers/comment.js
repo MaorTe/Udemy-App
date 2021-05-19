@@ -33,16 +33,12 @@ router.get('/api/comments/:videoId', auth, async (req, res) => {
 // edit comment
 router.patch('/api/comments/:videoId', auth, async (req, res) => {
 	try {
-		// console.log(req.body.commentId);
 		const comment = await Comment.findOne({
 			videoId: req.params.videoId,
 		});
-		console.log(comment.comments);
 		const foundComment = comment.comments.findIndex(
-			(el) => el._id === req.body.commentId
-			// (el) => console.log(el._id)
+			(el) => el._id.toString() === req.body.commentId
 		);
-		console.log(foundComment);
 		comment.comments[foundComment].content = req.body.content;
 		await comment.save();
 		res.status(200).send(comment.comments);

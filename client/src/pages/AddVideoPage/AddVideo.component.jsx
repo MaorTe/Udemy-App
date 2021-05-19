@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import api from '../../API/api';
-import ReactPlayer from 'react-player';
 import * as S from './AddVideo.style';
 import { useParams } from 'react-router';
 import { Marginer } from '../../components/marginer';

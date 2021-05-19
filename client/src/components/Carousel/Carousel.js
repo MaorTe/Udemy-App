@@ -75,7 +75,6 @@ const Carousel = ({ tag, onPictureClick, width }) => {
 		// 	},
 		// ],
 	};
-
 	return (
 		<div>
 			<Slider {...settings}>

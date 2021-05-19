@@ -6,10 +6,15 @@ const Course = require('./course');
 //middleware is to run some functions before or after given events occur for example validate,save...
 //mongoose converts the second argument to a schema and in order to take advantage of the middleware functionality we have to create the schema first and then pass that in
 const userSchema = new mongoose.Schema({
+	userRole: {
+		type: String,
+		required: false,
+		enum: ['user', 'admin'],
+		default: 'user',
+	},
 	// admin: {
-	// 	type: String,
-	// 	required: true,
-	// 	trim: true,
+	// 	type: Boolean,
+	// 	default: false,
 	// },
 	name: {
 		type: String,
@@ -18,12 +23,6 @@ const userSchema = new mongoose.Schema({
 	},
 	avatar: {
 		type: Buffer,
-		// required: true,
-		// validate(val) {
-		// 	if (!val.includes('.jpg')) {
-		// 		throw new Error('not a jpg image');
-		// 	}
-		// },
 	},
 	email: {
 		type: String,

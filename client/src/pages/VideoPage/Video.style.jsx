@@ -14,23 +14,38 @@ export const PlayerWrapper = styled.div`
 `;
 
 export const UpperPageContainer = styled.div`
-	display: flex;
-	flex-direction: row;
+	/* display: grid;
+	grid-template-columns: 1fr 4fr 1fr;
+	grid-template-rows: 1fr 4fr 1fr; */
+	/* height: 100vh; */
+	display: grid;
+	grid-template-columns: 1fr 4fr 1fr;
+	grid-template-rows: 5fr 1fr;
+	grid-column-gap: 2px;
+	grid-row-gap: 0px;
 `;
-export const LowerPageContainer = styled(UpperPageContainer)`
-	justify-content: space-around;
+export const LowerPageContainer = styled.div`
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: 100%;
 	border: 1px solid green;
+	grid-area: 2 / 2 / 3 / 3;
 `;
 export const CommentContainer = styled(VideoContainer)`
+	grid-area: 1 / 1 / 3 / 2;
 	flex-direction: column;
-	/* justify-content: flex-start;
-	align-items: flex-start; */
+	margin-top: 0px;
+	justify-content: flex-start;
+	align-items: center;
+	border: 1px solid green;
 `;
 
 export const VideoPageContainer = styled.div`
-	width: 75vw;
+	/* width: 75vw; */
 	/* height: 'calc(100vh-69px)'; */
-	border: 1px solid red;
+	grid-area: 1 / 2 / 2 / 3;
 `;
 export const videosMenuTitle = styled.h3`
 	margin-bottom: 20px;
@@ -42,16 +57,20 @@ export const videosMenuTitle = styled.h3`
 	padding-left: 0px;
 `;
 export const VideosMenuContainer = styled.div`
-	width: 25vw;
+	/* width: 25vw; */
 	/* height: 'calc(100vh-69px)'; */
+	grid-area: 1 / 3 / 3 / 4;
 	display: flex;
 	flex-direction: column;
 	justify-content: flex-start;
-	/* align-items: center; */
 	padding-bottom: 20px;
 	border-bottom: 2px solid #555;
-	height: ${(props) => props.containerHeight && props.containerHeight};
+	/* height: ${(props) => props.containerHeight && props.containerHeight}; */
 	overflow-y: ${(props) => props.containerHeight && 'auto'};
+`;
+
+export const Commentbody = styled.textarea`
+	resize: none;
 `;
 
 export const ControlsWrapper = styled.div`
@@ -82,9 +101,8 @@ export const NavLink = styled(Link)`
 		background: #201f32;
 	}
 `;
-{
-	/* Top controls */
-}
+
+/* Top controls */
 export const TopControlsContainer = styled.div`
 	display: flex;
 	flex-direction: column;

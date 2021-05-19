@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import api from '../../API/api';
 import ReactPlayer from 'react-player';
-// import * as S from './Video.style';
 import CommentBox from '../../components/CommentSection/CommentBox.component';
 import * as S from './Video.style';
 import { useLocation, useParams } from 'react-router';
-import { Link } from 'react-router-dom';
+import Comment from '../../components/Comment/Comment.component';
 
 const Video = () => {
 	const { courseDesc } = useLocation().state;
@@ -15,10 +14,9 @@ const Video = () => {
 	const [showVideo, setShowVideo] = useState('');
 	const [videosList, setVideosList] = useState([]);
 	const [videoId, setVideoId] = useState(null);
-	const [comments, setComments] = useState('');
+	const [comments, setComments] = useState([]);
 	const [state, setState] = useState('');
-	const [commentId, setCommentId] = useState(null);
-	const [commentState, setCommentState] = useState(false);
+	// const [commentId, setCommentId] = useState(null);
 	//fetch user to check for token
 	useEffect(() => {
 		const fetchUser = async () => {
@@ -51,27 +49,29 @@ const Video = () => {
 				console.log(e.message);
 			}
 		};
-		fetchVideos();
-	}, []);
+		courseId && fetchVideos();
+	}, [courseId]);
 
 	//---------------Get comment---------------
 	useEffect(() => {
+		// debugger;
 		const getComment = async () => {
 			try {
 				const token = localStorage.getItem('token');
 				const { data } = await api.get(`comments/${videoId}`, {
 					headers: { Authorization: token },
 				});
+
 				setComments(data);
-				//get the correct commend and set to state
-				setCommentId(comments[0]._id);
 				console.log(comments);
+				//get the correct comment and set to state
+				// setCommentId(comments[0]._id);
 			} catch (e) {
 				console.log(e.message);
 			}
 		};
-		getComment();
-	}, videoId);
+		videoId && getComment();
+	}, [videoId]);
 
 	//---------------Add new comment---------------
 	const addNewComment = async () => {
@@ -92,39 +92,40 @@ const Video = () => {
 	};
 
 	//---------------Edit comment---------------
-	const editComment = async () => {
+	const editComment = async (commentId, content) => {
 		try {
 			const token = localStorage.getItem('token');
-			setCommentId(comments[0]._id);
-			console.log(commentId);
 			const { data } = await api.patch(
 				`comments/${videoId}`,
-				{ content: 'updated comment body', commentId: commentId },
+				{ content, commentId },
 				{
 					headers: { Authorization: token },
 				}
 			);
-			setCommentState(false);
-			console.log(data);
+			setComments((prev) => {
+				const data = [...prev];
+				const foundComment = data.find((item) => item._id === commentId);
+				foundComment.content = content;
+				return data;
+			});
 		} catch (e) {
 			console.log(e.message);
 		}
 	};
 
 	//---------------delete comment---------------
-	const deleteComment = async () => {
+	const deleteComment = async (commentId) => {
 		try {
 			const token = localStorage.getItem('token');
-			setCommentId(comments[0]._id);
-			console.log(commentId);
+			// setCommentId(comments[0]._id);
+			// console.log(commentId);
 			const { data } = await api.patch(
 				`comments/${videoId}`,
-				{ content: 'updated comment body', commentId: commentId },
+				{ commentId },
 				{
 					headers: { Authorization: token },
 				}
 			);
-			setCommentState(false);
 			console.log(data);
 		} catch (e) {
 			console.log(e.message);
@@ -134,101 +135,67 @@ const Video = () => {
 		setVideoId(video._id);
 		setShowVideo(video.videoLink);
 	};
-	const changeHandler = (e) => setState({ [e.target.name]: e.target.value });
+
 	return (
-		<div>
+		<S.UpperPageContainer>
+			{/* // <div> */}
 			{/* --------Video Player & Video links-------- */}
-			<S.UpperPageContainer>
-				<S.VideoPageContainer>
-					{/* <S.VideoContainer> */}
-					{user ? (
-						// <S.PlayerWrapper>
-						<ReactPlayer
-							// fluid={true}
-							width={'100%'}
-							height={'60vh'}
-							url={
-								showVideo || (videosList.length > 0 && videosList[0].videoLink)
-							}
-							muted={false}
-							playing={false}
-							controls={true}></ReactPlayer>
-					) : (
-						// </S.PlayerWrapper>
-						'Please Login'
-					)}
-					{/* </S.VideoContainer> */}
-				</S.VideoPageContainer>
-				<S.VideosMenuContainer containerHeight={'60vh'}>
-					<S.videosMenuTitle>Course content</S.videosMenuTitle>
-					{videosList.length > 0 ? (
-						videosList.map((video) => (
-							<div key={videosList._id}>
-								<button onClick={() => showNewVideo(video)}>
-									{video.videoTitle}
-								</button>
-							</div>
-						))
-					) : (
-						<S.NavLink to={`/Courses/Videos/AddVideo/${courseId}`}>
-							<h3>Add new videos</h3>
-						</S.NavLink>
-					)}
-				</S.VideosMenuContainer>
-			</S.UpperPageContainer>
+			<S.CommentContainer>
+				<S.Commentbody
+					cols="30"
+					rows="2"
+					draggable="false"
+					onChange={(e) => setState(e.target.value)}
+					placeholder="Add new comment"
+				/>
+				<button onClick={addNewComment}>Post Comment</button>
+				{comments.map((comment) => (
+					<Comment
+						comment={comment}
+						userId={user._id}
+						editComment={editComment}
+					/>
+				))}
+			</S.CommentContainer>
+			<S.VideoPageContainer>
+				{user ? (
+					// <S.PlayerWrapper>
+					<ReactPlayer
+						// fluid={true}
+						width={'100%'}
+						height={'60vh'}
+						url={
+							showVideo || (videosList.length > 0 && videosList[0].videoLink)
+						}
+						muted={false}
+						playing={false}
+						controls={true}></ReactPlayer>
+				) : (
+					// </S.PlayerWrapper>
+					'Please Login'
+				)}
+			</S.VideoPageContainer>
+			<S.VideosMenuContainer containerHeight={'60vh'}>
+				<S.videosMenuTitle>Course content</S.videosMenuTitle>
+				{videosList.map((video) => (
+					<div key={videosList._id}>
+						<button onClick={() => showNewVideo(video)}>
+							{video.videoTitle}
+						</button>
+					</div>
+				))}
+				<S.NavLink to={`/Courses/Videos/AddVideo/${courseId}`}>
+					<h3>Add new videos</h3>
+				</S.NavLink>
+			</S.VideosMenuContainer>
 
 			{/* --------Comments & About-------- */}
 			<S.LowerPageContainer>
-				<S.CommentContainer>
-					<h2>About this course</h2>
-					{courseDesc}
-				</S.CommentContainer>
-				<S.CommentContainer>
-					{/* <CommentBox></CommentBox> */}
-					{comments.length && (
-						<img
-							src={`/users/${user._id}/avatar?v=${Date.now()}`}
-							alt="user"
-							width="100"
-						/>
-					)}
-					{comments.length && (
-						<>
-							<label>{comments.map((el) => el.owner.name)}</label>
-							<input
-								value={comments.map((el) => el.content)}
-								name={'name'}
-								// onChange={changeHandler}
-								type="text"
-								placeholder="get new comment"
-								required
-							/>
-						</>
-					)}
-					<input
-						// value={'userInfo.name'}
-						name={'name'}
-						onChange={changeHandler}
-						type="text"
-						placeholder="Add new comment"
-						required
-					/>
-					<button onClick={addNewComment}>Post Comment</button>
-					{!commentState && (
-						<button onClick={() => setCommentState(true)}>Edit Comment</button>
-					)}
-					{commentState && (
-						<>
-							<button onClick={editComment}>Save Changes</button>
-							<button onClick={() => setCommentState(false)}>
-								Cancel Changes
-							</button>
-						</>
-					)}
-					<button onClick={deleteComment}>Delete Comment</button>
-				</S.CommentContainer>
+				<h2>About this course</h2>
+				{courseDesc}
 			</S.LowerPageContainer>
-		</div>
+		</S.UpperPageContainer>
+		// </div>
 	);
 };
 export default Video;

@@ -16,6 +16,7 @@ import AddCourse from './pages/AddCourse/AddCourse.component';
 function App() {
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
 	const [user, setUser] = useState(null);
+	const [userAdmin, setUserAdmin] = useState(null);
 
 	const getUser = () => {
 		setIsLoggedIn(!isLoggedIn);
@@ -30,6 +31,7 @@ function App() {
 				});
 				console.log(data);
 				setUser(data.name);
+				setUserAdmin(data);
 				setIsLoggedIn(true);
 			} catch (e) {
 				console.log(e.message);
@@ -37,7 +39,7 @@ function App() {
 		};
 		fetchUser();
 	}, []);
-
+	console.log(userAdmin);
 	return (
 		<div>
 			<AccountContext.Provider value={'coursesListId'}>
@@ -58,7 +60,9 @@ function App() {
 							path="/Courses/Videos/AddVideo/:courseId"
 							component={AddVideo}
 						/>
-						<Route exact path="/Courses/AddCourse" component={AddCourse} />
+						{userAdmin && userAdmin.userRole === 'admin' && (
+							<Route exact path="/Courses/AddCourse" component={AddCourse} />
+						)}
 						<Route
 							exact
 							path="/Courses/:courseName/Videos/:courseId"

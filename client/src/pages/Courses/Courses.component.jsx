@@ -26,6 +26,7 @@ const Courses = () => {
 					headers: { Authorization: token },
 				});
 				setCoursesList(data);
+				console.log(data);
 			} catch (e) {
 				console.log(e.message);
 			}
@@ -38,7 +39,7 @@ const Courses = () => {
 		setCoursesList(localData.map((el) => el));
 	};
 
-	console.log(coursesList);
+	console.log('in courses.js is' + coursesList);
 	return (
 		<S.GridContainer>
 			{coursesList.length ? (
