@@ -5,12 +5,14 @@ export const url = `
 
 export const PageContainerExternal = styled.div`
 	background: #48a9e6;
+	/* background: #29303b; */
 `;
 export const PageContainer = createGlobalStyle`
 body{
 	width: 100%;
 	height: 100%;
 	background: #48a9e6;
+	/* background: #29303b; */
 	font-family: 'Raleway', sans-serif;
 	font-weight: 300;
 	margin: 0;
@@ -75,6 +77,7 @@ export const SmallCircle = styled.span`
 	height: 140px;
 	border-radius: 50%;
 	background: #48a9e6;
+	/* background: #29303b; */
 	position: absolute;
 	z-index: 1;
 	top: 80px;
@@ -98,6 +101,7 @@ export const MedCircle = styled.span`
 	height: 200px;
 	border-radius: 50%;
 	background: #48a9e6;
+	/* background: #29303b; */
 	position: absolute;
 	z-index: 1;
 	top: 0;
@@ -122,6 +126,7 @@ export const BigCircle = styled.span`
 	height: 400px;
 	border-radius: 50%;
 	background: #48a9e6;
+	/* background: #29303b; */
 	position: absolute;
 	z-index: 1;
 	top: 200px;

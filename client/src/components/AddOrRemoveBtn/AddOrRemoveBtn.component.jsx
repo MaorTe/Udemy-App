@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router';
 import api from '../../API/api';
 import * as S from './AddOrRemoveBtn.style';
+import { SaveBtn } from '../../pages/Profile/Profile.style.jsx';
 const AddOrRemoveBtn = ({ id, isCourseExist, setIsCourseExist, type }) => {
 	// const [isCourseInFavorites, setIsCourseInFavorites] = useState(isCourseExist);
 
@@ -52,10 +53,10 @@ const AddOrRemoveBtn = ({ id, isCourseExist, setIsCourseExist, type }) => {
 	};
 	return (
 		<S.AddOrRemoveBtn>
-			<button className="btn third" onClick={() => onPosterClick()}>
+			<S.CardBtn className="btn third" onClick={() => onPosterClick()}>
 				{!type && (isCourseExist ? 'Remove course' : 'Add course')}
 				{type && 'Remove course'}
-			</button>
+			</S.CardBtn>
 		</S.AddOrRemoveBtn>
 	);
 };

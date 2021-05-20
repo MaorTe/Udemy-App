@@ -78,13 +78,12 @@ const Video = () => {
 			const token = localStorage.getItem('token');
 			const { data } = await api.post(
 				`comments/newcomment`,
-				{ content: 'comment body1', videoId: videoId },
+				{ content: state, videoId: videoId },
 				{
 					headers: { Authorization: token },
 				}
 			);
-			// setState(data);
-			// console.log(state);
+			setComments((prevComments) => [...prevComments, data]);
 		} catch (e) {
 			console.log(e.message);
 		}
@@ -116,16 +115,10 @@ const Video = () => {
 	const deleteComment = async (commentId) => {
 		try {
 			const token = localStorage.getItem('token');
-			// setCommentId(comments[0]._id);
-			// console.log(commentId);
-			const { data } = await api.patch(
-				`comments/${videoId}`,
-				{ commentId },
-				{
-					headers: { Authorization: token },
-				}
-			);
-			console.log(data);
+			const { data } = await api.delete(`comments/${videoId}/${commentId}`, {
+				headers: { Authorization: token },
+			});
+			await setComments(data);
 		} catch (e) {
 			console.log(e.message);
 		}
@@ -147,12 +140,15 @@ const Video = () => {
 					onChange={(e) => setState(e.target.value)}
 					placeholder="Add new comment"
 				/>
-				<button onClick={addNewComment}>Post Comment</button>
+				<S.PostCommentBtn onClick={addNewComment}>
+					Post Comment
+				</S.PostCommentBtn>
 				{comments.map((comment) => (
 					<Comment
 						comment={comment}
 						userId={user._id}
 						editComment={editComment}
+						deleteComment={deleteComment}
 					/>
 				))}
 			</S.CommentContainer>
@@ -178,9 +174,9 @@ const Video = () => {
 				<S.videosMenuTitle>Course content</S.videosMenuTitle>
 				{videosList.map((video) => (
 					<div key={videosList._id}>
-						<button onClick={() => showNewVideo(video)}>
+						<S.VideoLinkBtn onClick={() => showNewVideo(video)}>
 							{video.videoTitle}
-						</button>
+						</S.VideoLinkBtn>
 					</div>
 				))}
 				{user && user.userRole === 'admin' && (

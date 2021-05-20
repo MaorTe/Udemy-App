@@ -1,10 +1,11 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import api from '../../API/api';
 import * as S from './Profile.style';
 const Profile = () => {
 	const [user, setUser] = useState([]);
 	const [selectedFile, setSelectedFile] = useState(null);
+	const fileInput = useRef(null);
 	useEffect(() => {
 		const fetchUser = async () => {
 			try {
@@ -111,12 +112,16 @@ const Profile = () => {
 								{user.map((info) => {
 									return (
 										<div key={info._id}>
-											<input
+											<S.FileInput
 												type="file"
 												onChange={(e) => setSelectedFile(e.target.files[0])}
+												ref={fileInput}
 											/>
+											<S.UploadBtn onClick={() => fileInput.current.click()}>
+												Upload image
+											</S.UploadBtn>
 
-											<button onClick={fileUploadHandler}>Save</button>
+											<S.SaveBtn onClick={fileUploadHandler}>Save</S.SaveBtn>
 
 											{/* <button onClick={() => deleteFile()}>delete</button> */}
 											<S.EmailTitle>Name</S.EmailTitle>

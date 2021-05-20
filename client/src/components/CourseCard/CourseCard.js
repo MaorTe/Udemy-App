@@ -3,6 +3,7 @@ import { LazyLoadImage } from 'react-lazy-load-image-component';
 import AddOrRemoveBtn from '../AddOrRemoveBtn/AddOrRemoveBtn.component';
 import api from '../../API/api';
 import { useEffect, useState } from 'react';
+import * as S from './CourseCard.style';
 const CourseCard = ({
 	onButtonClick,
 	width,
@@ -26,9 +27,9 @@ const CourseCard = ({
 	}, [isCourseExist]);
 
 	return (
-		<>
+		<S.CardWrapper>
 			{((type === 'Courses' && !isCourseExist) || type === '') && (
-				<div className="movie-card-container">
+				<div>
 					<Link
 						to={{
 							pathname: `/Courses/${course.courseName}/Videos/${course._id}`,
@@ -44,8 +45,8 @@ const CourseCard = ({
 							className="img-select"
 						/>
 					</Link>
-					<div className="font-small">{course.courseName}</div>
-					<div className="font-small">{course.courseDescription}</div>
+					<S.CourseTitle>{course.courseName}</S.CourseTitle>
+					{/* <div className="font-small">{course.courseDescription}</div> */}
 					<AddOrRemoveBtn
 						id={course._id}
 						isCourseExist={isCourseExist}
@@ -54,7 +55,7 @@ const CourseCard = ({
 					/>
 				</div>
 			)}
-		</>
+		</S.CardWrapper>
 	);
 };
 

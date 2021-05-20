@@ -23,6 +23,27 @@ export const PageContainer = styled.div`
 	transform: translate(-50%, -50%);
 `;
 
+export const FileInput = styled.input`
+	display: none;
+`;
+export const SaveBtn = styled.button`
+	padding: 2px 10px;
+	border: none;
+	outline: none;
+	border-radius: 10px;
+	background: #384a68;
+	color: #fff;
+	transition: 0.3s all;
+	width: 120px;
+	margin: 5px 0;
+	&:hover {
+		box-shadow: 0px 0px 8px 0px #333;
+	}
+`;
+export const UploadBtn = styled(SaveBtn)`
+	white-space: pre;
+	width: 120px;
+`;
 export const CardWrapper = styled.div`
 	/* position: absolute;
 	top: 50%;

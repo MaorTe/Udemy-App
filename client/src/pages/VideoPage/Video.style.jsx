@@ -13,6 +13,21 @@ export const PlayerWrapper = styled.div`
 	position: relative;
 `;
 
+export const VideoLinkBtn = styled.button`
+	width: 100%;
+	padding: 15px 5px;
+	border: none;
+	outline: none;
+	text-align: left;
+	cursor: pointer;
+	font-size: 16px;
+	background: #fff;
+	&:hover {
+		/* background: #dee5e5; */
+		background: #f4f4f4;
+	}
+`;
+
 export const UpperPageContainer = styled.div`
 	/* display: grid;
 	grid-template-columns: 1fr 4fr 1fr;
@@ -32,7 +47,7 @@ export const LowerPageContainer = styled.div`
 	margin-bottom: 237px;
 	align-items: center;
 	height: 100%;
-	border: 1px solid green;
+	/* border: 1px solid green; */
 	overflow-y: auto;
 	grid-area: 2 / 2 / 3 / 3;
 `;
@@ -42,7 +57,7 @@ export const CommentContainer = styled(VideoContainer)`
 	margin-top: 0px;
 	justify-content: flex-start;
 	align-items: center;
-	border: 1px solid green;
+	/* border: 1px solid green; */
 `;
 
 export const VideoPageContainer = styled.div`
@@ -76,6 +91,20 @@ export const Commentbody = styled.textarea`
 	resize: none;
 `;
 
+export const PostCommentBtn = styled.button`
+	padding: 4px 12px;
+	border: none;
+	outline: none;
+	border-radius: 10px;
+	background: #384a68;
+	color: #fff;
+	transition: 0.3s all;
+	/* width: 120px; */
+	margin: 10px 0px 22px;
+	&:hover {
+		box-shadow: 0px 0px 8px 0px #333;
+	}
+`;
 export const ControlsWrapper = styled.div`
 	position: absolute;
 	top: 0;

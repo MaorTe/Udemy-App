@@ -49,15 +49,17 @@ router.patch('/api/comments/:videoId', auth, async (req, res) => {
 });
 
 // delete comment
-router.delete('/api/comments/:videoId', auth, async (req, res) => {
+router.delete('/api/comments/:videoId/:commentId', auth, async (req, res) => {
+	console.log('ccc');
 	try {
 		const comment = await Comment.findOne({
 			videoId: req.params.videoId,
 		});
 
 		const foundComment = comment.comments.findIndex(
-			(el) => el._id === req.body.commentId
+			(el) => el._id.toString() === req.params.commentId
 		);
+		console.log(foundComment);
 		comment.comments.splice(foundComment, 1);
 		await comment.save();
 		res.status(200).send(comment.comments);

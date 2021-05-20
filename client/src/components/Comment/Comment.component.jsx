@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import * as S from './Comment.style';
-const Comment = ({ comment, userId, editComment }) => {
-	// console.log(comment);
-
+const Comment = ({ comment, userId, editComment, deleteComment }) => {
 	const [editable, setEditable] = useState(false);
 	const [content, setContent] = useState(comment.content);
 
@@ -11,23 +9,36 @@ const Comment = ({ comment, userId, editComment }) => {
 			return (
 				<div>
 					{!editable && (
-						<>
-							<button onClick={() => setEditable((prev) => !prev)}>Edit</button>
-							<button onClick={editComment}>Delete</button>
-						</>
+						<S.IconsContainer>
+							<S.EditIcon
+								className="far fa-edit"
+								onClick={() => setEditable((prev) => !prev)}></S.EditIcon>
+							<S.DeleteIcon
+								className="far fa-trash-alt"
+								onClick={handleDelete}></S.DeleteIcon>
+						</S.IconsContainer>
 					)}
 					{editable && (
-						<>
-							<button onClick={handleEdit}>Save</button>
+						<S.IconsContainer>
+							<S.SaveIcon
+								className="fas fa-check"
+								onClick={handleEdit}></S.SaveIcon>
+							<S.CancelIcon
+								className="fas fa-times"
+								onClick={() => setEditable((prev) => !prev)}></S.CancelIcon>
+							{/* <button onClick={handleEdit}>Save</button>
 							<button onClick={() => setEditable((prev) => !prev)}>
 								Cancel
-							</button>
-						</>
+							</button> */}
+						</S.IconsContainer>
 					)}
 				</div>
 			);
 		}
 		return null;
+	};
+	const handleDelete = async () => {
+		await deleteComment(comment._id);
 	};
 	const handleEdit = async () => {
 		await editComment(comment._id, content);
@@ -40,7 +51,7 @@ const Comment = ({ comment, userId, editComment }) => {
 				alt="avatar"
 				width="100"
 			/>
-			<div>
+			<S.CommentText>
 				<S.Meta>{comment.owner.name}</S.Meta>
 				{!editable && <p>{comment.content}</p>}
 				{editable && (
@@ -52,7 +63,7 @@ const Comment = ({ comment, userId, editComment }) => {
 						onChange={(e) => setContent(e.target.value)}></S.Commentbody>
 				)}
 				{controls()}
-			</div>
+			</S.CommentText>
 		</S.CommentWrapper>
 	);
 };

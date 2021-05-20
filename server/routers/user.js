@@ -8,7 +8,6 @@ const router = new express.Router();
 // -----------------Create user-----------------
 router.post('/api/users', async (req, res) => {
 	const user = new User(req.body);
-
 	try {
 		await user.save();
 		const token = await user.generateAuthToken();
