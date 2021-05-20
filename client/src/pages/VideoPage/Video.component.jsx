@@ -54,7 +54,6 @@ const Video = () => {
 
 	//---------------Get comment---------------
 	useEffect(() => {
-		// debugger;
 		const getComment = async () => {
 			try {
 				const token = localStorage.getItem('token');
@@ -184,9 +183,11 @@ const Video = () => {
 						</button>
 					</div>
 				))}
-				<S.NavLink to={`/Courses/Videos/AddVideo/${courseId}`}>
-					<h3>Add new videos</h3>
-				</S.NavLink>
+				{user && user.userRole === 'admin' && (
+					<S.NavLink to={`/Courses/Videos/AddVideo/${courseId}`}>
+						<h3>Add new videos</h3>
+					</S.NavLink>
+				)}
 			</S.VideosMenuContainer>
 
 			{/* --------Comments & About-------- */}

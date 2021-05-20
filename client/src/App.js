@@ -21,7 +21,11 @@ function App() {
 	const getUser = () => {
 		setIsLoggedIn(!isLoggedIn);
 	};
-
+	const renderAdmin = (data) => {
+		console.log(data);
+		setUserAdmin(data);
+		console.log(userAdmin);
+	};
 	useEffect(() => {
 		const fetchUser = async () => {
 			try {
@@ -29,37 +33,47 @@ function App() {
 				const { data } = await api.get('users/me', {
 					headers: { Authorization: token },
 				});
-				console.log(data);
 				setUser(data.name);
 				setUserAdmin(data);
+				console.log(userAdmin);
 				setIsLoggedIn(true);
 			} catch (e) {
 				console.log(e.message);
 			}
 		};
 		fetchUser();
-	}, []);
-	console.log(userAdmin);
+	}, [userAdmin && userAdmin.userRole === 'admin']);
+
 	return (
 		<div>
 			<AccountContext.Provider value={'coursesListId'}>
 				<Router>
-					<Navbar user={user} isLoggedIn={isLoggedIn} getUser={getUser} />
+					<Navbar
+						user={user}
+						isLoggedIn={isLoggedIn}
+						getUser={getUser}
+						userAdmin={userAdmin}
+						renderAdmin={renderAdmin}
+					/>
 					<Switch>
 						<Route
 							exact
 							path="/Signin"
-							component={() => <Signin getUser={getUser} />}
+							component={() => (
+								<Signin getUser={getUser} renderAdmin={renderAdmin} />
+							)}
 						/>
 						<Route exact path="/Profile" component={Profile} />
 						<Route exact path="/" component={Homepage} />
 						<Route exact path="/Signup" component={Signup} />
 						<Route exact path="/Courses" component={Courses} />
-						<Route
-							exact
-							path="/Courses/Videos/AddVideo/:courseId"
-							component={AddVideo}
-						/>
+						{userAdmin && userAdmin.userRole === 'admin' && (
+							<Route
+								exact
+								path="/Courses/Videos/AddVideo/:courseId"
+								component={AddVideo}
+							/>
+						)}
 						{userAdmin && userAdmin.userRole === 'admin' && (
 							<Route exact path="/Courses/AddCourse" component={AddCourse} />
 						)}

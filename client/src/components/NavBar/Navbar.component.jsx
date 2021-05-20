@@ -3,13 +3,14 @@ import api from '../../API/api';
 import logo from '../../img/logo.png';
 import * as S from './Navbar.style';
 
-const Navbar = ({ getUser, isLoggedIn, user }) => {
-	const [userAdmin, setUserAdmin] = useState(null);
+const Navbar = ({ getUser, isLoggedIn, user, userAdmin, renderAdmin }) => {
+	// const [navUserAdmin, setNavUserAdmin] = useState(userAdmin);
 	const logoutUser = () => {
 		localStorage.removeItem('token');
 		getUser();
 	};
-	console.log(userAdmin);
+	// console.log(userAdmin);
+	// renderAdmin();
 	// const displayNavbarItems = () => {
 	// 	if (isLoggedIn) {
 	// 		<>
@@ -32,7 +33,7 @@ const Navbar = ({ getUser, isLoggedIn, user }) => {
 				const { data } = await api.get('users/me', {
 					headers: { Authorization: token },
 				});
-				setUserAdmin(data);
+				renderAdmin(data);
 			} catch (e) {
 				console.log(e.message);
 			}
@@ -47,11 +48,6 @@ const Navbar = ({ getUser, isLoggedIn, user }) => {
 				</S.NavLinkLogo>
 			</div>
 
-			{/* {isLoggedIn && (
-				<S.li>
-					<span>Welcome {userName()}</span>
-				</S.li>
-			)} */}
 			<S.ul>
 				{isLoggedIn ? (
 					<>
@@ -63,7 +59,7 @@ const Navbar = ({ getUser, isLoggedIn, user }) => {
 								<h3>Profile</h3>
 							</S.NavLink>
 						</S.li>
-						{userAdmin.userRole === 'admin' && (
+						{userAdmin && userAdmin.userRole === 'admin' && (
 							<S.li>
 								<S.NavLink to="/Courses/AddCourse">
 									<h3>Add Course</h3>

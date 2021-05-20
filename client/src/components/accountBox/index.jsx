@@ -7,7 +7,7 @@ import { useHistory } from 'react-router-dom';
 import api from '../../API/api';
 import * as S from './index.style';
 
-export function AccountBox({ getUser }) {
+export function AccountBox({ getUser, renderAdmin }) {
 	const { location } = useHistory();
 	const history = useHistory();
 
@@ -51,12 +51,9 @@ export function AccountBox({ getUser }) {
 			setUserInfo([data]);
 			//set profile name on navbar and redirect to homepage
 
-			// const localData = JSON.parse(localStorage.getItem('localData'));
-			// localData.push({ token: data.token, user: data.user });
-			// localStorage.setItem('localData', JSON.stringify(localData));
-
 			localStorage.setItem('token', data.token);
 			getUser();
+			renderAdmin('1');
 			history.push('/');
 		} catch (e) {
 			console.dir(e);

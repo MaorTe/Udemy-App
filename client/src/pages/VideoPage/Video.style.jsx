@@ -23,14 +23,17 @@ export const UpperPageContainer = styled.div`
 	grid-template-rows: 5fr 1fr;
 	grid-column-gap: 2px;
 	grid-row-gap: 0px;
+	height: 92vh;
 `;
 export const LowerPageContainer = styled.div`
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
+	justify-content: flex-start;
+	margin-bottom: 237px;
 	align-items: center;
 	height: 100%;
 	border: 1px solid green;
+	overflow-y: auto;
 	grid-area: 2 / 2 / 3 / 3;
 `;
 export const CommentContainer = styled(VideoContainer)`

@@ -22,7 +22,7 @@ const CourseCard = ({
 	const { location } = useHistory();
 	const type = location.pathname.slice(1);
 	useEffect(() => {
-		console.log(isCourseExist);
+		// console.log(isCourseExist);
 	}, [isCourseExist]);
 
 	return (
