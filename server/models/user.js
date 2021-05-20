@@ -12,10 +12,6 @@ const userSchema = new mongoose.Schema({
 		enum: ['user', 'admin'],
 		default: 'user',
 	},
-	// admin: {
-	// 	type: Boolean,
-	// 	default: false,
-	// },
 	name: {
 		type: String,
 		required: true,

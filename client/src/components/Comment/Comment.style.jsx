@@ -5,7 +5,8 @@ export const CommentWrapper = styled.div`
 	display: flex;
 	justify-content: center;
 	align-items: center;
-
+	padding: 10px;
+	width: 100%;
 	img {
 		border-radius: 50%;
 		width: 50px;
@@ -47,6 +48,7 @@ export const Meta = styled.div`
 `;
 export const CommentText = styled.div`
 	flex-grow: 1;
+	width: 100%;
 `;
 
 export const Commentbody = styled.textarea`
