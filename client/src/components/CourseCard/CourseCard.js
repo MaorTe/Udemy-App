@@ -1,7 +1,6 @@
 import { Link, useHistory } from 'react-router-dom';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import AddOrRemoveBtn from '../AddOrRemoveBtn/AddOrRemoveBtn.component';
-import api from '../../API/api';
 import { useEffect, useState } from 'react';
 import * as S from './CourseCard.style';
 const CourseCard = ({
@@ -19,12 +18,10 @@ const CourseCard = ({
 			setIsCourseExist(!!isExist);
 		};
 		checkIfCourseExists();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [coursesListId]);
 	const { location } = useHistory();
 	const type = location.pathname.slice(1);
-	useEffect(() => {
-		// console.log(isCourseExist);
-	}, [isCourseExist]);
 
 	return (
 		<S.CardWrapper>

@@ -1,8 +1,7 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import api from '../../API/api';
-import ReactPlayer from 'react-player';
 import * as S from './AddCourse.style';
-import { useParams } from 'react-router';
 import { Marginer } from '../../components/marginer';
 
 const AddCourse = () => {

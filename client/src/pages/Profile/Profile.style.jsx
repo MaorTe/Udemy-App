@@ -1,15 +1,5 @@
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
 
-// export const BoxContainer = styled.div`
-// 	display: grid;
-// 	grid-template-columns: 2fr auto;
-// 	grid-template-rows: 2fr auto;
-// `;
-
-// *{
-//   font-family: 'Josefin Sans', sans-serif;
-// }
 export const PageContainer = styled.div`
 	/* background-color: #f3f3f3; */
 	/* transform: scale(1.5); */

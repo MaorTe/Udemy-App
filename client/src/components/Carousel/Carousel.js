@@ -1,7 +1,8 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import CourseCard from '../CourseCard/CourseCard';
 import api from '../../API/api';
 
@@ -20,12 +21,13 @@ const Carousel = ({ tag, onPictureClick, width }) => {
 			}
 		};
 		fetchCourses();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	useEffect(() => {
+		const token = localStorage.getItem('token');
 		const fetchUser = async () => {
 			try {
-				const token = localStorage.getItem('token');
 				const { data } = await api.get('/users/me', {
 					headers: { Authorization: token },
 				});
@@ -34,8 +36,11 @@ const Carousel = ({ tag, onPictureClick, width }) => {
 				console.log(e.message);
 			}
 		};
-		fetchUser();
+		if (token) {
+			fetchUser();
+		}
 	}, [coursesList.length > 0]);
+
 	const settings = {
 		dots: true,
 		infinite: false,
@@ -81,10 +86,6 @@ const Carousel = ({ tag, onPictureClick, width }) => {
 				{coursesList.map((course) => (
 					<CourseCard
 						key={course._id}
-						// id={courses._id}
-						// title={courses.courseName}
-						// poster={courses.courseImage}
-						// desc={courses.courseDescription}
 						tag={tag}
 						width={244}
 						height={140}

@@ -1,12 +1,13 @@
 const express = require('express');
 const auth = require('../middleware/auth');
+const adminAuth = require('../middleware/adminAuth');
 const Video = require('../models/video');
 const Course = require('../models/course');
 const Comment = require('../models/comment');
 const router = new express.Router();
 
 // ---------add video---------
-router.post('/api/video/addvideo', auth, async (req, res) => {
+router.post('/api/video/addvideo', auth, adminAuth, async (req, res) => {
 	//make new videos in video collection
 	const video = new Video({
 		...req.body,

@@ -1,9 +1,14 @@
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import {
+	BrowserRouter as Router,
+	Route,
+	Switch,
+	Redirect,
+} from 'react-router-dom';
 import Navbar from './components/NavBar/Navbar.component';
 import NotFound from './pages/NotFound/NotFound.component';
 import Signin from './pages/Signin.component';
 import Signup from './pages/Signup.component';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { AccountContext } from './components/accountBox/accountContext';
 import Homepage from './pages/Homepage/Homepage.component';
 import api from './API/api';
@@ -16,37 +21,53 @@ import AddCourse from './pages/AddCourse/AddCourse.component';
 function App() {
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
 	const [user, setUser] = useState(null);
-	const [userAdmin, setUserAdmin] = useState(null);
+	const [userAdmin, setUserAdmin] = useState(false);
+	const [token, setToken] = useState(null);
 
-	const getUser = () => {
-		setIsLoggedIn(!isLoggedIn);
-	};
-	const renderAdmin = (data) => {
-		console.log(data);
-		setUserAdmin(data);
-		console.log(userAdmin);
-	};
+	// const getUser = useCallback(
+	// 	(isLoggedIn) => {
+	// 		setIsLoggedIn(!isLoggedIn);
+	// 	},
+	// 	[setIsLoggedIn]
+	// );
+
 	useEffect(() => {
+		const token = localStorage.getItem('token');
 		const fetchUser = async () => {
 			try {
-				const token = localStorage.getItem('token');
 				const { data } = await api.get('users/me', {
 					headers: { Authorization: token },
 				});
-				setUser(data.name);
-				setUserAdmin(data);
-				console.log(userAdmin);
+				setUser(data);
 				setIsLoggedIn(true);
+				setUserAdmin(data.userRole === 'admin');
 			} catch (e) {
 				console.log(e.message);
 			}
 		};
-		fetchUser();
-	}, [userAdmin && userAdmin.userRole === 'admin']);
+		if (token) {
+			fetchUser();
+		}
+	}, []);
 
+	// useEffect(() => {
+	// 	user && user.userRole === 'admin' && setUserAdmin(!userAdmin);
+	// 	console.log(user);
+	// }, []);
+
+	const getUser = ({ isAuthenticated, user, isAdmin }) => {
+		setIsLoggedIn(!isLoggedIn);
+		setUserAdmin(isAdmin);
+	};
+
+	const renderAdmin = () => {
+		// user && user.userRole === 'admin' && setUserAdmin(!userAdmin);
+		// setUserAdmin(!userAdmin);
+		// console.log('inside render func is ', userAdmin);
+	};
 	return (
 		<div>
-			<AccountContext.Provider value={'coursesListId'}>
+			<AccountContext.Provider value={renderAdmin}>
 				<Router>
 					<Navbar
 						user={user}
@@ -67,21 +88,24 @@ function App() {
 						<Route exact path="/" component={Homepage} />
 						<Route exact path="/Signup" component={Signup} />
 						<Route exact path="/Courses" component={Courses} />
-						{userAdmin && userAdmin.userRole === 'admin' && (
-							<Route
-								exact
-								path="/Courses/Videos/AddVideo/:courseId"
-								component={AddVideo}
-							/>
-						)}
-						{userAdmin && userAdmin.userRole === 'admin' && (
-							<Route exact path="/Courses/AddCourse" component={AddCourse} />
-						)}
 						<Route
 							exact
 							path="/Courses/:courseName/Videos/:courseId"
 							component={Video}
 						/>
+						{userAdmin ? (
+							<>
+								<Route
+									exact
+									path="/Courses/Videos/AddVideo/:courseId"
+									component={AddVideo}
+								/>
+								<Route exact path="/Courses/AddCourse" component={AddCourse} />
+							</>
+						) : (
+							<Redirect to="/" />
+						)}
+
 						{/*<Route
 						exact
 						path="/SearchResults/:type/q=:query"

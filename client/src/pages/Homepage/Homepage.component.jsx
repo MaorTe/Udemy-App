@@ -1,9 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import Carousel from '../../components/Carousel/Carousel';
 
 const Homepage = () => {
-	const [token] = useState(localStorage.getItem('localData'));
-
 	const [width, setWidth] = React.useState(window.innerWidth);
 	const updateWidth = () => setWidth(window.innerWidth);
 	useEffect(() => {

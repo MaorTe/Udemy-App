@@ -1,14 +1,26 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import api from '../../API/api';
 import ReactPlayer from 'react-player';
-import CommentBox from '../../components/CommentSection/CommentBox.component';
 import * as S from './Video.style';
 import { useLocation, useParams } from 'react-router';
 import Comment from '../../components/Comment/Comment.component';
 
+const getComments = async (videoId) => {
+	try {
+		const token = localStorage.getItem('token');
+		const { data } = await api.get(`comments/${videoId}`, {
+			headers: { Authorization: token },
+		});
+		return data;
+	} catch (e) {
+		console.log(e.message);
+	}
+};
+
 const Video = () => {
 	const { courseDesc } = useLocation().state;
-	const { courseName, courseId } = useParams();
+	const { courseId } = useParams();
 
 	const [user, setUser] = useState('');
 	const [showVideo, setShowVideo] = useState('');
@@ -17,6 +29,7 @@ const Video = () => {
 	const [comments, setComments] = useState([]);
 	const [state, setState] = useState('');
 	// const [commentId, setCommentId] = useState(null);
+
 	//fetch user to check for token
 	useEffect(() => {
 		const fetchUser = async () => {
@@ -54,22 +67,13 @@ const Video = () => {
 
 	//---------------Get comment---------------
 	useEffect(() => {
-		const getComment = async () => {
-			try {
-				const token = localStorage.getItem('token');
-				const { data } = await api.get(`comments/${videoId}`, {
-					headers: { Authorization: token },
-				});
-
-				setComments(data);
-				console.log(comments);
-				//get the correct comment and set to state
-				// setCommentId(comments[0]._id);
-			} catch (e) {
-				console.log(e.message);
-			}
+		const fetchComments = async () => {
+			const data = await getComments(videoId);
+			setComments(data);
 		};
-		videoId && getComment();
+		if (videoId) {
+			fetchComments();
+		}
 	}, [videoId]);
 
 	//---------------Add new comment---------------
@@ -83,7 +87,23 @@ const Video = () => {
 					headers: { Authorization: token },
 				}
 			);
-			setComments((prevComments) => [...prevComments, data]);
+			// const commentsTemp = data.map((c) => ({
+			// 	...c,
+			// 	owner: c.owner?._id
+			// 		? c.owner
+			// 		: {
+			// 				_id: c.owner,
+			// 				name: '',
+			// 		  },
+			// }));
+			// // owner: {
+			// 	_id: req.user._id,
+			// 	name:
+			// }
+
+			// console.log(data.owner._id);
+			// setComments((prevComments) => [...prevComments, data]);
+			setComments(data);
 		} catch (e) {
 			console.log(e.message);
 		}
@@ -100,12 +120,14 @@ const Video = () => {
 					headers: { Authorization: token },
 				}
 			);
-			setComments((prev) => {
-				const data = [...prev];
-				const foundComment = data.find((item) => item._id === commentId);
-				foundComment.content = content;
-				return data;
-			});
+
+			setComments(data);
+			// setComments((prev) => {
+			// 	const data = [...prev];
+			// 	const foundComment = data.find((item) => item._id === commentId);
+			// 	foundComment.content = content;
+			// 	return data;
+			// });
 		} catch (e) {
 			console.log(e.message);
 		}
@@ -118,11 +140,13 @@ const Video = () => {
 			const { data } = await api.delete(`comments/${videoId}/${commentId}`, {
 				headers: { Authorization: token },
 			});
+
 			await setComments(data);
 		} catch (e) {
 			console.log(e.message);
 		}
 	};
+
 	const showNewVideo = (video) => {
 		setVideoId(video._id);
 		setShowVideo(video.videoLink);
@@ -130,7 +154,6 @@ const Video = () => {
 
 	return (
 		<S.UpperPageContainer>
-			{/* // <div> */}
 			{/* --------Video Player & Video links-------- */}
 			<S.CommentContainer>
 				<S.Commentbody
@@ -143,20 +166,21 @@ const Video = () => {
 				<S.PostCommentBtn onClick={addNewComment}>
 					Post Comment
 				</S.PostCommentBtn>
-				{comments.map((comment) => (
-					<Comment
-						comment={comment}
-						userId={user._id}
-						editComment={editComment}
-						deleteComment={deleteComment}
-					/>
-				))}
+				<S.CommentsWrapper>
+					{comments.map((comment) => (
+						<Comment
+							key={comment._id}
+							comment={comment}
+							userId={user._id}
+							editComment={editComment}
+							deleteComment={deleteComment}
+						/>
+					))}
+				</S.CommentsWrapper>
 			</S.CommentContainer>
 			<S.VideoPageContainer>
 				{user ? (
-					// <S.PlayerWrapper>
 					<ReactPlayer
-						// fluid={true}
 						width={'100%'}
 						height={'60vh'}
 						url={
@@ -166,7 +190,6 @@ const Video = () => {
 						playing={false}
 						controls={true}></ReactPlayer>
 				) : (
-					// </S.PlayerWrapper>
 					'Please Login'
 				)}
 			</S.VideoPageContainer>
@@ -192,7 +215,6 @@ const Video = () => {
 				{courseDesc}
 			</S.LowerPageContainer>
 		</S.UpperPageContainer>
-		// </div>
 	);
 };
 export default Video;

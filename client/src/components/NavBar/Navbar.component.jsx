@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect } from 'react';
 import api from '../../API/api';
 import logo from '../../img/logo.png';
 import * as S from './Navbar.style';
@@ -7,9 +8,15 @@ const Navbar = ({ getUser, isLoggedIn, user, userAdmin, renderAdmin }) => {
 	// const [navUserAdmin, setNavUserAdmin] = useState(userAdmin);
 	const logoutUser = () => {
 		localStorage.removeItem('token');
-		getUser();
+		// getUser({ isAuthenticated, user, isAdmin });
+		getUser({
+			isAuthenticated: false,
+			user: null,
+			isAdmin: false,
+		});
 	};
-	// console.log(userAdmin);
+	// console.log('inside nav', userAdmin);
+	// console.log(renderAdmin('2'));
 	// renderAdmin();
 	// const displayNavbarItems = () => {
 	// 	if (isLoggedIn) {
@@ -26,20 +33,10 @@ const Navbar = ({ getUser, isLoggedIn, user, userAdmin, renderAdmin }) => {
 	// 	}
 	// };
 
-	useEffect(() => {
-		const fetchUser = async () => {
-			try {
-				const token = localStorage.getItem('token');
-				const { data } = await api.get('users/me', {
-					headers: { Authorization: token },
-				});
-				renderAdmin(data);
-			} catch (e) {
-				console.log(e.message);
-			}
-		};
-		fetchUser();
-	}, []);
+	// useEffect(() => {
+	// 	user && user.userRole === 'admin' && renderAdmin();
+	// 	console.log('inside navbar after render useradmin is', userAdmin);
+	// }, [user]);
 	return (
 		<S.NavbarContainer>
 			<div>
@@ -52,14 +49,14 @@ const Navbar = ({ getUser, isLoggedIn, user, userAdmin, renderAdmin }) => {
 				{isLoggedIn ? (
 					<>
 						<S.li>
-							<span>Welcome {user}</span>
+							<span>Welcome {user && user.name}</span>
 						</S.li>
 						<S.li>
 							<S.NavLink to="/Profile">
 								<h3>Profile</h3>
 							</S.NavLink>
 						</S.li>
-						{userAdmin && userAdmin.userRole === 'admin' && (
+						{userAdmin && (
 							<S.li>
 								<S.NavLink to="/Courses/AddCourse">
 									<h3>Add Course</h3>

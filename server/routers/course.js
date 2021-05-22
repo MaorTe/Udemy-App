@@ -1,9 +1,10 @@
 const express = require('express');
 const Course = require('../models/course');
 const auth = require('../middleware/auth');
+const adminAuth = require('../middleware/adminAuth');
 const router = new express.Router();
 
-router.post('/api/courses/addcourse', auth, async (req, res) => {
+router.post('/api/courses/addcourse', auth, adminAuth, async (req, res) => {
 	// const course = new Course(req.body);
 	const course = new Course({
 		...req.body,

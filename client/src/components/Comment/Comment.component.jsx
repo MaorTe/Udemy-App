@@ -1,6 +1,11 @@
 import React, { useState } from 'react';
 import * as S from './Comment.style';
+
+const truncate = (input, num) =>
+	input.length > num ? `${input.substring(0, num)}...` : input;
+
 const Comment = ({ comment, userId, editComment, deleteComment }) => {
+	console.log(comment);
 	const [editable, setEditable] = useState(false);
 	const [content, setContent] = useState(comment.content);
 
@@ -46,16 +51,16 @@ const Comment = ({ comment, userId, editComment, deleteComment }) => {
 	return (
 		<S.CommentWrapper>
 			<img
-				src={
-					`/users/${comment.owner._id}/avatar?v=${Date.now()}` ||
-					`https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png`
-				}
+				// src={`/users/${comment.owner._id}/avatar?v=${Date.now()}`}
+				src={`/users/${comment.owner._id}/avatar?v=${Date.now()}`}
 				alt="avatar"
 				width="100"
 			/>
 			<S.CommentText>
 				<S.Meta>{comment.owner.name}</S.Meta>
-				{!editable && <p>{comment.content}</p>}
+				{!editable && (
+					<p title={comment.content}>{truncate(comment.content, 120)}</p>
+				)}
 				{editable && (
 					<S.Commentbody
 						cols="30"

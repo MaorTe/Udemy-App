@@ -149,3 +149,11 @@ export const VideoTitle = styled.h5`
 export const BookMarkBtn = styled.button`
 	color: blue;
 `;
+
+export const CommentsWrapper = styled.div`
+	overflow-y: auto;
+	height: 100%;
+	max-height: 900px;
+	max-width: 100%;
+	width: 300px;
+`;

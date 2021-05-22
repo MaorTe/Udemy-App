@@ -29,7 +29,6 @@ router.post('/api/users/login', async (req, res) => {
 		//generateAuthToken exist only on the instances
 		const token = await user.generateAuthToken();
 		//when we send an obj, behind the scenes it stringify toJSON
-		console.log(token);
 		res.send({ user, token });
 	} catch (e) {
 		res.status(400).send();
@@ -177,7 +176,6 @@ router.post(
 	upload.single('avatar'),
 	async (req, res) => {
 		try {
-			console.log('reached avatar');
 			const buffer = await sharp(req.file.buffer)
 				.resize({ width: 250, height: 250 })
 				.png()

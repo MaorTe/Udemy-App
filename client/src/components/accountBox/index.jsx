@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
 // import { useParams } from 'react-router-dom';
 import { LoginForm } from './loginForm';
@@ -13,14 +15,9 @@ export function AccountBox({ getUser, renderAdmin }) {
 
 	//animation
 	const [isExpanded, setExpanded] = useState(false);
-
-	// const params = useParams();
 	useEffect(() => {
 		const type = location.pathname.slice(1);
-		// const Checktype = async () => {
 		setActive(type);
-		// };
-		// Checktype();
 	}, []);
 	// create new user
 	const [userData, setUserData] = useState([]);
@@ -38,7 +35,7 @@ export function AccountBox({ getUser, renderAdmin }) {
 		try {
 			const { data } = await api.post('users', userInfo);
 			setUserData([data]);
-			//redirect to homepage
+			//redirect to Signin
 			history.push('/Signin');
 		} catch (e) {
 			console.dir(e);
@@ -50,10 +47,12 @@ export function AccountBox({ getUser, renderAdmin }) {
 			const { data } = await api.post('users/login', loginInfo);
 			setUserInfo([data]);
 			//set profile name on navbar and redirect to homepage
-
 			localStorage.setItem('token', data.token);
-			getUser();
-			renderAdmin('1');
+			getUser({
+				isAuthenticated: true,
+				user: data.user,
+				isAdmin: data.user.userRole === 'admin',
+			});
 			history.push('/');
 		} catch (e) {
 			console.dir(e);

@@ -1,8 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router';
+import React from 'react';
 import api from '../../API/api';
 import * as S from './AddOrRemoveBtn.style';
-import { SaveBtn } from '../../pages/Profile/Profile.style.jsx';
 const AddOrRemoveBtn = ({ id, isCourseExist, setIsCourseExist, type }) => {
 	// const [isCourseInFavorites, setIsCourseInFavorites] = useState(isCourseExist);
 
@@ -19,7 +17,7 @@ const AddOrRemoveBtn = ({ id, isCourseExist, setIsCourseExist, type }) => {
 	const addCourse = async () => {
 		try {
 			const token = localStorage.getItem('token');
-			const data = await api.post(
+			await api.post(
 				'/users/addcourse',
 				{ id },
 				{
@@ -34,7 +32,7 @@ const AddOrRemoveBtn = ({ id, isCourseExist, setIsCourseExist, type }) => {
 	const removeCourse = async () => {
 		try {
 			const token = localStorage.getItem('token');
-			const data = await api.patch(
+			await api.patch(
 				'/users/deletecourse',
 				{ id },
 				{

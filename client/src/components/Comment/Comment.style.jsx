@@ -1,10 +1,9 @@
-import React from 'react';
 import styled from 'styled-components';
 
 export const CommentWrapper = styled.div`
 	display: flex;
 	justify-content: center;
-	align-items: center;
+	align-items: flex-start;
 	padding: 10px;
 	width: 100%;
 	img {
@@ -49,6 +48,10 @@ export const Meta = styled.div`
 export const CommentText = styled.div`
 	flex-grow: 1;
 	width: 100%;
+	max-width: 300px;
+	p {
+		word-break: break-all;
+	}
 `;
 
 export const Commentbody = styled.textarea`
