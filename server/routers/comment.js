@@ -92,6 +92,7 @@ router.delete('/api/comments/:videoId/:commentId', auth, async (req, res) => {
 		);
 		comment.comments.splice(foundComment, 1);
 		await comment.save();
+
 		const commentToSend = await Comment.findOne({
 			videoId: req.params.videoId,
 		}).populate({ path: 'comments.owner', select: 'name' });

@@ -55,6 +55,7 @@ const Video = () => {
 					headers: { Authorization: token },
 				});
 				setVideosList(data);
+				console.log(data);
 				setVideoId(data[0]._id);
 				console.log(videosList);
 				console.log(videoId);
@@ -87,21 +88,7 @@ const Video = () => {
 					headers: { Authorization: token },
 				}
 			);
-			// const commentsTemp = data.map((c) => ({
-			// 	...c,
-			// 	owner: c.owner?._id
-			// 		? c.owner
-			// 		: {
-			// 				_id: c.owner,
-			// 				name: '',
-			// 		  },
-			// }));
-			// // owner: {
-			// 	_id: req.user._id,
-			// 	name:
-			// }
 
-			// console.log(data.owner._id);
 			// setComments((prevComments) => [...prevComments, data]);
 			setComments(data);
 		} catch (e) {
@@ -120,8 +107,7 @@ const Video = () => {
 					headers: { Authorization: token },
 				}
 			);
-
-			setComments(data);
+			setComments([data]);
 			// setComments((prev) => {
 			// 	const data = [...prev];
 			// 	const foundComment = data.find((item) => item._id === commentId);

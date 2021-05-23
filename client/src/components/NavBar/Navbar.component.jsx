@@ -8,7 +8,6 @@ const Navbar = ({ getUser, isLoggedIn, user, userAdmin, renderAdmin }) => {
 	// const [navUserAdmin, setNavUserAdmin] = useState(userAdmin);
 	const logoutUser = () => {
 		localStorage.removeItem('token');
-		// getUser({ isAuthenticated, user, isAdmin });
 		getUser({
 			isAuthenticated: false,
 			user: null,

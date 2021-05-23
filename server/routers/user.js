@@ -61,8 +61,7 @@ router.post('/api/users/logoutAll', auth, async (req, res) => {
 	}
 });
 
-// -----------------Add course from favorite courses-----------------
-//adminAuth
+// -----------------Add course to favorite courses-----------------
 router.post('/api/users/addcourse', auth, async (req, res) => {
 	try {
 		const newCourse = { courseId: req.body.id };

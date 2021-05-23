@@ -126,7 +126,7 @@ userSchema.pre('save', async function (next) {
 	const user = this;
 
 	//certain mongoose queries bypass advanced features like middleware
-	//so if we want to use them consistently we need to restructure (lets go to user.js (patch))
+	//so if we want to use them consistently we need to restructure
 	if (user.isModified('password')) {
 		user.password = await bcrypt.hash(user.password, 8);
 	}

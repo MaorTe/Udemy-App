@@ -5,7 +5,6 @@ const truncate = (input, num) =>
 	input.length > num ? `${input.substring(0, num)}...` : input;
 
 const Comment = ({ comment, userId, editComment, deleteComment }) => {
-	console.log(comment);
 	const [editable, setEditable] = useState(false);
 	const [content, setContent] = useState(comment.content);
 
