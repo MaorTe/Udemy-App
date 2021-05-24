@@ -40,8 +40,8 @@ code {
 .slick-dots li.slick-active button:before {
 	color: #fff !important;
 }
-.homepage .slick-list {
-	padding: 1.5rem 0 0.5rem 0;
+.slick-list {
+	padding: 1.5rem 0 0.5rem 4rem !important;
 }
 .homepage .slick-dots {
 	/* margin-bottom: 25px; */
@@ -79,3 +79,6 @@ code {
 .font-small {
 	text-align: center;
 }
+/* .slick-list {
+	padding-left: 43px;
+} */

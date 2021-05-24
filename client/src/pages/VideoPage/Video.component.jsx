@@ -107,7 +107,7 @@ const Video = () => {
 					headers: { Authorization: token },
 				}
 			);
-			setComments([data]);
+			setComments(data);
 			// setComments((prev) => {
 			// 	const data = [...prev];
 			// 	const foundComment = data.find((item) => item._id === commentId);
@@ -142,16 +142,6 @@ const Video = () => {
 		<S.UpperPageContainer>
 			{/* --------Video Player & Video links-------- */}
 			<S.CommentContainer>
-				<S.Commentbody
-					cols="30"
-					rows="2"
-					draggable="false"
-					onChange={(e) => setState(e.target.value)}
-					placeholder="Add new comment"
-				/>
-				<S.PostCommentBtn onClick={addNewComment}>
-					Post Comment
-				</S.PostCommentBtn>
 				<S.CommentsWrapper>
 					{comments.map((comment) => (
 						<Comment
@@ -163,6 +153,16 @@ const Video = () => {
 						/>
 					))}
 				</S.CommentsWrapper>
+				<S.Commentbody
+					cols="30"
+					rows="2"
+					draggable="false"
+					onChange={(e) => setState(e.target.value)}
+					placeholder="Add new comment"
+				/>
+				<S.PostCommentBtn onClick={addNewComment}>
+					Post Comment
+				</S.PostCommentBtn>
 			</S.CommentContainer>
 			<S.VideoPageContainer>
 				{user ? (

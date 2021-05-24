@@ -85,6 +85,12 @@ export const VideosMenuContainer = styled.div`
 	border-bottom: 2px solid #555;
 	/* height: ${(props) => props.containerHeight && props.containerHeight}; */
 	overflow-y: ${(props) => props.containerHeight && 'auto'};
+
+	background: rgb(240, 240, 240);
+	border-radius: 10px;
+	/* padding: 20px 0px; */
+	/* line-height: 2.7rem; */
+	transition: all 0.3s ease 0s;
 `;
 
 export const Commentbody = styled.textarea`

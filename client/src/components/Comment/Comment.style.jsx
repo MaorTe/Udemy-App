@@ -21,25 +21,24 @@ export const IconsContainer = styled.div`
 	justify-content: flex-end;
 	align-items: center;
 `;
-export const DeleteIcon = styled.i`
-	font-size: 18px;
-	color: red;
-	margin: 5px;
-`;
+
 export const EditIcon = styled.i`
 	font-size: 18px;
 	color: blue;
 	margin: 5px;
+	&:hover {
+		transition: all 0.5s;
+		transform: scale(1.4);
+	}
 `;
-export const SaveIcon = styled.i`
-	font-size: 20px;
-	color: green;
-	margin: 5px;
-`;
-export const CancelIcon = styled.i`
-	font-size: 20px;
+export const DeleteIcon = styled(EditIcon)`
 	color: red;
-	margin: 5px;
+`;
+export const SaveIcon = styled(EditIcon)`
+	color: green;
+`;
+export const CancelIcon = styled(EditIcon)`
+	color: red;
 `;
 
 export const Meta = styled.div`

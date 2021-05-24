@@ -25,9 +25,9 @@ const CourseCard = ({
 
 	return (
 		course && (
-			<S.CardWrapper>
+			<>
 				{((type === 'Courses' && !isCourseExist) || type === '') && (
-					<div>
+					<S.CardWrapper>
 						<Link
 							to={{
 								pathname: `/Courses/${course.courseName}/Videos/${course._id}`,
@@ -44,16 +44,16 @@ const CourseCard = ({
 							/>
 						</Link>
 						<S.CourseTitle>{course.courseName}</S.CourseTitle>
-						{/* <div className="font-small">{course.courseDescription}</div> */}
+						{/* <div>{course.courseDescription}</div> */}
 						<AddOrRemoveBtn
 							id={course._id}
 							isCourseExist={isCourseExist}
 							setIsCourseExist={setIsCourseExist}
 							type={type}
 						/>
-					</div>
+					</S.CardWrapper>
 				)}
-			</S.CardWrapper>
+			</>
 		)
 	);
 };

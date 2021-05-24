@@ -22,7 +22,6 @@ const Courses = () => {
 		fetchCourses();
 	}, []);
 
-	console.log('in courses.js is' + coursesList);
 	return (
 		<S.GridContainer>
 			{coursesList.length ? (

@@ -94,14 +94,14 @@ function App() {
 							component={Video}
 						/>
 						{userAdmin ? (
-							<>
+							<Switch>
 								<Route
 									exact
 									path="/Courses/Videos/AddVideo/:courseId"
 									component={AddVideo}
 								/>
 								<Route exact path="/Courses/AddCourse" component={AddCourse} />
-							</>
+							</Switch>
 						) : (
 							<Redirect to="/" />
 						)}
