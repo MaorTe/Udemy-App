@@ -11,9 +11,8 @@ import { Marginer } from '../marginer';
 import { AccountContext } from './accountContext';
 
 export function LoginForm(props) {
-	const { switchToSignin, loginUser, loginInfo, setLoginInfo } = useContext(
-		AccountContext
-	);
+	const { switchToSignin, loginUser, loginInfo, setLoginInfo } =
+		useContext(AccountContext);
 	const changeHandler = (e) =>
 		setLoginInfo({ ...loginInfo, [e.target.name]: e.target.value });
 

@@ -46,7 +46,7 @@ const Carousel = ({ tag, onPictureClick, width }) => {
 		infinite: false,
 		speed: 500,
 		slidesToShow:
-			(width >= 1300 && 4) ||
+			(width >= 1300 && 5) ||
 			(width >= 1000 && width < 1300 && 3) ||
 			(width < 1000 && 2),
 		slidesToScroll: 3,

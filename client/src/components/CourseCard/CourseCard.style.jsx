@@ -23,19 +23,21 @@ export const CourseTitle = styled.div`
 	/* font-size: 18px; */
 	line-height: 1.5;
 	padding: 5px 29px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 `;
 
 export const CardWrapper = styled.div`
 	margin-left: 10px;
 	width: 300px;
-	background: #f0f0f0;
+	/* background: #f0f0f0; */
 	border-radius: 10px;
 	padding: 20px 0px;
 	line-height: 2.7rem;
 	transition: all 0.3s;
-	&:hover {
-		box-shadow: 0px 0px 8px 0px #333;
-	}
+	/* &:hover {
+	} */
 	img {
 		border-radius: 5px;
 	}

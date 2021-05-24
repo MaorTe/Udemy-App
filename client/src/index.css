@@ -21,6 +21,7 @@ body {
 		'Helvetica Neue', sans-serif;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
+	background: #f7f7f7;
 }
 
 code {
@@ -42,10 +43,12 @@ code {
 }
 .slick-list {
 	padding: 1.5rem 0 0.5rem 4rem !important;
+	background: #f0f0f0;
+	box-shadow: 0px 0px 8px 0px #333;
 }
-.homepage .slick-dots {
-	/* margin-bottom: 25px; */
-}
+/* .slick-dots {
+	
+} */
 .slick-slide img {
 	margin: 0 auto;
 }
@@ -79,6 +82,26 @@ code {
 .font-small {
 	text-align: center;
 }
-/* .slick-list {
-	padding-left: 43px;
-} */
+
+/* Let's get this party started */
+::-webkit-scrollbar {
+	width: 12px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+	-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+	background: rgba(212, 224, 236, 0.8);
+	-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+}
+::-webkit-scrollbar-thumb:window-inactive {
+	background: rgba(174, 194, 204, 0.4);
+}

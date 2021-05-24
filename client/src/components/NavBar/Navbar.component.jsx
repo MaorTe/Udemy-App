@@ -4,8 +4,7 @@ import api from '../../API/api';
 import logo from '../../img/logo.png';
 import * as S from './Navbar.style';
 
-const Navbar = ({ getUser, isLoggedIn, user, userAdmin, renderAdmin }) => {
-	// const [navUserAdmin, setNavUserAdmin] = useState(userAdmin);
+const Navbar = ({ getUser, isLoggedIn, user, userAdmin }) => {
 	const logoutUser = () => {
 		localStorage.removeItem('token');
 		getUser({
@@ -14,28 +13,7 @@ const Navbar = ({ getUser, isLoggedIn, user, userAdmin, renderAdmin }) => {
 			isAdmin: false,
 		});
 	};
-	// console.log('inside nav', userAdmin);
-	// console.log(renderAdmin('2'));
-	// renderAdmin();
-	// const displayNavbarItems = () => {
-	// 	if (isLoggedIn) {
-	// 		<>
-	// 			<li></li>
-	// 			<li></li>
-	// 			<li></li>
-	// 		</>;
-	// 	} else {
-	// 		<>
-	// 			<li></li>
-	// 			<li></li>
-	// 		</>;
-	// 	}
-	// };
 
-	// useEffect(() => {
-	// 	user && user.userRole === 'admin' && renderAdmin();
-	// 	console.log('inside navbar after render useradmin is', userAdmin);
-	// }, [user]);
 	return (
 		<S.NavbarContainer>
 			<div>

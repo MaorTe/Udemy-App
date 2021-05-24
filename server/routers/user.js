@@ -95,7 +95,7 @@ router.patch('/api/users/deletecourse', auth, async (req, res) => {
 // -----------------User favorite courses-----------------
 router.get('/api/users/mycourses', auth, async (req, res) => {
 	try {
-		await req.user
+		const cl = await req.user
 			.populate({
 				path: 'courses.courseId',
 			})
@@ -179,6 +179,7 @@ router.post(
 				.resize({ width: 250, height: 250 })
 				.png()
 				.toBuffer();
+			console.log(req.file);
 			// req.user.avatar = req.file.buffer;
 			req.user.avatar = buffer;
 			await req.user.save();

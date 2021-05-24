@@ -1,7 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
-// import { useParams } from 'react-router-dom';
 import { LoginForm } from './loginForm';
 import { AccountContext } from './accountContext';
 import { SignupForm } from './signupForm';
@@ -9,7 +8,7 @@ import { useHistory } from 'react-router-dom';
 import api from '../../API/api';
 import * as S from './index.style';
 
-export function AccountBox({ getUser, renderAdmin }) {
+export function AccountBox({ getUser }) {
 	const { location } = useHistory();
 	const history = useHistory();
 
@@ -19,6 +18,7 @@ export function AccountBox({ getUser, renderAdmin }) {
 		const type = location.pathname.slice(1);
 		setActive(type);
 	}, []);
+
 	// create new user
 	const [userData, setUserData] = useState([]);
 	const [userInfo, setUserInfo] = useState({
@@ -82,34 +82,9 @@ export function AccountBox({ getUser, renderAdmin }) {
 	const switchToSignin = () => {
 		const type = location.pathname.slice(1);
 		setPreActive(type);
-		// playExpandingAnimation();
-		// setTimeout(() => {
-		// 	setActive(type);
-		// }, 4000);
-		// setTimeout(() => {
-		// 	// replace(`/Signin`);
-		// 	setActive(type);
-		// }, 400);
 	};
-	// const renderForm = async () => {
-	// 	return setTimeout(() => {
-	// 		return (
-	// 			<InnerContainer>
-	// 				{active === 'Signin' ? (
-	// 					<LoginForm />
-	// 				) : active === 'Signup' ? (
-	// 					<SignupForm />
-	// 				) : (
-	// 					''
-	// 				)}
-	// 				{/* {active === 'Signin' && <LoginForm />}
-	// 				{active === 'Signup' && <SignupForm />} */}
-	// 			</InnerContainer>
-	// 		);
-	// 	}, 1000);
-	// };
+
 	const contextValue = {
-		// switchToSignup,
 		switchToSignin,
 		//passing new user
 		createUser,

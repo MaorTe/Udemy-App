@@ -137,7 +137,6 @@ const Video = () => {
 		setVideoId(video._id);
 		setShowVideo(video.videoLink);
 	};
-
 	return (
 		<S.UpperPageContainer>
 			{/* --------Video Player & Video links-------- */}
