@@ -29,6 +29,7 @@ export const EditIcon = styled.i`
 	&:hover {
 		transition: all 0.5s;
 		transform: scale(1.4);
+		cursor: pointer;
 	}
 `;
 export const DeleteIcon = styled(EditIcon)`
