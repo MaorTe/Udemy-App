@@ -64,12 +64,12 @@ code {
 	left: -10px !important;
 	z-index: 1;
 } */
-.homepage .slick-prev {
+.slick-prev {
 	left: 1% !important;
 	z-index: 1;
 	/* background: #000; */
 }
-.homepage .slick-next {
+.slick-next {
 	right: 1% !important;
 	z-index: 1;
 	color: #000;
