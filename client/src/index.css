@@ -1,6 +1,7 @@
 /* My CSS */
 /* -------------Init------------- */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap'); */
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
 
 html,
 body {
@@ -12,11 +13,11 @@ body {
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
-	font-family: Poppins, sans-serif;
+	/* font-family: Poppins, sans-serif; */
 }
 body {
 	margin: 0;
-	font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+	font-family: 'Lato', 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI',
 		'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
 		'Helvetica Neue', sans-serif;
 	-webkit-font-smoothing: antialiased;
@@ -39,16 +40,16 @@ code {
 	color: gray !important;
 }
 .slick-dots li.slick-active button:before {
-	color: #fff !important;
+	color: #29303b !important;
 }
 .slick-list {
 	padding: 1.5rem 0 0.5rem 4rem !important;
 	background: #f0f0f0;
-	box-shadow: 0px 0px 8px 0px #333;
+	box-shadow: 0px 0px 8px 0px #33333330;
 }
-/* .slick-dots {
-	
-} */
+.slick-dots {
+	bottom: 0px;
+}
 .slick-slide img {
 	margin: 0 auto;
 }

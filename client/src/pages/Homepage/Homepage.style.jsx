@@ -31,8 +31,9 @@ export const HeroContentBottom = styled.div`
 	}
 `;
 export const WaveImg = styled.img`
-	transform: rotate(180deg) scaleX(-1);
+	transform: rotate(180deg) scaleX(-1) translateY(1px);
 	width: 100%;
+
 	/* background: #29303b; */
 `;
 /* text animation */
@@ -47,6 +48,15 @@ const fadeInLeft = keyframes`
 	}
 	`;
 
+export const Homepage = styled.div`
+	color: #2e3440;
+	h2 {
+		margin-bottom: 15px;
+		margin-left: 15px;
+		font-weight: 500;
+		font-size: 26px;
+	}
+`;
 export const HeroContentTop = styled.div`
 	animation: ${fadeInLeft} 2s linear;
 	color: #e6e6e6;

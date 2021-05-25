@@ -55,4 +55,9 @@ export const CommentText = styled.div`
 
 export const Commentbody = styled.textarea`
 	resize: none;
+	width: 100%;
+	padding: 3px 7px;
+	border-radius: 9px;
+	border: 1px solid lightgray;
+	outline: none;
 `;

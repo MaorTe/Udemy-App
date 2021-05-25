@@ -16,6 +16,7 @@ const Navbar = ({ getUser, isLoggedIn, user, userAdmin }) => {
 
 	return (
 		<S.NavbarContainer>
+			{/* <span>Welcome {user && user.name}!</span> */}
 			<div>
 				<S.NavLinkLogo to="/">
 					<img src={logo} alt="Home" width="115" />
@@ -25,37 +26,27 @@ const Navbar = ({ getUser, isLoggedIn, user, userAdmin }) => {
 			<S.ul>
 				{isLoggedIn ? (
 					<>
+						<S.li>{/* <span>Welcome {user && user.name}!</span> */}</S.li>
 						<S.li>
-							<span>Welcome {user && user.name}</span>
-						</S.li>
-						<S.li>
-							<S.NavLink to="/Profile">
-								<h3>Profile</h3>
-							</S.NavLink>
+							<S.NavLink to="/Profile">Profile</S.NavLink>
 						</S.li>
 						{userAdmin && (
 							<S.li>
-								<S.NavLink to="/Courses/AddCourse">
-									<h3>Add Course</h3>
-								</S.NavLink>
+								<S.NavLink to="/Courses/AddCourse">Add Course</S.NavLink>
 							</S.li>
 						)}
 						<S.li>
-							<S.NavLink to="/Courses">
-								<h3> My Courses</h3>
-							</S.NavLink>
+							<S.NavLink to="/Courses">My Courses</S.NavLink>
 						</S.li>
 						<S.li>
 							<S.NavLink to="/" onClick={() => logoutUser()}>
-								<h3>Logout</h3>
+								Logout
 							</S.NavLink>
 						</S.li>
 					</>
 				) : (
 					<S.li>
-						<S.NavLink to="/Signin">
-							<h3> Signin</h3>
-						</S.NavLink>
+						<S.NavLink to="/Signin">Signin</S.NavLink>
 					</S.li>
 				)}
 			</S.ul>

@@ -3,8 +3,9 @@ import { Link } from 'react-router-dom';
 /* -------------NavBar------------- */
 export const NavbarContainer = styled.div`
 	display: flex;
-	justify-content: space-around;
+	justify-content: space-between;
 	align-items: center;
+	padding: 0 100px;
 	/* background: #3a497d; */
 	/* background: #3498db; */
 	/* background: #2980b9; */
@@ -26,6 +27,11 @@ export const ul = styled.ul`
 `;
 export const li = styled.li`
 	list-style-type: none;
+	span {
+		font-size: 22px;
+		font-weight: 500;
+		margin-right: 200px;
+	}
 `;
 
 export const NavLink = styled(Link)`
@@ -33,8 +39,9 @@ export const NavLink = styled(Link)`
 	padding: 20px;
 	text-decoration: none;
 	color: #fff;
-	font-family: sans-serif;
 	font-size: 1rem;
+	font-size: 22px;
+	font-weight: 300;
 	&:hover {
 		color: #bbbbc1;
 		background: #303a62;

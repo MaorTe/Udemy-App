@@ -91,10 +91,18 @@ export const VideosMenuContainer = styled.div`
 	/* padding: 20px 0px; */
 	/* line-height: 2.7rem; */
 	transition: all 0.3s ease 0s;
+
+	div:not(:last-child) {
+		border: 1px solid #bdbdbd8a;
+	}
 `;
 
 export const Commentbody = styled.textarea`
 	resize: none;
+	width: 300px;
+	margin-top: 15px;
+	border-radius: 7px;
+	padding: 10px;
 `;
 
 export const PostCommentBtn = styled.button`
