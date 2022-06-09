@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
 export const VideoContainer = styled.div`
 	display: flex;
@@ -64,7 +64,45 @@ export const VideoPageContainer = styled.div`
 	/* width: 75vw; */
 	/* height: 'calc(100vh-69px)'; */
 	grid-area: 1 / 2 / 2 / 3;
+	position: relative;
 `;
+
+const anim_lineUp = keyframes`
+	0% {
+	  opacity: 0;
+	  transform: translateY(80%);
+	}
+	20% {
+	  opacity: 0;
+	}
+	50% {
+	  opacity: 1;
+	  /* color:pink; */
+	  transform: translateY(0%);
+	}
+	100% {
+	  opacity: 1;
+	  transform: translateY(0%);
+	}`;
+
+export const UserLoginMessage = styled.h2`
+	width: 400px;
+	/* height: 600px; */
+	/*Can also be fixed*/
+	position: absolute;
+	text-align: center;
+	left: 0;
+	right: 0;
+	top: 50%;
+	bottom: 43%;
+	margin: auto;
+	/*Solves a problem in which the content is being cut when the div is smaller than its' wrapper:*/
+	max-width: 100%;
+	max-height: 100%;
+	overflow: auto;
+	animation: ${anim_lineUp} 3.5s ease-out infinite;
+`;
+
 export const videosMenuTitle = styled.h3`
 	margin-bottom: 20px;
 	margin-top: 5x;

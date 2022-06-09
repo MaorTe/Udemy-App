@@ -83,7 +83,7 @@ const Video = () => {
 				{ content: state, videoId: videoId },
 				{
 					headers: { Authorization: token },
-				}
+				},
 			);
 
 			// setComments((prevComments) => [...prevComments, data]);
@@ -102,7 +102,7 @@ const Video = () => {
 				{ content, commentId },
 				{
 					headers: { Authorization: token },
-				}
+				},
 			);
 			setComments(data);
 			// setComments((prev) => {
@@ -172,7 +172,7 @@ const Video = () => {
 						playing={false}
 						controls={true}></ReactPlayer>
 				) : (
-					'Please Login'
+					<S.UserLoginMessage>Please login to see content</S.UserLoginMessage>
 				)}
 			</S.VideoPageContainer>
 			<S.VideosMenuContainer containerHeight={'60vh'}>
