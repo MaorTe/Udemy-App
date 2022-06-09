@@ -55,10 +55,7 @@ const Video = () => {
 					headers: { Authorization: token },
 				});
 				setVideosList(data);
-				console.log(data);
 				setVideoId(data[0]._id);
-				console.log(videosList);
-				console.log(videoId);
 			} catch (e) {
 				console.log(e.message);
 			}

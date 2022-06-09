@@ -14,7 +14,6 @@ const Courses = () => {
 					headers: { Authorization: token },
 				});
 				setCoursesList(data);
-				console.log(data);
 			} catch (e) {
 				console.log(e.message);
 			}

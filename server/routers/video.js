@@ -22,7 +22,6 @@ router.post('/api/video/addvideo', auth, adminAuth, async (req, res) => {
 		await course.save();
 		await video.save();
 		await comment.save();
-		console.log(video);
 		res.status(201).send({ video, course });
 	} catch (e) {
 		res.status(400).send(e);

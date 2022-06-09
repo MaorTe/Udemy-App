@@ -7,7 +7,6 @@ const truncate = (input, num) =>
 const Comment = ({ comment, userId, editComment, deleteComment }) => {
 	const [editable, setEditable] = useState(false);
 	const [content, setContent] = useState(comment.content);
-	console.log(editable);
 	const controls = () => {
 		return (
 			<div>

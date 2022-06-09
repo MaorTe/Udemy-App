@@ -36,7 +36,6 @@ const AddVideo = () => {
 			const data = await api.post('/video/addvideo', videoInfo, {
 				headers: { Authorization: token },
 			});
-			console.log(data);
 		} catch (e) {
 			console.log(e.message);
 		}
