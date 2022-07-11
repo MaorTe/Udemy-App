@@ -78,7 +78,7 @@ export const HeroContentTop = styled.div`
    color: #e6e6e6;
    text-overflow: ellipsis;
    transform: translateX(50px);
-   left: 0;
+   left: -7px;
    top: 30px;
    position: absolute;
    p {

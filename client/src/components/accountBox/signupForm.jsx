@@ -10,8 +10,8 @@ import {
 import { Marginer } from '../marginer';
 import { AccountContext } from './accountContext';
 
-export function SignupForm(props) {
-	const { switchToSignin, createUser, userInfo, setUserInfo } = useContext(
+export function SignUpForm(props) {
+	const { switchToSignIn, createUser, userInfo, setUserInfo } = useContext(
 		AccountContext
 	);
 	const changeHandler = (e) =>
@@ -50,12 +50,12 @@ export function SignupForm(props) {
 			</FormContainer>
 			<Marginer direction="vertical" margin={10} />
 			<SubmitButton type="submit" onClick={createUser}>
-				Signup
+				Sign up
 			</SubmitButton>
 			<Marginer direction="vertical" margin="1em" />
 			<MutedLink to="/">Already have an account?</MutedLink>
-			<BoldLink to="/Signin" onClick={switchToSignin}>
-				Signin
+			<BoldLink to="/SignIn" onClick={switchToSignIn}>
+				Sign in
 			</BoldLink>
 			
 		</BoxContainer>

@@ -171,7 +171,7 @@ const Video = () => {
                playing={false}
                controls={true}></ReactPlayer>
          ) : (
-            <S.UserLoginMessage>Please login to see content</S.UserLoginMessage>
+            <S.UserLoginMessage>Please sign in to see content</S.UserLoginMessage>
          )}
       </S.VideoPageContainer>
    );
@@ -219,23 +219,27 @@ const Video = () => {
       return found?.videoTitle;
    };
    return window.innerWidth < 650 ? (
-      <>
-         <h2
-            style={{
-               background: 'black',
-               color: 'white',
-               textAlign: 'center',
-               padding: '15px 2px',
-            }}>
-            {findVideoTitle()}
-         </h2>
-         {videoContainer()}
-         <VideoMenu
-            videoComments={videoComments}
-            courseContent={courseContent}
-            courseAbout={courseAbout}
-         />
-      </>
+      user ? (
+         <>
+            <h2
+               style={{
+                  background: 'black',
+                  color: 'white',
+                  textAlign: 'center',
+                  padding: '15px 2px',
+               }}>
+               {findVideoTitle()}
+            </h2>
+            {videoContainer()}
+            <VideoMenu
+               videoComments={videoComments}
+               courseContent={courseContent}
+               courseAbout={courseAbout}
+            />
+         </>
+      ) : (
+         <S.UserLoginMessage>Please sign in to see content</S.UserLoginMessage>
+      )
    ) : (
       <S.UpperPageContainer>
          {videoComments()}

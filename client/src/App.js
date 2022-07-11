@@ -1,8 +1,8 @@
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import Navbar from './components/NavBar/Navbar.component';
 import NotFound from './pages/NotFound/NotFound.component';
-import Signin from './pages/Signin.component';
-import Signup from './pages/Signup.component';
+import SignIn from './pages/SignIn.component';
+import SignUp from './pages/SignUp.component';
 import { useEffect, useState } from 'react';
 import Homepage from './pages/Homepage/Homepage.component';
 import api from './API/api';
@@ -46,10 +46,10 @@ function App() {
          <Router>
             <Navbar user={user} isLoggedIn={isLoggedIn} getUser={getUser} userAdmin={userAdmin} />
             <Switch>
-               <Route exact path="/Signin" component={() => <Signin getUser={getUser} />} />
+               <Route exact path="/SignIn" component={() => <SignIn getUser={getUser} />} />
                <Route exact path="/Profile" component={Profile} />
                <Route exact path="/" component={Homepage} />
-               <Route exact path="/Signup" component={Signup} />
+               <Route exact path="/SignUp" component={SignUp} />
                <Route exact path="/Courses" component={Courses} />
                <Route exact path="/Courses/:courseName/Videos/:courseId" component={Video} />
                {userAdmin ? (

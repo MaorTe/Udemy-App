@@ -56,7 +56,7 @@ const Navbar = ({ getUser, isLoggedIn, user, userAdmin }) => {
                )
             ) : (
                <S.li>
-                  <S.NavLink to="/Signin">Signin</S.NavLink>
+                  <S.NavLink to="/SignIn">Sign in</S.NavLink>
                </S.li>
             )}
          </S.ul>
