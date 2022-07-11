@@ -34,7 +34,7 @@ const Courses = () => {
                />
             ))
          ) : (
-            <h1>coursesList is empty</h1>
+            <h1>Courses list is empty</h1>
          )}
       </S.GridContainer>
    );
