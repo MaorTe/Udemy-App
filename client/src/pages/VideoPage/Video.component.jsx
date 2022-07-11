@@ -55,7 +55,6 @@ const Video = () => {
             const { data } = await api.get(`users/courses/video/${courseId}`, {
                headers: { Authorization: token },
             });
-            console.log(data);
             setVideosList(data);
             setVideoId(data[0]._id);
          } catch (e) {
