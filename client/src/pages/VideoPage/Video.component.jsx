@@ -207,6 +207,7 @@ const Video = () => {
          <p
             style={{
                width: '80%',
+               marginBottom: '1rem',
             }}>
             {courseDesc}
          </p>
@@ -219,7 +220,13 @@ const Video = () => {
    };
    return window.innerWidth < 650 ? (
       <>
-         <h2 style={{ background: 'black', color: 'white', textAlign: 'center' }}>
+         <h2
+            style={{
+               background: 'black',
+               color: 'white',
+               textAlign: 'center',
+               padding: '15px 2px',
+            }}>
             {findVideoTitle()}
          </h2>
          {videoContainer()}

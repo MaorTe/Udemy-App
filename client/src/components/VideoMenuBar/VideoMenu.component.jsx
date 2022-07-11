@@ -10,19 +10,19 @@ const VideoMenu = ({ videoComments, courseContent, courseAbout }) => {
          <S.NavbarContainer>
             <S.ul>
                <S.Marginer active={active === 0}>
-                  <S.NavLink onClick={() => setActive(0)}>
+                  <S.NavLink active={active === 0} onClick={() => setActive(0)}>
                      <S.li>Course Content</S.li>
                   </S.NavLink>
                </S.Marginer>
 
                <S.Marginer active={active === 1}>
-                  <S.NavLink onClick={() => setActive(1)}>
+                  <S.NavLink active={active === 1} onClick={() => setActive(1)}>
                      <S.li>Overview</S.li>
                   </S.NavLink>
                </S.Marginer>
 
                <S.Marginer active={active === 2}>
-                  <S.NavLink onClick={() => setActive(2)}>
+                  <S.NavLink active={active === 2} onClick={() => setActive(2)}>
                      <S.li>Comments</S.li>
                   </S.NavLink>
                </S.Marginer>
