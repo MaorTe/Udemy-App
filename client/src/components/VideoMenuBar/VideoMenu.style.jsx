@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
 
 export const NavbarContainer = styled.div`
    display: flex;
@@ -23,7 +22,6 @@ export const Marginer = styled.div`
 `;
 
 export const NavLink = styled.button`
-   /* display: block; */
    padding: 10px 5px;
    text-decoration: none;
    color: #6a6f73;
@@ -31,8 +29,5 @@ export const NavLink = styled.button`
    font-weight: 200;
    &:hover {
       color: #1c1d1f;
-      /* background: #303a62; */
-      /* border-bottom: 2px solid #1c1d1f; */
-      /* border-top: 5px solid red; */
    }
 `;
