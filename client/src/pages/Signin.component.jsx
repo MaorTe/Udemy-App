@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { AccountBox } from '../components/accountBox';
+import { AccountBox } from '../../components/accountBox';
 
 const SignUpPageContainer = styled.div`
    width: 100%;
@@ -9,7 +9,7 @@ const SignUpPageContainer = styled.div`
    align-items: center;
    justify-content: center;
 `;
-//
+// SignIn component
 function SignIn({ getUser }) {
    return (
       <SignUpPageContainer>
