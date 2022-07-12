@@ -219,27 +219,29 @@ const Video = () => {
       return found?.videoTitle;
    };
    return window.innerWidth < 650 ? (
-      user ? (
-         <>
-            <h2
-               style={{
-                  background: 'black',
-                  color: 'white',
-                  textAlign: 'center',
-                  padding: '15px 2px',
-               }}>
-               {findVideoTitle()}
-            </h2>
-            {videoContainer()}
-            <VideoMenu
-               videoComments={videoComments}
-               courseContent={courseContent}
-               courseAbout={courseAbout}
-            />
-         </>
-      ) : (
-         <S.UserLoginMessage>Please sign in to see content</S.UserLoginMessage>
-      )
+      <>
+         <h2
+            style={{
+               background: 'black',
+               color: 'white',
+               textAlign: 'center',
+               padding: '15px 2px',
+            }}>
+            {findVideoTitle()}
+         </h2>
+         {user ? (
+            videoContainer()
+         ) : (
+            <div style={{ height: '220px' }}>
+               <S.UserLoginMessage>Please sign in to see content</S.UserLoginMessage>
+            </div>
+         )}
+         <VideoMenu
+            videoComments={videoComments}
+            courseContent={courseContent}
+            courseAbout={courseAbout}
+         />
+      </>
    ) : (
       <S.UpperPageContainer>
          {videoComments()}

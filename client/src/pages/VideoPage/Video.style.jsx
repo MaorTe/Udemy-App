@@ -102,6 +102,12 @@ export const UserLoginMessage = styled.h2`
    max-height: 100%;
    overflow: auto;
    animation: ${anim_lineUp} 3.5s ease-out infinite;
+   @media screen and (max-width: 650px) {
+      position: relative;
+      width: 390px;
+      height: 357px;
+      z-index: -1;
+   }
 `;
 
 export const videosMenuTitle = styled.h3`
