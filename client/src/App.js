@@ -1,9 +1,7 @@
+import { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import Navbar from './components/NavBar/Navbar.component';
 import NotFound from './pages/NotFound/NotFound.component';
-import SignIn from './pages/SignIn.component';
-import SignUp from './pages/SignUp.component';
-import { useEffect, useState } from 'react';
 import Homepage from './pages/Homepage/Homepage.component';
 import api from './API/api';
 import Courses from './pages/Courses/Courses.component';
@@ -11,6 +9,8 @@ import Profile from './pages/Profile/Profile.component';
 import Video from './pages/VideoPage/Video.component';
 import AddVideo from './pages/AddVideoPage/AddVideo.component';
 import AddCourse from './pages/AddCourse/AddCourse.component';
+import SignIn from './pages/SignIn.component';
+import SignUp from './pages/SignUp.component';
 
 function App() {
    const [isLoggedIn, setIsLoggedIn] = useState(false);
