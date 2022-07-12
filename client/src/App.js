@@ -9,8 +9,8 @@ import Profile from './pages/Profile/Profile.component';
 import Video from './pages/VideoPage/Video.component';
 import AddVideo from './pages/AddVideoPage/AddVideo.component';
 import AddCourse from './pages/AddCourse/AddCourse.component';
-import SignUp from './pages/SignUp1.component';
-import SignIn from './pages/SignIn1.component';
+import SignUp from './pages/SignUp.component';
+import SignIn from './pages/SignIn.component';
 
 function App() {
    const [isLoggedIn, setIsLoggedIn] = useState(false);
