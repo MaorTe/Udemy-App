@@ -139,24 +139,30 @@ const Video = () => {
    const videoComments = () => (
       <S.CommentContainer>
          <S.CommentsWrapper>
-            {comments.map((comment) => (
-               <Comment
-                  key={comment._id}
-                  comment={comment}
-                  userId={user._id}
-                  editComment={editComment}
-                  deleteComment={deleteComment}
-               />
-            ))}
+            {user
+               ? comments.map((comment) => (
+                    <Comment
+                       key={comment._id}
+                       comment={comment}
+                       userId={user._id}
+                       editComment={editComment}
+                       deleteComment={deleteComment}
+                    />
+                 ))
+               : ''}
          </S.CommentsWrapper>
+         {!user && <p>Comments only available while signed in</p>}
          <S.Commentbody
             cols="30"
             rows="2"
             draggable="false"
             onChange={(e) => setState(e.target.value)}
-            placeholder="Add new comment"
+            placeholder={user ? 'Add new comment' : ''}
+            disabled={!user ? true : false}
          />
-         <S.PostCommentBtn onClick={addNewComment}>Post Comment</S.PostCommentBtn>
+         <S.PostCommentBtn onClick={addNewComment} disabled={!user ? true : false} user={user}>
+            Post Comment
+         </S.PostCommentBtn>
       </S.CommentContainer>
    );
 
@@ -179,13 +185,17 @@ const Video = () => {
    const courseContent = () => (
       <S.VideosMenuContainer containerHeight={'60vh'}>
          <S.videosMenuTitle>Course content</S.videosMenuTitle>
-         {videosList.map((video) => (
-            <div key={videosList._id}>
-               <S.VideoLinkBtn onClick={() => showNewVideo(video)}>
-                  {video.videoTitle}
-               </S.VideoLinkBtn>
-            </div>
-         ))}
+         {user ? (
+            videosList.map((video) => (
+               <div key={videosList._id + video.videoTitle}>
+                  <S.VideoLinkBtn onClick={() => showNewVideo(video)}>
+                     {video.videoTitle}
+                  </S.VideoLinkBtn>
+               </div>
+            ))
+         ) : (
+            <p style={{ textAlign: 'center' }}>Course content only available while signed in</p>
+         )}
          {user && user.userRole === 'admin' && (
             <S.NavLink to={`/Courses/Videos/AddVideo/${courseId}`}>
                <h3>Add new videos</h3>
