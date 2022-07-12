@@ -9,7 +9,7 @@ const SignUpPageContainer = styled.div`
    align-items: center;
    justify-content: center;
 `;
-// SignIn component
+
 const SignIn = ({ getUser }) => {
    return (
       <SignUpPageContainer>
