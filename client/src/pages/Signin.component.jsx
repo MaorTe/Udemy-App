@@ -10,12 +10,12 @@ const SignUpPageContainer = styled.div`
    justify-content: center;
 `;
 // SignIn component
-function SignIn({ getUser }) {
+const SignIn = ({ getUser }) => {
    return (
       <SignUpPageContainer>
          <AccountBox getUser={getUser} />
       </SignUpPageContainer>
    );
-}
+};
 
 export default SignIn;
