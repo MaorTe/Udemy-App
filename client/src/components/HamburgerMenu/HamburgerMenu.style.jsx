@@ -54,12 +54,12 @@ export const Icon = styled.span`
       top: ${(props) => (props.clicked ? '0' : '0.6rem')};
       transform: ${(props) => (props.clicked ? 'rotate(-135deg)' : 'rotate(0)')};
    }
-   ${MenuLabel}:hover &::before {
+   /* ${MenuLabel}:hover &::before {
       top: ${(props) => (props.clicked ? '0' : '-1rem')};
    }
    ${MenuLabel}:hover &::after {
       top: ${(props) => (props.clicked ? '0' : '1rem')};
-   }
+   } */
 `;
 
 export const Navigation = styled.nav`
