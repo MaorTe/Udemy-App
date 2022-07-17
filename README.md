@@ -10,8 +10,8 @@ In the project I have registration, login and Authentication, in addition there 
 The difference between them is that an admin user can add new videos on the site while a regular user can only watch the videos.</p>
 
 For **admin permissions** login with
-**Email:** admin@gmail.com
-**Password:** 1234567
+<p>Email: admin@gmail.com</p>
+<p>Password: 1234567</p>
 
 ### Authentication
 When a user signs up **BcryptJs** hashes the password and **JsonWebToken** provides a token that can be exchanged for authenticated calls between the client and server-side.
