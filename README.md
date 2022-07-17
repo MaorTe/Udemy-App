@@ -9,9 +9,9 @@ Course website where you can add a course, and for each course you can add video
 In the project I have registration, login and Authentication, in addition there is a check if the user is an admin user or a regular user.
 The difference between them is that an admin user can add new videos on the site while a regular user can only watch the videos.</p>
 
-<p>For **admin permissions** login with</p>
-<p>**Email:** admin@gmail.com
-**Password:** 1234567</p>
+For **admin permissions** login with
+**Email:** admin@gmail.com
+**Password:** 1234567
 
 ### Authentication
 When a user signs up **BcryptJs** hashes the password and **JsonWebToken** provides a token that can be exchanged for authenticated calls between the client and server-side.
