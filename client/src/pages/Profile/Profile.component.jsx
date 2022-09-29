@@ -79,7 +79,9 @@ const Profile = () => {
                <img
                   src={
                      !selectedFile
-                        ? `/users/${user[0]._id}/avatar?v=${Date.now()}`
+                        ? `${process.env.REACT_APP_API_RENDER_URL || ''}/users/${
+                             user[0]._id
+                          }/avatar?v=${Date.now()}`
                         : URL.createObjectURL(selectedFile)
                   }
                   alt="avatar"
