@@ -7,6 +7,7 @@ import CourseCard from '../CourseCard/CourseCard';
 import api from '../../API/api';
 
 const Carousel = ({ tag, onPictureClick, width }) => {
+   const [isLoading, setIsLoading] = useState(true);
    const [coursesList, setCoursesList] = useState([]);
    const [coursesListId, setCoursesListId] = useState(null);
    useEffect(() => {
@@ -23,6 +24,10 @@ const Carousel = ({ tag, onPictureClick, width }) => {
       fetchCourses();
       // eslint-disable-next-line react-hooks/exhaustive-deps
    }, []);
+
+   useEffect(() => {
+      coursesList.length > 0 && setIsLoading((prev) => !prev);
+   }, [coursesList]);
 
    useEffect(() => {
       const token = localStorage.getItem('token');
@@ -80,19 +85,27 @@ const Carousel = ({ tag, onPictureClick, width }) => {
    };
    return (
       <div>
-         <Slider {...settings}>
-            {coursesList.map((course) => (
-               <CourseCard
-                  key={course._id}
-                  tag={tag}
-                  width={244}
-                  height={140}
-                  onButtonClick={onPictureClick}
-                  course={course}
-                  coursesListId={coursesListId}
-               />
-            ))}
-         </Slider>
+         {isLoading ? (
+            <Slider {...settings} arrows={false}>
+               {[0, 1, 2, 3].map((el, i) => (
+                  <CourseCard key={i} tag={tag} width={244} height={140} />
+               ))}
+            </Slider>
+         ) : (
+            <Slider {...settings}>
+               {coursesList.map((course) => (
+                  <CourseCard
+                     key={course._id}
+                     tag={tag}
+                     width={244}
+                     height={140}
+                     onButtonClick={onPictureClick}
+                     course={course}
+                     coursesListId={coursesListId}
+                  />
+               ))}
+            </Slider>
+         )}
       </div>
    );
 };

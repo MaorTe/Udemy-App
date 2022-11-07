@@ -3,6 +3,8 @@ import { LazyLoadImage } from 'react-lazy-load-image-component';
 import AddOrRemoveBtn from '../AddOrRemoveBtn/AddOrRemoveBtn.component';
 import { useEffect, useState } from 'react';
 import * as S from './CourseCard.style';
+import MyLoader from './../MyLoader/MyLoader';
+import MyLoaderMobile from './../MyLoader/MyLoaderMobile';
 const CourseCard = ({ onButtonClick, width, height, course, coursesListId }) => {
    const [isCourseExist, setIsCourseExist] = useState(null);
    useEffect(() => {
@@ -16,38 +18,42 @@ const CourseCard = ({ onButtonClick, width, height, course, coursesListId }) => 
    const { location } = useHistory();
    const type = location.pathname.slice(1);
 
-   return (
-      course && (
-         <>
-            {((type === 'Courses' && !isCourseExist) || type === '') && (
-               <S.CardWrapper>
-                  <Link
-                     to={{
-                        pathname: `/Courses/${course.courseName}/Videos/${course._id}`,
-                        state: {
-                           courseDesc: course.courseDescription,
-                        },
-                     }}>
-                     <LazyLoadImage
-                        alt={'picture'}
-                        src={course.courseImage}
-                        width={window?.innerWidth < 520 ? '81%' : width}
-                        height={height}
-                        className="img-select"
-                     />
-                  </Link>
-                  <S.CourseTitle>{course.courseName}</S.CourseTitle>
-                  {/* <div>{course.courseDescription}</div> */}
-                  <AddOrRemoveBtn
-                     id={course._id}
-                     isCourseExist={isCourseExist}
-                     setIsCourseExist={setIsCourseExist}
-                     type={type}
+   return course ? (
+      <>
+         {((type === 'Courses' && !isCourseExist) || type === '') && (
+            <S.CardWrapper>
+               <Link
+                  to={{
+                     pathname: `/Courses/${course.courseName}/Videos/${course._id}`,
+                     state: {
+                        courseDesc: course.courseDescription,
+                     },
+                  }}>
+                  <LazyLoadImage
+                     alt={'picture'}
+                     src={course.courseImage}
+                     width={window?.innerWidth < 520 ? '81%' : width}
+                     height={height}
+                     className="img-select"
                   />
-               </S.CardWrapper>
-            )}
-         </>
-      )
+               </Link>
+               <S.CourseTitle>{course.courseName}</S.CourseTitle>
+               {/* <div>{course.courseDescription}</div> */}
+               <AddOrRemoveBtn
+                  id={course._id}
+                  isCourseExist={isCourseExist}
+                  setIsCourseExist={setIsCourseExist}
+                  type={type}
+               />
+            </S.CardWrapper>
+         )}
+      </>
+   ) : (
+      <>
+         <S.CardWrapper>
+            {window?.innerWidth <= 520 ? <MyLoaderMobile /> : <MyLoader />}
+         </S.CardWrapper>
+      </>
    );
 };
 
