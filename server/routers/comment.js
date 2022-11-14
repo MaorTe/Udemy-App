@@ -11,7 +11,6 @@ router.patch('/api/comments/:videoId', auth, commentController.editComment);
 router.delete('/api/comments/:videoId/:commentId', auth, commentController.deleteComment);
 
 // -- features to be implemented --
-
 // router.get('/api/users/courses/video/comments', auth, async (req, res) => {
 //    try {
 //       const video = await Video.find({});
