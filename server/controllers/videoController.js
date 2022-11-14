@@ -1,18 +1,34 @@
-const express = require('express');
-const User = require('../models/user');
-const auth = require('../middleware/auth');
-const multer = require('multer');
-const sharp = require('sharp');
-const router = new express.Router();
+const Video = require('../models/video');
+const Course = require('../models/course');
+const Comment = require('../models/comment');
 
-const createUser = async (req, res) => {
-   const user = new User(req.body);
+const addNewVideo = async (req, res) => {
+   //make new videos in video collection
+   const video = new Video({
+      ...req.body,
+   });
+   const comment = new Comment({ videoId: video._id });
+   //just like virtual, but wont return array
+   video.comments = comment._id;
    try {
-      await user.save();
-      const token = await user.generateAuthToken();
-      res.status(201).send({ user, token });
+      //attach the video to the correct course
+      const course = await Course.findById(req.body.courseId);
+      course.courseVideos.push({ videoId: video._id });
+      await course.save();
+      await video.save();
+      await comment.save();
+      res.status(201).send({ video, course });
    } catch (e) {
       res.status(400).send(e);
    }
 };
-module.exports = { createUser };
+
+const getVideo = async (req, res) => {
+   try {
+      const video = await Video.find({ courseId: req.params.courseId });
+      res.send(video);
+   } catch (e) {
+      res.status(500).send();
+   }
+};
+module.exports = { addNewVideo, getVideo };
