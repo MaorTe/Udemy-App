@@ -81,4 +81,4 @@ const deleteComment = async (req, res) => {
       res.status(500).send();
    }
 };
-module.exports = { addNewComment, getComment, editComment, deleteComment };
+module.exports = { addNewComment, getVideoComments, editComment, deleteComment };

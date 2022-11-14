@@ -5,7 +5,7 @@ const courseController = require('../controllers/courseController');
 const router = new express.Router();
 
 router.post('/api/courses/addcourse', auth, adminAuth, courseController.addNewCourse);
-router.get('/api/courses/:tag', courseController.getCoursesByTag);
+router.get('/api/courses/:tag', courseController.getCoursesByCategory);
 
 // ------ to be implemented on client side ------
 router.get('/api/courses/:id', auth, courseController.getUserOwnCourse);
