@@ -1,8 +1,8 @@
 const express = require('express');
 const auth = require('../middleware/auth');
 const adminAuth = require('../middleware/adminAuth');
-const courseController = require('../controllers/courseController');
 const router = new express.Router();
+const courseController = require('../controllers/courseController');
 
 router.post('/api/courses/addcourse', auth, adminAuth, courseController.addNewCourse);
 router.get('/api/courses/:tag', courseController.getCoursesByCategory);

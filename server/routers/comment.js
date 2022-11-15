@@ -1,7 +1,5 @@
 const express = require('express');
 const auth = require('../middleware/auth');
-const Comment = require('../models/comment');
-const Video = require('../models/video');
 const router = new express.Router();
 const commentController = require('../controllers/commentController');
 

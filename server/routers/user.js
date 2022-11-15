@@ -24,6 +24,7 @@ router.post(
       res.status(400).send({ error: error.message });
    },
 );
+// delete avatar to be implemented on client side
 router.delete('/users/me/avatar', auth, userController.deleteUserAvatar);
 router.get('/users/:id/avatar', userController.getUserAvatar);
 
