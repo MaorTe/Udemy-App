@@ -2,9 +2,6 @@ import React from 'react';
 import ContentLoader from 'react-content-loader';
 
 const MyLoader = (props) => (
-   //    props.isMobile ? (
-
-   //    ) : (
    <ContentLoader
       speed={2}
       width={300}
@@ -18,6 +15,5 @@ const MyLoader = (props) => (
       <rect x="33" y="18" rx="2" ry="2" width="244" height="140" />
    </ContentLoader>
 );
-//    );
 
 export default MyLoader;

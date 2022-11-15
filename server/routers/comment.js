@@ -3,10 +3,10 @@ const auth = require('../middleware/auth');
 const router = new express.Router();
 const commentController = require('../controllers/commentController');
 
-router.post('/api/comments/newcomment', auth, commentController.addNewComment);
-router.get('/api/comments/:videoId', auth, commentController.getVideoComments);
-router.patch('/api/comments/:videoId', auth, commentController.editComment);
-router.delete('/api/comments/:videoId/:commentId', auth, commentController.deleteComment);
+router.post('/newcomment', auth, commentController.addNewComment);
+router.get('/:videoId', auth, commentController.getVideoComments);
+router.patch('/:videoId', auth, commentController.editComment);
+router.delete('/:videoId/:commentId', auth, commentController.deleteComment);
 
 // -- features to be implemented --
 // router.get('/api/users/courses/video/comments', auth, async (req, res) => {

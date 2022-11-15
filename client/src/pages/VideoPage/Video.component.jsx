@@ -52,7 +52,7 @@ const Video = () => {
       const fetchVideos = async () => {
          try {
             const token = localStorage.getItem('token');
-            const { data } = await api.get(`users/courses/video/${courseId}`, {
+            const { data } = await api.get(`/video/courses/${courseId}`, {
                headers: { Authorization: token },
             });
             setVideosList(data);

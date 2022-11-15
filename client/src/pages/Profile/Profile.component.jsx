@@ -7,7 +7,7 @@ const Profile = () => {
    const [user, setUser] = useState([]);
    const [selectedFile, setSelectedFile] = useState(null);
    const fileInput = useRef(null);
-   
+
    useEffect(() => {
       const fetchUser = async () => {
          try {

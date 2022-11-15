@@ -13,10 +13,10 @@ const port = process.env.PORT || 3001;
 
 app.use(cors());
 app.use(express.json());
-app.use(userRouter);
-app.use(courseRouter);
-app.use(videoRouter);
-app.use(commentRouter);
+app.use('/api/users', userRouter);
+app.use('/api/courses', courseRouter);
+app.use('/api/video', videoRouter);
+app.use('/api/comments', commentRouter);
 
 app.listen(port, () => {
    console.log('Server is up on port ' + port);
