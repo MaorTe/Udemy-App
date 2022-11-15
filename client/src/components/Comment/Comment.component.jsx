@@ -44,7 +44,7 @@ const Comment = ({ comment, userId, editComment, deleteComment }) => {
    return (
       <S.CommentWrapper>
          <img
-            src={`${process.env.REACT_APP_API_RENDER_URL || ''}/users/${
+            src={`${process.env.REACT_APP_API_RENDER_URL || ''}/api/users/${
                comment.owner._id
             }/avatar?v=${Date.now()}`}
             alt="avatar"
