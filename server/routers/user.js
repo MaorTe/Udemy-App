@@ -27,6 +27,6 @@ router.post(
 // delete avatar to be implemented on client side
 router.delete('/me/avatar', auth, userController.deleteUserAvatar);
 // using blob/bindata instead get
-// router.get('/:id/avatar', userController.getUserAvatar);
+router.get('/:id/avatar', userController.getUserAvatar);
 
 module.exports = router;
