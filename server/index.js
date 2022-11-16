@@ -11,12 +11,12 @@ const app = express();
 const router = new express.Router();
 const port = process.env.PORT || 3001;
 
-app.use(cors());
 app.use(express.json());
 app.use('/api/users', userRouter);
 app.use('/api/courses', courseRouter);
 app.use('/api/video', videoRouter);
 app.use('/api/comments', commentRouter);
+app.use(cors());
 
 app.listen(port, () => {
    console.log('Server is up on port ' + port);
