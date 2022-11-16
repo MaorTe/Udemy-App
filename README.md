@@ -3,6 +3,7 @@
 ### MERN stack
 
 **MongoDB, Express.js, React, Node.js**
+
 <p>Backend is implemented with the MVC pattern.</p>
 
 <p>This is a project that simulates Udemy.
@@ -11,13 +12,21 @@ In the project I have registration, login and Authentication, in addition there 
 The difference between them is that an admin user can add new videos on the site while a regular user can only watch the videos.</p>
 
 For **admin permissions** login with
+
 <p>Email: admin@gmail.com</p>
 <p>Password: 1234567</p>
 
 ### Authentication
-When a user signs up **BcryptJs** hashes the password and **JsonWebToken** provides a token that can be exchanged for authenticated calls between the client and server-side.
-Created an Authorization middleware using **JWT** that checks the header in each call for a valid token before executing any request and sending a status back.
+
+When a user signs up **BcryptJs** hashes the password and **JsonWebToken** provides a token that can
+be exchanged for authenticated calls between the client and server-side. Created an Authorization
+middleware using **JWT** that checks the header in each call for a valid token before executing any
+request and sending a status back.
 
 ### Avatar
-Used **Multer** as part of a server-side middleware that uploads images and uses them as an avatar picture on a user's profile.
-Also **Sharp** which is converting large images in common formats to smaller, web-friendly JPEG, PNG, WebP, GIF and AVIF images.
+
+Used **Multer** as part of a server-side middleware that uploads images and uses them as an avatar
+picture on a user's profile. Also **Sharp** which is converting large images in common formats to
+smaller, web-friendly JPEG, PNG, WebP, GIF and AVIF images.
+
+![home_page!](https://user-images.githubusercontent.com/60146116/202277002-874c87b5-914e-4958-a8ea-a5771a120210.PNG)
