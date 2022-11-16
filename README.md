@@ -31,4 +31,4 @@ smaller, web-friendly JPEG, PNG, WebP, GIF and AVIF images.
 
 ![home_page!](https://user-images.githubusercontent.com/60146116/202277002-874c87b5-914e-4958-a8ea-a5771a120210.PNG)
 ![video_page!](https://user-images.githubusercontent.com/60146116/202278060-c61bee87-ff00-4e6d-9be5-fb223a13b854.PNG)
-![profile_page!]((https://user-images.githubusercontent.com/60146116/202278050-be634383-3b25-427f-98e0-6adde00b4a8a.PNG)
+![profile_page!](https://user-images.githubusercontent.com/60146116/202278050-be634383-3b25-427f-98e0-6adde00b4a8a.PNG)
