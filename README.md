@@ -4,7 +4,7 @@
 
 **MongoDB, Express.js, React, Node.js**
 
-<p>Backend is implemented with the MVC pattern.</p>
+<p>Backend is implemented using the MVC pattern.</p>
 
 <p>This is a project that simulates Udemy.
 Course website where you can add a course, and for each course you can add videos, each video has the option to post comments as well.
