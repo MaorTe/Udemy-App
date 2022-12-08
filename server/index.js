@@ -12,7 +12,6 @@ const router = new express.Router();
 const port = process.env.PORT || 3001;
 
 app.use(cors());
-// app.use(cors({ origin: true }));
 app.use(express.json());
 app.use('/api/users', userRouter);
 app.use('/api/courses', courseRouter);
@@ -23,7 +22,7 @@ app.listen(port, () => {
    console.log('Server is up on port ' + port);
 });
 
-//deploy to heroku
+//deploy
 app.use(express.static(path.join(__dirname, '../client/build')));
 app.get('/*', (req, res) => {
    res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
