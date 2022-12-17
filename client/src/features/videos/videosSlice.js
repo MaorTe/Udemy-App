@@ -7,13 +7,13 @@ const initialState = {
    error: null,
 };
 
-const token = localStorage.getItem('userToken');
+const userToken = localStorage.getItem('userToken');
 // Thunk functions
 
 export const addVideo = createAsyncThunk('videos/addNewVideo', async (videoInfo) => {
    try {
       const response = await api.post('/video/addvideo', videoInfo, {
-         headers: { Authorization: token },
+         headers: { Authorization: userToken },
       });
       return response.data;
    } catch (error) {
@@ -24,7 +24,7 @@ export const addVideo = createAsyncThunk('videos/addNewVideo', async (videoInfo)
 export const fetchVideos = createAsyncThunk('videos/fetchVideos', async (courseId) => {
    try {
       const response = await api.get(`/video/courses/${courseId}`, {
-         headers: { Authorization: token },
+         headers: { Authorization: userToken },
       });
       return response.data;
    } catch (error) {

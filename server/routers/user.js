@@ -3,7 +3,7 @@ const auth = require('../middleware/auth');
 const router = new express.Router();
 const userController = require('../controllers/userController');
 
-router.post('/', userController.createUser);
+router.post('/register', userController.createUser);
 router.post('/login', userController.loginUser);
 router.post('/logout', auth, userController.logoutUser);
 router.post('/logoutAll', auth, userController.logoutAllUsers);

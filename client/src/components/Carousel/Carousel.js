@@ -64,7 +64,7 @@ const Carousel = ({ tag, onPictureClick, width }) => {
                      height={140}
                      // onButtonClick={onPictureClick}
                      course={course}
-                     isCourseExists={favCourses.find((el) => el.courseId._id === course._id)}
+                     isCourseExists={favCourses?.find((el) => el.courseId._id === course._id)}
                      // isCourseExists={favCourses.find((el) => el.courseId === course._id)}
                   />
                ))}

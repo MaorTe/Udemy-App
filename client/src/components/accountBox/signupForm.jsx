@@ -18,7 +18,6 @@ export function SignUpForm(props) {
    const { switchToSignIn } = useContext(AccountContext);
    const history = useHistory();
    const dispatch = useDispatch();
-   const user = useSelector(selectUser);
 
    const [userInfo, setUserInfo] = useState({
       name: '',
@@ -28,9 +27,7 @@ export function SignUpForm(props) {
    });
 
    const createUser = async () => {
-      if (user === 'idle') {
-         dispatch(registerUser(userInfo));
-      }
+      dispatch(registerUser(userInfo));
       //redirect to SignIn
       history.push('/SignIn');
    };

@@ -27,23 +27,12 @@ import {
 } from '../../features/comments/commentsSlice';
 import { useAuth } from './../../features/auth/useAuth';
 
-// const getComments = async (videoId) => {
-//    try {
-//       const token = localStorage.getItem('token');
-//       const { data } = await api.get(`comments/${videoId}`, {
-//          headers: { Authorization: token },
-//       });
-//       return data;
-//    } catch (e) {
-//       console.log(e.message);
-//    }
-// };
-
 const Video = () => {
    const initialVideoId = useSelector(selectVideoId);
    const videosList = useSelector(selectAllVideos);
    const videoStatus = useSelector(videosStatus);
    // const videoError = useSelector(videosError);
+
    const commentsList = useSelector(selectAllComments);
    const commentStatus = useSelector(commentsStatus);
    const commentError = useSelector(commentsError);
@@ -107,6 +96,8 @@ const Video = () => {
          ));
       } else if (commentStatus === 'failed') {
          return <p style={{ color: 'red' }}>{commentError && 'Something went wrong...'}}</p>;
+      } else {
+         return <div style={{ color: 'red' }}> Error occured </div>;
       }
    };
 

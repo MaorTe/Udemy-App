@@ -1,4 +1,6 @@
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { isUserAdmin } from './features/auth/authSlice';
 import Navbar from './components/NavBar/Navbar.component';
 import NotFound from './pages/NotFound/NotFound.component';
 import Homepage from './pages/Homepage/Homepage.component';
@@ -9,9 +11,6 @@ import AddVideo from './pages/AddVideoPage/AddVideo.component';
 import AddCourse from './pages/AddCourse/AddCourse.component';
 import SignUp from './pages/SignUp.component';
 import SignIn from './pages/SignIn.component';
-import { useSelector } from 'react-redux';
-import { isUserAdmin } from './features/auth/authSlice';
-//  getUserStatus, getUserError
 import useAuth from './features/auth/useAuth';
 
 function App() {
