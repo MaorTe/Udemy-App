@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
 import * as S from './HamburgerMenu.style';
+import { useDispatch } from 'react-redux';
+import { logout } from '../../features/auth/authSlice';
 
-export default function HamburgerMenu({ logoutUser, userAdmin }) {
+export default function HamburgerMenu({ isAdmin }) {
+   const dispatch = useDispatch();
+
    const [click, setClick] = useState(false);
    const handleClick = () => setClick(!click);
    return (
@@ -23,7 +27,7 @@ export default function HamburgerMenu({ logoutUser, userAdmin }) {
                      Profile
                   </S.ItemLink>
                </li>
-               {userAdmin && (
+               {isAdmin && (
                   <li>
                      <S.ItemLink onClick={handleClick} to="/Courses/AddCourse">
                         Add Course
@@ -38,7 +42,7 @@ export default function HamburgerMenu({ logoutUser, userAdmin }) {
                <li>
                   <S.ItemLink
                      onClick={() => {
-                        logoutUser();
+                        dispatch(logout());
                         setClick(!click);
                      }}
                      to="/">

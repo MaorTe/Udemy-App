@@ -10,10 +10,10 @@ const SignUpPageContainer = styled.div`
    justify-content: center;
 `;
 
-const SignIn = ({ getUser }) => {
+const SignIn = () => {
    return (
       <SignUpPageContainer>
-         <AccountBox getUser={getUser} />
+         <AccountBox />
       </SignUpPageContainer>
    );
 };

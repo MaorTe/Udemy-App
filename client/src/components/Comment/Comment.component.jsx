@@ -6,6 +6,7 @@ const truncate = (input, num) => (input.length > num ? `${input.substring(0, num
 const Comment = ({ comment, userId, editComment, deleteComment }) => {
    const [editable, setEditable] = useState(false);
    const [content, setContent] = useState(comment.content);
+
    const controls = () => {
       return (
          <div>
@@ -23,16 +24,10 @@ const Comment = ({ comment, userId, editComment, deleteComment }) => {
                   <S.CancelIcon
                      className="fas fa-times"
                      onClick={() => setEditable((prev) => !prev)}></S.CancelIcon>
-                  {/* <button onClick={handleEdit}>Save</button>
-							<button onClick={() => setEditable((prev) => !prev)}>
-								Cancel
-							</button> */}
                </S.IconsContainer>
             )}
          </div>
       );
-      // }
-      // return null;
    };
    const handleDelete = async () => {
       await deleteComment(comment._id);

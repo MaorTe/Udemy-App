@@ -2,49 +2,36 @@
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import CourseCard from '../CourseCard/CourseCard';
-import api from '../../API/api';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+   getCoursesError,
+   getCoursesStatus,
+   selectAllCourses,
+   fetchCourses,
+} from '../../features/courses/coursesSlice';
+import { selectAllFavoriteCourses, selectfavCoursesIds } from '../../features/users/usersSlice';
+import { fetchUserFavoriteCourses } from '../../features/users/usersActions';
+import { getUserStatus } from './../../features/auth/authSlice';
 
 const Carousel = ({ tag, onPictureClick, width }) => {
-   const [isLoading, setIsLoading] = useState(true);
-   const [coursesList, setCoursesList] = useState([]);
-   const [coursesListId, setCoursesListId] = useState(null);
-   useEffect(() => {
-      const fetchCourses = async () => {
-         try {
-            const { data } = await api.get('/courses/:tag', {
-               params: { tag },
-            });
-            setCoursesList(data);
-         } catch (e) {
-            console.log(e.message);
-         }
-      };
-      fetchCourses();
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-   }, []);
+   const dispatch = useDispatch();
+   const userStatus = useSelector(getUserStatus);
+
+   const coursesList = useSelector(selectAllCourses);
+   const favCourses = useSelector(selectAllFavoriteCourses);
+   const favCoursesIds = useSelector(selectfavCoursesIds);
+   const coursesStatus = useSelector(getCoursesStatus);
+   const error = useSelector(getCoursesError);
 
    useEffect(() => {
-      coursesList.length > 0 && setIsLoading((prev) => !prev);
-   }, [coursesList]);
+      dispatch(fetchCourses(tag));
+   }, [dispatch]);
 
    useEffect(() => {
-      const token = localStorage.getItem('token');
-      const fetchUser = async () => {
-         try {
-            const { data } = await api.get('/users/me', {
-               headers: { Authorization: token },
-            });
-            setCoursesListId(data.courses.map((course) => course.courseId));
-         } catch (e) {
-            console.log(e.message);
-         }
-      };
-      if (token) {
-         fetchUser();
-      }
-   }, [coursesList.length > 0]);
+      dispatch(fetchUserFavoriteCourses());
+   }, [dispatch, favCoursesIds]);
 
    const settings = {
       dots: true,
@@ -56,30 +43,37 @@ const Carousel = ({ tag, onPictureClick, width }) => {
       initialSlide: 0,
       arrows: true,
    };
-   return (
-      <div>
-         {isLoading ? (
+
+   const carouselContent = () => {
+      if (coursesStatus === 'loading' || userStatus === 'loading') {
+         return (
             <Slider {...settings} arrows={false}>
                {[0, 1, 2, 3].map((el, i) => (
                   <CourseCard key={i} tag={tag} width={244} height={140} />
                ))}
             </Slider>
-         ) : (
+         );
+      } else if (coursesStatus === 'succeeded') {
+         return (
             <Slider {...settings}>
-               {coursesList.map((course) => (
+               {coursesList?.map((course) => (
                   <CourseCard
                      key={course._id}
                      tag={tag}
                      width={244}
                      height={140}
-                     onButtonClick={onPictureClick}
+                     // onButtonClick={onPictureClick}
                      course={course}
-                     coursesListId={coursesListId}
+                     isCourseExists={favCourses.find((el) => el.courseId._id === course._id)}
+                     // isCourseExists={favCourses.find((el) => el.courseId === course._id)}
                   />
                ))}
             </Slider>
-         )}
-      </div>
-   );
+         );
+      } else if (coursesStatus === 'failed')
+         return <p style={{ color: 'red' }}>{error && 'Something went wrong...'}</p>;
+   };
+
+   return <div>{carouselContent()}</div>;
 };
 export default Carousel;

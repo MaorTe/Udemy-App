@@ -3,26 +3,24 @@ import React, { useEffect, useState } from 'react';
 import logo from '../../img/logo.png';
 import * as S from './Navbar.style';
 import HamburgerMenu from './../HamburgerMenu/HamburgerMenu.component';
+import { useDispatch } from 'react-redux';
+import { isLoggedIn, isUserAdmin, logout } from '../../features/auth/authSlice';
+import { useSelector } from 'react-redux';
 
-const Navbar = ({ getUser, isLoggedIn, user, userAdmin }) => {
+const Navbar = ({ user, userToken }) => {
+   const dispatch = useDispatch();
+   const isAdmin = useSelector(isUserAdmin);
+   const isLogged = useSelector(isLoggedIn);
+
    const [width, setWidth] = useState(window.innerWidth);
    const updateWidth = () => setWidth(window.innerWidth);
    useEffect(() => {
       window.addEventListener('resize', updateWidth);
       return () => window.removeEventListener('resize', updateWidth);
    }, []);
-   const logoutUser = () => {
-      localStorage.removeItem('token');
-      getUser({
-         isAuthenticated: false,
-         user: null,
-         isAdmin: false,
-      });
-   };
 
    return (
       <S.NavbarContainer>
-         {/* <span>Welcome {user && user.name}!</span> */}
          <div>
             <S.NavLinkLogo to="/">
                <img src={logo} alt="Home" width="115" />
@@ -30,16 +28,18 @@ const Navbar = ({ getUser, isLoggedIn, user, userAdmin }) => {
          </div>
 
          <S.ul>
-            {isLoggedIn ? (
+            {isLogged ? (
                width < 650 ? (
-                  <HamburgerMenu logoutUser={logoutUser} userAdmin={userAdmin} />
+                  <HamburgerMenu isAdmin={isAdmin} userToken={userToken} />
                ) : (
                   <>
-                     <S.li>{/* <span>Welcome {user && user.name}!</span> */}</S.li>
+                     <S.li>
+                        <span>Welcome {user && user.name}!</span>
+                     </S.li>
                      <S.li>
                         <S.NavLink to="/Profile">Profile</S.NavLink>
                      </S.li>
-                     {userAdmin && (
+                     {isAdmin && (
                         <S.li>
                            <S.NavLink to="/Courses/AddCourse">Add Course</S.NavLink>
                         </S.li>
@@ -48,7 +48,7 @@ const Navbar = ({ getUser, isLoggedIn, user, userAdmin }) => {
                         <S.NavLink to="/Courses">My Courses</S.NavLink>
                      </S.li>
                      <S.li>
-                        <S.NavLink to="/" onClick={() => logoutUser()}>
+                        <S.NavLink to="/" onClick={() => dispatch(logout())}>
                            Logout
                         </S.NavLink>
                      </S.li>

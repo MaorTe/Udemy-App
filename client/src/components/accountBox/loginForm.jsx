@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import {
    BoldLink,
    BoxContainer,
@@ -9,9 +9,28 @@ import {
 } from './common.styles';
 import { Marginer } from '../marginer';
 import { AccountContext } from './accountContext';
+import { useDispatch, useSelector } from 'react-redux';
+import { userLogin } from './../../features/auth/authActions';
+import { useHistory } from 'react-router-dom';
+import { selectUser } from './../../features/auth/authSlice';
 
 export function LoginForm(props) {
-   const { switchToSignIn, loginUser, loginInfo, setLoginInfo } = useContext(AccountContext);
+   const { switchToSignIn } = useContext(AccountContext);
+   const history = useHistory();
+   const dispatch = useDispatch();
+   const user = useSelector(selectUser);
+
+   const [loginInfo, setLoginInfo] = useState({
+      email: '',
+      password: '',
+   });
+
+   const loginUser = async () => {
+      if (user === null) {
+         dispatch(userLogin(loginInfo));
+      }
+      history.push('/');
+   };
    const changeHandler = (e) => setLoginInfo({ ...loginInfo, [e.target.name]: e.target.value });
 
    return (

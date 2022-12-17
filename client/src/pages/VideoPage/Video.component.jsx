@@ -1,134 +1,90 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
-import api from '../../API/api';
 import ReactPlayer from 'react-player';
 import * as S from './Video.style';
 import { useLocation, useParams } from 'react-router';
 import Comment from '../../components/Comment/Comment.component';
 import VideoMenu from './../../components/VideoMenuBar/VideoMenu.component';
 
-const getComments = async (videoId) => {
-   try {
-      const token = localStorage.getItem('token');
-      const { data } = await api.get(`comments/${videoId}`, {
-         headers: { Authorization: token },
-      });
-      return data;
-   } catch (e) {
-      console.log(e.message);
-   }
-};
+import { useSelector } from 'react-redux';
+import {
+   fetchVideos,
+   selectAllVideos,
+   // videosError,
+   videosStatus,
+   selectVideoId,
+} from '../../features/videos/videosSlice';
+import {
+   addComment,
+   editComment,
+   fetchComments,
+   deleteComment,
+} from '../../features/comments/commentActions';
+import {
+   commentsError,
+   commentsStatus,
+   selectAllComments,
+} from '../../features/comments/commentsSlice';
+import { useAuth } from './../../features/auth/useAuth';
+
+// const getComments = async (videoId) => {
+//    try {
+//       const token = localStorage.getItem('token');
+//       const { data } = await api.get(`comments/${videoId}`, {
+//          headers: { Authorization: token },
+//       });
+//       return data;
+//    } catch (e) {
+//       console.log(e.message);
+//    }
+// };
 
 const Video = () => {
+   const initialVideoId = useSelector(selectVideoId);
+   const videosList = useSelector(selectAllVideos);
+   const videoStatus = useSelector(videosStatus);
+   // const videoError = useSelector(videosError);
+   const commentsList = useSelector(selectAllComments);
+   const commentStatus = useSelector(commentsStatus);
+   const commentError = useSelector(commentsError);
+
    const { courseDesc } = useLocation().state;
    const { courseId } = useParams();
 
-   const [user, setUser] = useState('');
    const [showVideo, setShowVideo] = useState('');
-   const [videosList, setVideosList] = useState([]);
    const [videoId, setVideoId] = useState(null);
-   const [comments, setComments] = useState([]);
-   const [state, setState] = useState('');
-   // const [commentId, setCommentId] = useState(null);
+   const [newComment, setNewComment] = useState('');
 
-   //fetch user to check for token
-   useEffect(() => {
-      const fetchUser = async () => {
-         try {
-            const token = localStorage.getItem('token');
-            const { data } = await api.get('/users/me', {
-               headers: { Authorization: token },
-            });
-            setUser(data);
-         } catch (e) {
-            console.log(e.message);
-         }
-      };
-      fetchUser();
-   }, []);
+   const [user, , dispatch] = useAuth();
 
    //fetch videos of the chosen course
    useEffect(() => {
-      const fetchVideos = async () => {
-         try {
-            const token = localStorage.getItem('token');
-            const { data } = await api.get(`/video/courses/${courseId}`, {
-               headers: { Authorization: token },
-            });
-            setVideosList(data);
-            setVideoId(data[0]._id);
-         } catch (e) {
-            console.log(e.message);
-         }
-      };
-      courseId && fetchVideos();
+      if (courseId && videoStatus === 'idle') {
+         dispatch(fetchVideos(courseId));
+      }
    }, [courseId]);
 
    //---------------Get comment---------------
    useEffect(() => {
-      const fetchComments = async () => {
-         const data = await getComments(videoId);
-         setComments(data);
-      };
-      if (videoId) {
-         fetchComments();
+      if (videoStatus === 'succeeded') {
+         dispatch(fetchComments(videoId));
+         setVideoId(videoId || initialVideoId);
       }
-   }, [videoId]);
+   }, [videoId, initialVideoId, commentsList?.length > 0]);
 
    //---------------Add new comment---------------
    const addNewComment = async () => {
-      try {
-         const token = localStorage.getItem('token');
-         const { data } = await api.post(
-            `comments/newcomment`,
-            { content: state, videoId: videoId },
-            {
-               headers: { Authorization: token },
-            },
-         );
-
-         // setComments((prevComments) => [...prevComments, data]);
-         setComments(data);
-      } catch (e) {
-         console.log(e.message);
-      }
+      dispatch(addComment({ newComment, videoId }));
    };
 
    //---------------Edit comment---------------
-   const editComment = async (commentId, content) => {
-      try {
-         const token = localStorage.getItem('token');
-         const { data } = await api.patch(
-            `comments/${videoId}`,
-            { content, commentId },
-            {
-               headers: { Authorization: token },
-            },
-         );
-         setComments(data);
-         // setComments((prev) => {
-         // 	const data = [...prev];
-         // 	const foundComment = data.find((item) => item._id === commentId);
-         // 	foundComment.content = content;
-         // 	return data;
-         // });
-      } catch (e) {
-         console.log(e.message);
-      }
+   const editUserComment = async (commentId, content) => {
+      dispatch(editComment({ videoId, content, commentId }));
    };
 
    //---------------delete comment---------------
-   const deleteComment = async (commentId) => {
-      try {
-         const token = localStorage.getItem('token');
-         const { data } = await api.delete(`comments/${videoId}/${commentId}`, {
-            headers: { Authorization: token },
-         });
-
-         await setComments(data);
-      } catch (e) {
-         console.log(e.message);
-      }
+   const deleteUserComment = async (commentId) => {
+      dispatch(deleteComment({ videoId, commentId }));
    };
 
    const showNewVideo = (video) => {
@@ -136,27 +92,33 @@ const Video = () => {
       setShowVideo(video.videoLink);
    };
 
+   const commentsContent = () => {
+      if (commentStatus === 'loading') {
+         return <div className="loader">Loading...</div>;
+      } else if (commentStatus === 'succeeded') {
+         return commentsList?.map((comment) => (
+            <Comment
+               key={comment._id}
+               comment={comment}
+               userId={user._id}
+               editComment={editUserComment}
+               deleteComment={deleteUserComment}
+            />
+         ));
+      } else if (commentStatus === 'failed') {
+         return <p style={{ color: 'red' }}>{commentError && 'Something went wrong...'}}</p>;
+      }
+   };
+
    const videoComments = () => (
       <S.CommentContainer>
-         <S.CommentsWrapper>
-            {user
-               ? comments.map((comment) => (
-                    <Comment
-                       key={comment._id}
-                       comment={comment}
-                       userId={user._id}
-                       editComment={editComment}
-                       deleteComment={deleteComment}
-                    />
-                 ))
-               : ''}
-         </S.CommentsWrapper>
+         <S.CommentsWrapper>{user ? commentsContent() : ''}</S.CommentsWrapper>
          {!user && <p>Comments only available while signed in</p>}
          <S.Commentbody
             cols="30"
             rows="2"
             draggable="false"
-            onChange={(e) => setState(e.target.value)}
+            onChange={(e) => setNewComment(e.target.value)}
             placeholder={user ? 'Add new comment' : ''}
             disabled={!user ? true : false}
          />
@@ -172,10 +134,13 @@ const Video = () => {
             <ReactPlayer
                width={window?.innerWidth < 520 ? window.innerWidth : '100%'}
                height={window?.innerWidth < 520 ? window.innerWidth - 33 : '60vh'}
-               url={showVideo || (videosList.length > 0 && videosList[0].videoLink)}
+               url={showVideo || videosList[0]?.videoLink}
                muted={false}
                playing={false}
-               controls={true}></ReactPlayer>
+               controls={true}
+               config={{
+                  youtube: { playerVars: { origin: 'https://www.youtube.com' } },
+               }}></ReactPlayer>
          ) : (
             <S.UserLoginMessage>Please sign in to see content</S.UserLoginMessage>
          )}

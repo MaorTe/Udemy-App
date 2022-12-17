@@ -2,10 +2,6 @@ import React, { useEffect, useState } from 'react';
 import Carousel from '../../components/Carousel/Carousel';
 import * as S from './Homepage.style';
 import hero from '../../img/undraw_Coding_re_iv62.svg';
-// import waves from '../../img/wave.svg';
-// import wave2 from '../../img/wave2.svg';
-// import wavewhite from '../../img/wavewhite.svg';
-// import wavetop from '../../img/wavetop.svg';
 import waveinverse from '../../img/waveinverse.svg';
 const Homepage = () => {
    const [width, setWidth] = useState(window.innerWidth);

@@ -7,8 +7,11 @@ import { SignUpForm } from './signupForm';
 import { useHistory } from 'react-router-dom';
 import api from '../../API/api';
 import * as S from './index.style';
+import { useDispatch } from 'react-redux';
+import { userLogin } from '../../features/auth/authActions';
 
-export function AccountBox({ getUser }) {
+export function AccountBox() {
+   const dispatch = useDispatch();
    const { location } = useHistory();
    const history = useHistory();
 
@@ -20,44 +23,45 @@ export function AccountBox({ getUser }) {
    }, []);
 
    // create new user
-   const [userData, setUserData] = useState([]);
-   const [userInfo, setUserInfo] = useState({
-      name: '',
-      age: '',
-      email: '',
-      password: '',
-   });
-   const [loginInfo, setLoginInfo] = useState({
-      email: '',
-      password: '',
-   });
-   const createUser = async () => {
-      try {
-         const { data } = await api.post('users', userInfo);
-         setUserData([data]);
-         //redirect to SignIn
-         history.push('/SignIn');
-      } catch (e) {
-         console.dir(e);
-      }
-   };
+   // const [userData, setUserData] = useState([]);
+   // const [userInfo, setUserInfo] = useState({
+   //    name: '',
+   //    age: '',
+   //    email: '',
+   //    password: '',
+   // });
+   // const [loginInfo, setLoginInfo] = useState({
+   //    email: '',
+   //    password: '',
+   // });
+   // const createUser = async () => {
+   //    try {
+   //       const { data } = await api.post('users', userInfo);
+   //       setUserData([data]);
+   //       //redirect to SignIn
+   //       history.push('/SignIn');
+   //    } catch (e) {
+   //       console.dir(e);
+   //    }
+   // };
 
-   const loginUser = async () => {
-      try {
-         const { data } = await api.post('users/login', loginInfo);
-         setUserInfo([data]);
-         //set profile name on navbar and redirect to homepage
-         localStorage.setItem('token', data.token);
-         getUser({
-            isAuthenticated: true,
-            user: data.user,
-            isAdmin: data.user.userRole === 'admin',
-         });
-         history.push('/');
-      } catch (e) {
-         console.dir(e);
-      }
-   };
+   // const loginUser = async () => {
+   //    try {
+   // const { data } = await api.post('users/login', loginInfo);
+   // dispatch(userLogin(loginInfo));
+   // setUserInfo([data]);
+   //set profile name on navbar and redirect to homepage
+   // localStorage.setItem('token', data.token);
+   // getUser({
+   //    isAuthenticated: true,
+   //    user: data.user,
+   //    isAdmin: data.user.userRole === 'admin',
+   // });
+   //       history.push('/');
+   //    } catch (e) {
+   //       console.dir(e);
+   //    }
+   // };
 
    //animation functions
    const playExpandingAnimation = async () => {
@@ -87,13 +91,13 @@ export function AccountBox({ getUser }) {
    const contextValue = {
       switchToSignIn,
       //passing new user
-      createUser,
-      userInfo,
-      setUserInfo,
+      // createUser,
+      // userInfo,
+      // setUserInfo,
       //passing login
-      loginUser,
-      loginInfo,
-      setLoginInfo,
+      // loginUser,
+      // loginInfo,
+      // setLoginInfo,
    };
 
    useEffect(() => {
