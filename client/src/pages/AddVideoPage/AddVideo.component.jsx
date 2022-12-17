@@ -6,11 +6,11 @@ import { useParams } from 'react-router';
 import { Marginer } from '../../components/marginer';
 import { useDispatch, useSelector } from 'react-redux';
 import { addVideo, videosStatus, videosError } from '../../features/videos/videosSlice';
+import { useAuth } from './../../features/auth/useAuth';
 
 const AddVideo = () => {
    const { courseId } = useParams();
-   const dispatch = useDispatch();
-   const [user, setUser] = useState();
+   const [user, , dispatch] = useAuth();
 
    const videoStatus = useSelector(videosStatus);
    const error = useSelector(videosError);
@@ -21,21 +21,6 @@ const AddVideo = () => {
       videoDescription: '',
       courseId: courseId,
    });
-   useEffect(() => {
-      const fetchUser = async () => {
-         try {
-            const token = localStorage.getItem('token');
-            const { data } = await api.get('/users/me', {
-               headers: { Authorization: token },
-            });
-
-            setUser(data);
-         } catch (e) {
-            console.log(e.message);
-         }
-      };
-      fetchUser();
-   }, []);
 
    const addVideo = async () => {
       // try {
@@ -57,6 +42,7 @@ const AddVideo = () => {
          <h1>Add new video</h1>
          <S.FormContainer>
             <S.Input
+               value={videoInfo.videoLink}
                name={'videoLink'}
                onChange={changeHandler}
                type="text"
@@ -64,12 +50,14 @@ const AddVideo = () => {
                required
             />
             <S.Input
+               value={videoInfo.videoTitle}
                name={'videoTitle'}
                onChange={changeHandler}
                type="text"
                placeholder="Video title"
             />
             <S.Input
+               value={videoInfo.videoDescription}
                name={'videoDescription'}
                onChange={changeHandler}
                type="text"

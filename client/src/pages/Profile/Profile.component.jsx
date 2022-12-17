@@ -19,21 +19,6 @@ const Profile = () => {
       // setSelectedFile(null);
    };
 
-   // TODO deleteFile
-   // const deleteFile = async () => {
-   // 	try {
-   // 		const { data } = await api.delete(`/users/me/avatar`, {
-   // 			headers: {
-   // 				Authorization: token.token,
-   // 			},
-   // 		});
-   // 	} catch (e) {
-   // 		console.log(e.message);
-   // 	}
-   // };
-   // <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
-   // console.log(user[0]._id);
-
    const userAvatar = () => (
       <S.CardWrapperImg>
          <S.ImageBorder>
@@ -75,6 +60,7 @@ const Profile = () => {
          {/* <img src={`data: image/png;base64,${user[0].avatar}`} alt="" /> */}
       </div>
    );
+
    const loadUserProfile = () => {
       if (userStatus === 'loading') {
          return <div className="loader">Loading...</div>;
@@ -91,6 +77,7 @@ const Profile = () => {
          return <p style={{ color: 'red' }}>{'Something went wrong...'}</p>;
       }
    };
+
    return (
       <S.PageContainer>
          <S.PageContent>

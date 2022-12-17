@@ -3,13 +3,12 @@ import React, { useEffect, useState } from 'react';
 import api from '../../API/api';
 import * as S from './AddCourse.style';
 import { Marginer } from '../../components/marginer';
-import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { addCourseError, addCourseStatus, addCourse } from '../../features/courses/coursesSlice';
+import { useAuth } from './../../features/auth/useAuth';
 
 const AddCourse = () => {
-   const dispatch = useDispatch();
-   const [user, setUser] = useState();
+   const [user, , dispatch] = useAuth();
 
    const courseStatus = useSelector(addCourseStatus);
    const error = useSelector(addCourseError);
@@ -20,20 +19,14 @@ const AddCourse = () => {
       courseDescription: '',
       tag: '',
    });
-   //    useEffect(() => {
-   //       const fetchUser = async () => {
-   //          try {
-   //             const token = localStorage.getItem('token');
-   //             const { data } = await api.get('/users/me', {
-   //                headers: { Authorization: token },
-   //             });
-   //             setUser(data);
-   //          } catch (e) {
-   //             console.log(e.message);
-   //          }
-   //       };
-   //       fetchUser();
-   //    }, []);
+
+   const canSave =
+      [
+         courseInfo.courseImage,
+         courseInfo.courseName,
+         courseInfo.courseDescription,
+         courseInfo.tag,
+      ].every(Boolean) && courseStatus === 'idle';
 
    const addCourse = async () => {
       //  try {
@@ -85,7 +78,7 @@ const AddCourse = () => {
             />
          </S.FormContainer>
          <Marginer direction="vertical" margin={10} />
-         <S.SubmitButton type="submit" onClick={() => addCourse()}>
+         <S.SubmitButton type="submit" disabled={!canSave} onClick={() => addCourse()}>
             Create Course
          </S.SubmitButton>
       </S.BoxContainer>
