@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import * as S from './AddCourse.style';
-import { Marginer } from '../../components/Marginer';
 import { useSelector } from 'react-redux';
 import { addCourse, getCoursesStatus, getCoursesError } from '../../features/courses/coursesSlice';
 import { useAuth } from './../../features/auth/useAuth';
+import { Marginer } from '../../components/Marginer';
 
 const AddCourse = () => {
    const [, , dispatch] = useAuth();
