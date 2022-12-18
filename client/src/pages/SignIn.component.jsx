@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import AccountBox from '../components/AccountBox/AccountBox';
+import AccountBox from '../components/AccountBox/AccountBox.jsx';
 
 const SignUpPageContainer = styled.div`
    width: 100%;
