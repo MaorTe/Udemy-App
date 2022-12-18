@@ -4,7 +4,7 @@ import { SignUpForm } from './signupForm';
 import { useHistory } from 'react-router-dom';
 import * as S from './index.style';
 
-export function AccountBox() {
+const AccountBox = () => {
    const { location } = useHistory();
    const [active, setActive] = useState(null);
    const [preActive, setPreActive] = useState(null);
@@ -67,4 +67,5 @@ export function AccountBox() {
          </S.InnerContainer>
       </S.BoxContainer>
    );
-}
+};
+export default AccountBox;
