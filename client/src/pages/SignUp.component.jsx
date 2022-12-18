@@ -1,5 +1,6 @@
 import styled from 'styled-components';
-import { AccountBox } from '../components/AccountBox';
+import { AccountBox } from './../components/AccountBox/index';
+
 
 const SignInPageContainer = styled.div`
    width: 100%;
@@ -13,7 +14,7 @@ const SignInPageContainer = styled.div`
 const SignUp = () => {
    return (
       <SignInPageContainer>
-         <AccountBox />
+        <AccountBox/>
       </SignInPageContainer>
    );
 };
