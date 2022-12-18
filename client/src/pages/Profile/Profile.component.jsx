@@ -8,7 +8,6 @@ import { fileUpload } from '../../features/users/usersActions';
 const Profile = () => {
    const [user, , dispatch] = useAuth();
    const userStatus = useSelector(getUserStatus);
-   // const error = useSelector(getUserError);
 
    const [selectedFile, setSelectedFile] = useState(null);
    const fileInput = useRef(null);
@@ -16,7 +15,6 @@ const Profile = () => {
    //upload file
    const fileUploadHandler = async () => {
       dispatch(fileUpload(selectedFile));
-      // setSelectedFile(null);
    };
 
    const userAvatar = () => (

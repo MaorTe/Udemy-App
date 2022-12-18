@@ -19,10 +19,6 @@ const usersSlice = createSlice({
       checkIfCourseExists(state, action) {
          const { courseId, favCourses } = action.payload;
          return favCourses?.find((el) => el.courseId === courseId);
-
-         // if (isExist) {
-         //    state.courses.push(action.payload);
-         // }
       },
       setfavCoursesIds(state, action) {
          const coursesIds = state.courses.map((course) => course.courseId._id);

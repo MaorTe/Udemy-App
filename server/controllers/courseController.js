@@ -3,7 +3,6 @@ const auth = require('../middleware/auth');
 const adminAuth = require('../middleware/adminAuth');
 
 const addNewCourse = async (req, res) => {
-   // const course = new Course(req.body);
    const course = new Course({
       ...req.body,
    });

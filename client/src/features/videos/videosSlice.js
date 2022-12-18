@@ -53,7 +53,6 @@ const videosSlice = createSlice({
          .addCase(fetchVideos.fulfilled, (state, action) => {
             state.status = 'succeeded';
             state.videos = action.payload;
-            console.log(action.payload);
          })
          .addCase(fetchVideos.rejected, (state, action) => {
             state.status = 'failed';

@@ -11,8 +11,6 @@ const AddCourse = () => {
    const courseStatus = useSelector(getCoursesStatus);
    const error = useSelector(getCoursesError);
 
-   //const [addRequestStatus, setAddRequestStatus] = useState('idle');
-
    const [courseInfo, setCourseInfo] = useState({
       courseImage: '',
       courseName: '',
