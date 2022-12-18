@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import AccountBox from '../components/AccountBox/AccountBox';
+import AccountBox from '../components/AccountBox/AccountBoxx';
 
-const SignInPageContainer = styled.div`
+const SignUpPageContainer = styled.div`
    width: 100%;
    height: 100%;
    display: flex;
@@ -10,12 +10,12 @@ const SignInPageContainer = styled.div`
    justify-content: center;
 `;
 
-const SignUp = () => {
+const SignIn = () => {
    return (
-      <SignInPageContainer>
+      <SignUpPageContainer>
          <AccountBox />
-      </SignInPageContainer>
+      </SignUpPageContainer>
    );
 };
 
-export default SignUp;
+export default SignIn;
