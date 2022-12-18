@@ -16,8 +16,6 @@ import useAuth from './features/auth/useAuth';
 function App() {
    const [user, userToken] = useAuth();
    const isAdmin = useSelector(isUserAdmin);
-   // const userStatus = useSelector(getUserStatus);
-   // const error = useSelector(getUserError);
 
    return (
       <div>
