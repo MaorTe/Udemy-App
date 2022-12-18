@@ -9,6 +9,7 @@ const SignInPageContainer = styled.div`
    justify-content: center;
 `;
 
+
 const SignUp = () => {
    return (
       <SignInPageContainer>
