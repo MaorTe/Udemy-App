@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import AccountBox from '../components/AccountBox/indextest';
+import AccountBox from '../components/AccountBox/index';
 
 const SignInPageContainer = styled.div`
    width: 100%;
