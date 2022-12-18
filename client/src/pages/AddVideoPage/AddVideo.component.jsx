@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
-
 import * as S from './AddVideo.style';
 import { useParams } from 'react-router';
-
 import { useSelector } from 'react-redux';
 import { addVideo, videosStatus, videosError } from '../../features/videos/videosSlice';
 import { useAuth } from './../../features/auth/useAuth';
-import { Marginer } from '../../components/Marginer';
+import Marginer from './../../components/Marginer/index';
 
 const AddVideo = () => {
    const { courseId } = useParams();

@@ -7,11 +7,11 @@ import {
    MutedLink,
    SubmitButton,
 } from './common.styles';
-import { Marginer } from '../Marginer';
 import { useDispatch, useSelector } from 'react-redux';
 import { userLogin } from '../../features/auth/authActions';
 import { useHistory } from 'react-router-dom';
 import { selectUser } from '../../features/auth/authSlice';
+import Marginer from './../Marginer/index';
 
 export function LoginForm() {
    const history = useHistory();

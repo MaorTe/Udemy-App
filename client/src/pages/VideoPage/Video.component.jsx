@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import ReactPlayer from 'react-player';
 import * as S from './Video.style';
-import { useHistory, useLocation, useParams } from 'react-router';
+import { useLocation, useParams } from 'react-router';
 import Comment from '../../components/Comment/Comment.component';
 import VideoMenu from './../../components/VideoMenuBar/VideoMenu.component';
 
@@ -9,7 +9,6 @@ import { useSelector } from 'react-redux';
 import {
    fetchVideos,
    selectAllVideos,
-   // videosError,
    videosStatus,
    selectVideoId,
 } from '../../features/videos/videosSlice';

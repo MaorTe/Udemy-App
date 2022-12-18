@@ -7,10 +7,11 @@ import {
    MutedLink,
    SubmitButton,
 } from './common.styles';
-import { Marginer } from '../Marginer';
+
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { registerUser } from '../../features/auth/authActions';
+import Marginer from './../Marginer/index';
 
 export function SignUpForm() {
    const history = useHistory();
