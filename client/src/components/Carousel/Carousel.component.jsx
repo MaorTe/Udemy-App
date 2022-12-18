@@ -1,9 +1,8 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import React, { useEffect } from 'react';
-import CourseCard from '../CourseCard/CourseCard';
+import CourseCard from '../CourseCard/CourseCard.component';
 import { useDispatch, useSelector } from 'react-redux';
 import {
    getCoursesError,
@@ -13,12 +12,11 @@ import {
 } from '../../features/courses/coursesSlice';
 import { selectAllFavoriteCourses, selectfavCoursesIds } from '../../features/users/usersSlice';
 import { fetchUserFavoriteCourses } from '../../features/users/usersActions';
-import { getUserStatus } from './../../features/auth/authSlice';
+import { getUserStatus } from '../../features/auth/authSlice';
 
-const Carousel = ({ tag, onPictureClick, width }) => {
+const Carousel = ({ tag, width }) => {
    const dispatch = useDispatch();
    const userStatus = useSelector(getUserStatus);
-
    const coursesList = useSelector(selectAllCourses);
    const favCourses = useSelector(selectAllFavoriteCourses);
    const favCoursesIds = useSelector(selectfavCoursesIds);
@@ -62,10 +60,8 @@ const Carousel = ({ tag, onPictureClick, width }) => {
                      tag={tag}
                      width={244}
                      height={140}
-                     // onButtonClick={onPictureClick}
                      course={course}
                      isCourseExists={favCourses?.find((el) => el.courseId._id === course._id)}
-                     // isCourseExists={favCourses.find((el) => el.courseId === course._id)}
                   />
                ))}
             </Slider>

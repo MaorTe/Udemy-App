@@ -5,7 +5,6 @@ const sharp = require('sharp');
 const createUser = async (req, res) => {
    const user = new User(req.body);
    try {
-      console.log(req.body);
       await user.save();
       const token = await user.generateAuthToken();
       res.status(201).send({ user, token });

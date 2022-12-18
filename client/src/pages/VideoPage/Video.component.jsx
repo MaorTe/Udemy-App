@@ -1,8 +1,7 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import ReactPlayer from 'react-player';
 import * as S from './Video.style';
-import { useLocation, useParams } from 'react-router';
+import { useHistory, useLocation, useParams } from 'react-router';
 import Comment from '../../components/Comment/Comment.component';
 import VideoMenu from './../../components/VideoMenuBar/VideoMenu.component';
 
@@ -26,12 +25,13 @@ import {
    selectAllComments,
 } from '../../features/comments/commentsSlice';
 import { useAuth } from './../../features/auth/useAuth';
+import { isLoggedIn } from '../../features/auth/authSlice';
 
 const Video = () => {
    const initialVideoId = useSelector(selectVideoId);
    const videosList = useSelector(selectAllVideos);
    const videoStatus = useSelector(videosStatus);
-   // const videoError = useSelector(videosError);
+   const isLogged = useSelector(isLoggedIn);
 
    const commentsList = useSelector(selectAllComments);
    const commentStatus = useSelector(commentsStatus);
@@ -48,18 +48,14 @@ const Video = () => {
 
    //fetch videos of the chosen course
    useEffect(() => {
-      if (courseId && videoStatus === 'idle') {
-         dispatch(fetchVideos(courseId));
-      }
-   }, [courseId]);
+      dispatch(fetchVideos(courseId));
+      setVideoId(initialVideoId);
+   }, [courseId, dispatch, initialVideoId]);
 
    //---------------Get comment---------------
    useEffect(() => {
-      if (videoStatus === 'succeeded') {
-         dispatch(fetchComments(videoId));
-         setVideoId(videoId || initialVideoId);
-      }
-   }, [videoId, initialVideoId, commentsList?.length > 0]);
+      videoStatus === 'succeeded' && videoId && dispatch(fetchComments(videoId));
+   }, [videoId, dispatch, videoStatus]);
 
    //---------------Add new comment---------------
    const addNewComment = async () => {
@@ -96,14 +92,12 @@ const Video = () => {
          ));
       } else if (commentStatus === 'failed') {
          return <p style={{ color: 'red' }}>{commentError && 'Something went wrong...'}}</p>;
-      } else {
-         return <div style={{ color: 'red' }}> Error occured </div>;
       }
    };
 
    const videoComments = () => (
       <S.CommentContainer>
-         <S.CommentsWrapper>{user ? commentsContent() : ''}</S.CommentsWrapper>
+         <S.CommentsWrapper>{isLogged ? commentsContent() : ''}</S.CommentsWrapper>
          {!user && <p>Comments only available while signed in</p>}
          <S.Commentbody
             cols="30"
@@ -128,10 +122,7 @@ const Video = () => {
                url={showVideo || videosList[0]?.videoLink}
                muted={false}
                playing={false}
-               controls={true}
-               config={{
-                  youtube: { playerVars: { origin: 'https://www.youtube.com' } },
-               }}></ReactPlayer>
+               controls={true}></ReactPlayer>
          ) : (
             <S.UserLoginMessage>Please sign in to see content</S.UserLoginMessage>
          )}

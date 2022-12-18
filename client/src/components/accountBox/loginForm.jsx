@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import {
    BoldLink,
    BoxContainer,
@@ -7,15 +7,13 @@ import {
    MutedLink,
    SubmitButton,
 } from './common.styles';
-import { Marginer } from '../marginer';
-import { AccountContext } from './accountContext';
+import { Marginer } from '../Marginer';
 import { useDispatch, useSelector } from 'react-redux';
-import { userLogin } from './../../features/auth/authActions';
+import { userLogin } from '../../features/auth/authActions';
 import { useHistory } from 'react-router-dom';
-import { selectUser } from './../../features/auth/authSlice';
+import { selectUser } from '../../features/auth/authSlice';
 
-export function LoginForm(props) {
-   const { switchToSignIn } = useContext(AccountContext);
+export function LoginForm() {
    const history = useHistory();
    const dispatch = useDispatch();
    const user = useSelector(selectUser);
@@ -62,9 +60,7 @@ export function LoginForm(props) {
 
          <Marginer direction="vertical" margin="1em" />
          <MutedLink to="/">Don't have an account?</MutedLink>
-         <BoldLink to="/SignUp" onClick={switchToSignIn}>
-            Sign up
-         </BoldLink>
+         <BoldLink to="/SignUp">Sign up</BoldLink>
       </BoxContainer>
    );
 }

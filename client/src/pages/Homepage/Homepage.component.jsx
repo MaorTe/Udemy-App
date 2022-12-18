@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import Carousel from '../../components/Carousel/Carousel';
+import Carousel from '../../components/Carousel/Carousel.component';
 import * as S from './Homepage.style';
 import hero from '../../img/undraw_Coding_re_iv62.svg';
 import waveinverse from '../../img/waveinverse.svg';

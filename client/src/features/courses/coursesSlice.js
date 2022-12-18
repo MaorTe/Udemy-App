@@ -36,14 +36,6 @@ const coursesSlice = createSlice({
             return { payload: { courseImage, courseName, courseDescription, tag } };
          },
       },
-      // fetchCourses: {
-      //    reducer(state, action) {
-      //       state.push(action.payload);
-      //    },
-      //    prepare({ courseImage, courseName, courseDescription, tag }) {
-      //       return { payload: { courseImage, courseName, courseDescription, tag } };
-      //    },
-      // },
    },
    extraReducers(builder) {
       builder
@@ -76,9 +68,6 @@ const coursesSlice = createSlice({
 export const getCoursesStatus = (state) => state.courses.status;
 export const getCoursesError = (state) => state.courses.error;
 export const selectAllCourses = (state) => state.courses.courses;
-
-export const addCourseStatus = (state) => state.courses.status;
-export const addCourseError = (state) => state.courses.error;
 
 export const { courseAdded } = coursesSlice.actions;
 

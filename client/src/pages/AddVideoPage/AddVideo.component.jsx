@@ -1,16 +1,15 @@
-/* eslint-disable no-unused-vars */
-import React, { useEffect, useState } from 'react';
-import api from '../../API/api';
+import React, { useState } from 'react';
+
 import * as S from './AddVideo.style';
 import { useParams } from 'react-router';
-import { Marginer } from '../../components/marginer';
-import { useDispatch, useSelector } from 'react-redux';
+import { Marginer } from '../../components/Marginer';
+import { useSelector } from 'react-redux';
 import { addVideo, videosStatus, videosError } from '../../features/videos/videosSlice';
 import { useAuth } from './../../features/auth/useAuth';
 
 const AddVideo = () => {
    const { courseId } = useParams();
-   const [user, , dispatch] = useAuth();
+   const [, , dispatch] = useAuth();
 
    const videoStatus = useSelector(videosStatus);
    const error = useSelector(videosError);
@@ -22,18 +21,8 @@ const AddVideo = () => {
       courseId: courseId,
    });
 
-   const addVideo = async () => {
-      // try {
-      // 	const token = localStorage.getItem('token');
-      // const data = await api.post('/video/addvideo', videoInfo, {
-      // 	headers: { Authorization: token },
-      // });
-      // } catch (e) {
-      // 	console.log(e.message);
-      // }
-      if (videoStatus === 'idle') {
-         dispatch(addVideo(videoInfo));
-      }
+   const addNewVideo = async () => {
+      dispatch(addVideo(videoInfo));
    };
 
    const changeHandler = (e) => setVideoInfo({ ...videoInfo, [e.target.name]: e.target.value });
@@ -65,7 +54,7 @@ const AddVideo = () => {
             />
          </S.FormContainer>
          <Marginer direction="vertical" margin={10} />
-         <S.SubmitButton type="submit" onClick={() => addVideo()}>
+         <S.SubmitButton type="submit" onClick={() => addNewVideo()}>
             Create Video
          </S.SubmitButton>
       </S.BoxContainer>

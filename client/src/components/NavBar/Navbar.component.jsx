@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import logo from '../../img/logo.png';
 import * as S from './Navbar.style';

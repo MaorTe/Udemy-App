@@ -1,5 +1,5 @@
 import React from 'react';
-import * as S from './FavCourse.style';
+import * as S from './FavCourseBtn.style';
 import { useDispatch, useSelector } from 'react-redux';
 import { addFavoriteCourse, removeFavoriteCourse } from '../../features/users/usersActions';
 import { userStatus } from '../../features/users/usersSlice';

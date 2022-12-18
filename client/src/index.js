@@ -5,9 +5,9 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
 import { store } from './store/store';
-import { fetchUserFavoriteCourses } from './features/users/usersActions';
+// import { fetchCourses } from './features/courses/coursesSlice';
 
-store.dispatch(fetchUserFavoriteCourses());
+// store.dispatch(fetchCourses('top'));
 
 ReactDOM.render(
    <React.StrictMode>

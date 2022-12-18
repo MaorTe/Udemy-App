@@ -12,6 +12,7 @@ const commentsSlice = createSlice({
    name: 'comments',
    initialState,
    reducers: {
+      resetComments: (state) => initialState,
       courseAdded: {
          reducer(state, action) {
             state.push(action.payload);
@@ -27,8 +28,8 @@ const commentsSlice = createSlice({
             state.status = 'loading';
          })
          .addCase(fetchComments.fulfilled, (state, action) => {
-            state.status = 'succeeded';
             state.comments = action.payload;
+            state.status = 'succeeded';
          })
          .addCase(fetchComments.rejected, (state, action) => {
             state.status = 'failed';
@@ -77,6 +78,6 @@ export const commentsStatus = (state) => state.comments.status;
 export const commentsError = (state) => state.comments.error;
 export const selectAllComments = (state) => state.comments.comments;
 
-export const { courseAdded } = commentsSlice.actions;
+export const { courseAdded, resetComments } = commentsSlice.actions;
 
 export default commentsSlice.reducer;

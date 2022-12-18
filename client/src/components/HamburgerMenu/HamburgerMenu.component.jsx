@@ -4,8 +4,8 @@ import { useDispatch } from 'react-redux';
 import { logout } from '../../features/auth/authSlice';
 
 export default function HamburgerMenu({ isAdmin }) {
-   const dispatch = useDispatch();
 
+   const dispatch = useDispatch();
    const [click, setClick] = useState(false);
    const handleClick = () => setClick(!click);
    return (

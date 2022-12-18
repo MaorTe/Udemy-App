@@ -20,13 +20,7 @@ const authSlice = createSlice({
    reducers: {
       logout: (state) => {
          localStorage.removeItem('userToken'); // delete token from storage
-         state.loading = false;
-         state.userInfo = null;
-         state.isAdmin = false;
-         state.userToken = null;
-         state.error = null;
-         state.success = false;
-         state.status = 'idle';
+         return initialState;
       },
       setCredentials: (state, { payload }) => {
          state.userInfo = payload;

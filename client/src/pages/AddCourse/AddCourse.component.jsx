@@ -1,17 +1,17 @@
-/* eslint-disable no-unused-vars */
-import React, { useEffect, useState } from 'react';
-import api from '../../API/api';
+import React, { useState } from 'react';
 import * as S from './AddCourse.style';
-import { Marginer } from '../../components/marginer';
+import { Marginer } from '../../components/Marginer';
 import { useSelector } from 'react-redux';
-import { addCourseError, addCourseStatus, addCourse } from '../../features/courses/coursesSlice';
+import { addCourse, getCoursesStatus, getCoursesError } from '../../features/courses/coursesSlice';
 import { useAuth } from './../../features/auth/useAuth';
 
 const AddCourse = () => {
-   const [user, , dispatch] = useAuth();
+   const [, , dispatch] = useAuth();
 
-   const courseStatus = useSelector(addCourseStatus);
-   const error = useSelector(addCourseError);
+   const courseStatus = useSelector(getCoursesStatus);
+   const error = useSelector(getCoursesError);
+
+   //const [addRequestStatus, setAddRequestStatus] = useState('idle');
 
    const [courseInfo, setCourseInfo] = useState({
       courseImage: '',
@@ -20,26 +20,15 @@ const AddCourse = () => {
       tag: '',
    });
 
-   const canSave =
-      [
-         courseInfo.courseImage,
-         courseInfo.courseName,
-         courseInfo.courseDescription,
-         courseInfo.tag,
-      ].every(Boolean) && courseStatus === 'idle';
+   const canSave = [
+      courseInfo.courseImage,
+      courseInfo.courseName,
+      courseInfo.courseDescription,
+      courseInfo.tag,
+   ].every(Boolean);
 
-   const addCourse = async () => {
-      //  try {
-      //     const token = localStorage.getItem('token');
-      //     const data = await api.post('/courses/addcourse', courseInfo, {
-      //        headers: { Authorization: token },
-      //     });
-      //  } catch (e) {
-      //     console.log(e.message);
-      //  }
-      if (courseStatus === 'idle') {
-         dispatch(addCourse(courseInfo));
-      }
+   const addNewCourse = () => {
+      dispatch(addCourse(courseInfo));
    };
 
    const changeHandler = (e) => setCourseInfo({ ...courseInfo, [e.target.name]: e.target.value });
@@ -78,7 +67,7 @@ const AddCourse = () => {
             />
          </S.FormContainer>
          <Marginer direction="vertical" margin={10} />
-         <S.SubmitButton type="submit" disabled={!canSave} onClick={() => addCourse()}>
+         <S.SubmitButton type="submit" disabled={!canSave} onClick={() => addNewCourse()}>
             Create Course
          </S.SubmitButton>
       </S.BoxContainer>

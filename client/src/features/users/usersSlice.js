@@ -4,14 +4,11 @@ import {
    fetchUserFavoriteCourses,
    fileUpload,
    removeFavoriteCourse,
-   userToken,
 } from './usersActions';
 
 const initialState = {
    courses: [],
    favCoursesIds: [],
-   isAdmin: false,
-   userToken,
    error: null,
 };
 
@@ -29,10 +26,9 @@ const usersSlice = createSlice({
       },
       setfavCoursesIds(state, action) {
          const coursesIds = state.courses.map((course) => course.courseId._id);
-         console.log(coursesIds);
          state.favCourses = coursesIds;
-         console.log(state.favCourses);
       },
+      reset: (state) => initialState,
    },
    extraReducers(builder) {
       builder
@@ -94,6 +90,6 @@ export const userError = (state) => state.users.error;
 export const selectfavCoursesIds = (state) => state.users.favCourses;
 export const selectAllFavoriteCourses = (state) => state.users?.courses;
 
-export const { checkIfCourseExists, setfavCoursesIds } = usersSlice.actions;
+export const { reset, setfavCoursesIds } = usersSlice.actions;
 
 export default usersSlice.reducer;

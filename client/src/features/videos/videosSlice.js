@@ -11,26 +11,23 @@ const userToken = localStorage.getItem('userToken');
 // Thunk functions
 
 export const addVideo = createAsyncThunk('videos/addNewVideo', async (videoInfo) => {
-   try {
-      const response = await api.post('/video/addvideo', videoInfo, {
-         headers: { Authorization: userToken },
-      });
-      return response.data;
-   } catch (error) {
-      console.log(error);
-   }
+   const response = await api.post('/video/addvideo', videoInfo, {
+      headers: { Authorization: userToken },
+   });
+   return response.data;
 });
 
 export const fetchVideos = createAsyncThunk('videos/fetchVideos', async (courseId) => {
-   try {
-      const response = await api.get(`/video/courses/${courseId}`, {
-         headers: { Authorization: userToken },
-      });
-      return response.data;
-   } catch (error) {
-      console.log(error);
-   }
+   // try {
+   const response = await api.get(`/video/courses/${courseId}`, {
+      headers: { Authorization: userToken },
+   });
+   return response.data;
+   // } catch (err) {
+   //    return rejectWithValue(err.response.data);
+   // }
 });
+
 // state slice
 const videosSlice = createSlice({
    name: 'videos',
@@ -56,6 +53,7 @@ const videosSlice = createSlice({
          .addCase(fetchVideos.fulfilled, (state, action) => {
             state.status = 'succeeded';
             state.videos = action.payload;
+            console.log(action.payload);
          })
          .addCase(fetchVideos.rejected, (state, action) => {
             state.status = 'failed';
