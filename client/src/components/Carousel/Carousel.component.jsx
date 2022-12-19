@@ -58,8 +58,6 @@ const Carousel = ({ tag, width }) => {
                   <CourseCard
                      key={course._id}
                      tag={tag}
-                     width={244}
-                     height={140}
                      course={course}
                      isCourseExists={favCourses?.find((el) => el.courseId._id === course._id)}
                   />

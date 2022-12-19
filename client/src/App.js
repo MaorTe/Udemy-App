@@ -20,7 +20,7 @@ function App() {
    return (
       <div>
          <Router>
-            <Navbar user={user} userToken={userToken} isAdmin={isAdmin} />
+            <Navbar user={user} userToken={userToken} />
             <Switch>
                <Route exact path="/SignIn" component={SignIn} />
                <Route exact path="/Profile" component={Profile} />
@@ -36,12 +36,6 @@ function App() {
                ) : (
                   <Redirect to="/" />
                )}
-
-               {/*<Route
-						exact
-						path="/SearchResults/:type/q=:query"
-						component={SearchResults}
-					/> */}
                <Route component={NotFound} />
             </Switch>
          </Router>

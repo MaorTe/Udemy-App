@@ -44,7 +44,7 @@ export const fileUpload = createAsyncThunk('user/profilePicture', async (selecte
    const response = await api.post(
       `/users/special/me/avatar`,
       fd,
-      // TODO progress-bar
+      // TODO: progress-bar
       // {
       // 	onUploadProgress: (progressEvent) => {
       // 		console.log(
@@ -64,8 +64,8 @@ export const fileUpload = createAsyncThunk('user/profilePicture', async (selecte
    return response;
 });
 
-// TODO: deleteUserProfile
-// export const deleteUserProfile = createAsyncThunk('user/removeFavoriteCourse', async () => {
+// TODO: deleteUser
+// export const deleteUser = createAsyncThunk('user/removeUser', async () => {
 //    try {
 //       const data = await api.delete(`/users/me/avatar`, {
 //          headers: {

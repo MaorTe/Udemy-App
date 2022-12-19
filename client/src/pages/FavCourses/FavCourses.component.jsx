@@ -27,13 +27,7 @@ const Courses = () => {
       else if (usersStatus === 'succeeded') {
          return favCourses.length ? (
             favCourses?.map((course) => (
-               <CourseCard
-                  key={course._id}
-                  width={244}
-                  height={140}
-                  course={course.courseId}
-                  isCourseExists={true}
-               />
+               <CourseCard key={course._id} course={course.courseId} isCourseExists={true} />
             ))
          ) : (
             <h1>Courses list is empty</h1>

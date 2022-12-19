@@ -18,7 +18,6 @@ const auth = async (req, res, next) => {
 		}
 		//this is for logout user
 		req.token = token;
-		//giving the route handler access to the user that we fetched from the database, we already fetched the user so theres no need to fetch the user again, it will just waste resources and time
 		//all we need to do is add a property on to the request to store this and the route handlers will be able to access it later on
 		req.user = user;
 		next();

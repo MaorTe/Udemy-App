@@ -8,7 +8,7 @@ import React from 'react';
 import { isLoggedIn } from '../../features/auth/authSlice';
 import { useSelector } from 'react-redux';
 
-const CourseCard = ({ width, height, isCourseExists, course }) => {
+const CourseCard = ({ isCourseExists, course }) => {
    const isLogged = useSelector(isLoggedIn);
    return course ? (
       <S.CardWrapper>
@@ -22,8 +22,8 @@ const CourseCard = ({ width, height, isCourseExists, course }) => {
             <LazyLoadImage
                alt={'picture'}
                src={course.courseImage}
-               width={window?.innerWidth < 520 ? '81%' : width}
-               height={height}
+               width={window?.innerWidth < 520 ? '81%' : 244}
+               height={140}
                className="img-select"
             />
          </Link>

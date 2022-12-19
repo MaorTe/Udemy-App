@@ -3,7 +3,6 @@ const Course = require('../models/course');
 const Comment = require('../models/comment');
 
 const addNewVideo = async (req, res) => {
-   //make new videos in video collection
    const video = new Video({
       ...req.body,
    });

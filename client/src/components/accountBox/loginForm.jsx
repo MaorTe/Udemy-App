@@ -25,9 +25,15 @@ export function LoginForm() {
 
    const loginUser = async () => {
       if (user === null) {
-         dispatch(userLogin(loginInfo));
+         dispatch(userLogin(loginInfo))
+            .unwrap()
+            .then((res) => {
+               res.token && history.push('/');
+            })
+            .catch((err) => {
+               console.log('Something went wrong');
+            });
       }
-      history.push('/');
    };
    const changeHandler = (e) => setLoginInfo({ ...loginInfo, [e.target.name]: e.target.value });
 

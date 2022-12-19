@@ -30,7 +30,6 @@ const getUserOwnCourse = async (req, res) => {
    const _id = req.params.id;
 
    try {
-      //const course = await Course.findById(_id);
       const course = await Course.findOne({ _id, owner: req.user._id });
       if (!course) {
          return res.status(404).send();
@@ -52,7 +51,6 @@ const updateUserOwnCourse = async (req, res) => {
    }
 
    try {
-      //const course = await Course.findById(req.params.id);
       const course = await Course.findOne({
          _id: req.params.id,
          owner: req.user._id,
@@ -72,7 +70,6 @@ const updateUserOwnCourse = async (req, res) => {
 
 const deleteUserOwnCourse = async (req, res) => {
    try {
-      //const course = await Course.findByIdAndDelete(req.params.id);
       const course = await Course.findOneAndDelete({
          _id: req.params.id,
          owner: req.user._id,

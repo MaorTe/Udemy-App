@@ -3,9 +3,11 @@ import * as S from './Homepage.style';
 import hero from '../../img/undraw_Coding_re_iv62.svg';
 import waveinverse from '../../img/waveinverse.svg';
 import Carousel from '../../components/Carousel/Carousel.component';
+
 const Homepage = () => {
    const [width, setWidth] = useState(window.innerWidth);
    const updateWidth = () => setWidth(window.innerWidth);
+
    useEffect(() => {
       window.addEventListener('resize', updateWidth);
       return () => window.removeEventListener('resize', updateWidth);
@@ -28,7 +30,6 @@ const Homepage = () => {
             <S.HeroContentBottom>
                <img src={hero} alt="hero" />
             </S.HeroContentBottom>
-            {/* <img src={waves} alt="wave" /> */}
          </S.HeroContainer>
 
          <h2>Top courses in Web Development</h2>
