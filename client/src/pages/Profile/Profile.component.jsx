@@ -85,14 +85,16 @@ const Profile = () => {
    };
 
    return (
-      <S.PageContainer>
-         <S.PageContent>
-            {window.innerWidth > 650 && userAvatar()}
+      <>
+         <S.PageContainer>
+            <S.PageContent>
+               {window.innerWidth > 650 && userAvatar()}
 
-            <S.UserProfileCard>{loadUserProfile()}</S.UserProfileCard>
-         </S.PageContent>
+               <S.UserProfileCard>{loadUserProfile()}</S.UserProfileCard>
+            </S.PageContent>
+         </S.PageContainer>
          <ToastContainer autoClose={2000} />
-      </S.PageContainer>
+      </>
    );
 };
 export default Profile;
