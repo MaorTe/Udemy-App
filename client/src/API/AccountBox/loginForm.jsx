@@ -11,7 +11,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { userLogin } from '../../features/auth/authActions';
 import { useNavigate } from 'react-router-dom';
 import { selectUser } from '../../features/auth/authSlice';
-import Marginer from '../Marginer/Marginer';
+import Marginer from '../../components/Marginer/Marginer';
 import { ToastContainer, toast } from 'react-toastify';
 
 export function LoginForm() {

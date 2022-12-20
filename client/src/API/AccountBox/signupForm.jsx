@@ -11,7 +11,7 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { registerUser } from '../../features/auth/authActions';
-import Marginer from '../Marginer/Marginer';
+import Marginer from '../../components/Marginer/Marginer';
 
 export function SignUpForm() {
    const history = useNavigate();
