@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
+import { Route, Routes, Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { isUserAdmin } from './features/auth/authSlice';
 import Navbar from './components/NavBar/Navbar.component';
@@ -19,26 +19,24 @@ function App() {
 
    return (
       <div>
-         <Router>
-            <Navbar user={user} userToken={userToken} />
-            <Switch>
-               <Route exact path="/SignIn" component={SignIn} />
-               <Route exact path="/Profile" component={Profile} />
-               <Route exact path="/" component={Homepage} />
-               <Route exact path="/SignUp" component={SignUp} />
-               <Route exact path="/Courses" component={Courses} />
-               <Route exact path="/Courses/:courseName/Videos/:courseId" component={Video} />
-               {isAdmin ? (
-                  <Switch>
-                     <Route exact path="/Courses/Videos/AddVideo/:courseId" component={AddVideo} />
-                     <Route exact path="/Courses/AddCourse" component={AddCourse} />
-                  </Switch>
-               ) : (
-                  <Redirect to="/" />
-               )}
-               <Route component={NotFound} />
-            </Switch>
-         </Router>
+         <Navbar user={user} userToken={userToken} />
+         <Routes>
+            <Route exact path="/SignIn" element={<SignIn />} />
+            <Route exact path="/Profile" element={<Profile />} />
+            <Route exact path="/" element={<Homepage />} />
+            <Route exact path="/SignUp" element={<SignUp />} />
+            <Route exact path="/Courses" element={<Courses />} />
+            <Route exact path="/Courses/:courseName/Videos/:courseId" element={<Video />} />
+            {isAdmin ? (
+               <>
+                  <Route exact path="/Courses/Videos/AddVideo/:courseId" element={<AddVideo />} />
+                  <Route exact path="/Courses/AddCourse" element={<AddCourse />} />
+               </>
+            ) : (
+               <Route path="/" element={<Navigate replace to="/" />} />
+            )}
+            <Route path="*" element={<NotFound />} />
+         </Routes>
       </div>
    );
 }

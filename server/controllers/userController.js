@@ -89,7 +89,6 @@ const getUserFavoriteCourses = async (req, res) => {
 
 //after login/signup the client takes this auth token and providing it with the request its trying to perform
 const validateUserToken = async (req, res) => {
-   console.log('llllllllllll');
    res.send(req.user);
 };
 

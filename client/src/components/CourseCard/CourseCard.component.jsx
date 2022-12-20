@@ -15,9 +15,9 @@ const CourseCard = ({ isCourseExists, course }) => {
          <Link
             to={{
                pathname: `/Courses/${course.courseName}/Videos/${course._id}`,
-               state: {
-                  courseDesc: course.courseDescription,
-               },
+            }}
+            state={{
+               courseDesc: course.courseDescription,
             }}>
             <LazyLoadImage
                alt={'picture'}

@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { LoginForm } from './loginForm';
 import { SignUpForm } from './signupForm';
-import { useHistory } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import * as S from './index.style';
 
 export function AccountBox() {
-   const { location } = useHistory();
+   const location = useLocation();
    const [active, setActive] = useState(null);
    const [preActive, setPreActive] = useState(null);
 
    //animation
    const [isExpanded, setExpanded] = useState(false);
+   const type = '';
    useEffect(() => {
       const type = location.pathname.slice(1);
       setActive(type);

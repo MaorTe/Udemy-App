@@ -18,6 +18,7 @@ import {
    commentsStatus,
    selectAllComments,
 } from '../../features/comments/commentsSlice';
+import { ToastContainer, toast } from 'react-toastify';
 import { useAuth } from './../../features/auth/useAuth';
 import { isLoggedIn } from '../../features/auth/authSlice';
 
@@ -53,17 +54,38 @@ const Video = () => {
 
    //---------------Add new comment---------------
    const addNewComment = async () => {
-      dispatch(addComment({ newComment, videoId }));
+      dispatch(addComment({ newComment, videoId }))
+         .unwrap()
+         .then((res) => {
+            toast.success('Successfully added comment');
+         })
+         .catch((error) => {
+            toast.error('Failed to add comment');
+         });
    };
 
    //---------------Edit comment---------------
    const editUserComment = async (commentId, content) => {
-      dispatch(editComment({ videoId, content, commentId }));
+      dispatch(editComment({ videoId, content, commentId }))
+         .unwrap()
+         .then((res) => {
+            toast.success('Successfully edited comment');
+         })
+         .catch((error) => {
+            toast.error('Failed to edit comment');
+         });
    };
 
    //---------------delete comment---------------
    const deleteUserComment = async (commentId) => {
-      dispatch(deleteComment({ videoId, commentId }));
+      dispatch(deleteComment({ videoId, commentId }))
+         .unwrap()
+         .then((res) => {
+            toast.success('Successfully deleted comment');
+         })
+         .catch((error) => {
+            toast.error('Failed to delete comment');
+         });
    };
 
    const showNewVideo = (video) => {
@@ -199,6 +221,7 @@ const Video = () => {
          {videoContainer()}
          {courseContent()}
          {courseAbout()}
+         <ToastContainer autoClose={2000} />
       </S.UpperPageContainer>
    );
 };

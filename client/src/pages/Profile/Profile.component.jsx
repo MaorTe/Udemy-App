@@ -4,6 +4,7 @@ import * as S from './Profile.style';
 import { getUserStatus } from './../../features/auth/authSlice';
 import useAuth from '../../features/auth/useAuth';
 import { fileUpload } from '../../features/users/usersActions';
+import { ToastContainer, toast } from 'react-toastify';
 
 const Profile = () => {
    const [user, , dispatch] = useAuth();
@@ -14,7 +15,14 @@ const Profile = () => {
 
    //upload file
    const fileUploadHandler = async () => {
-      dispatch(fileUpload(selectedFile));
+      dispatch(fileUpload(selectedFile))
+         .unwrap()
+         .then((res) => {
+            toast.success('Picture saved');
+         })
+         .catch((error) => {
+            toast.error('Failed to save picture');
+         });
    };
 
    const userAvatar = () => (
@@ -83,6 +91,7 @@ const Profile = () => {
 
             <S.UserProfileCard>{loadUserProfile()}</S.UserProfileCard>
          </S.PageContent>
+         <ToastContainer autoClose={2000} />
       </S.PageContainer>
    );
 };

@@ -9,12 +9,13 @@ import {
 } from './common.styles';
 import { useDispatch, useSelector } from 'react-redux';
 import { userLogin } from '../../features/auth/authActions';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { selectUser } from '../../features/auth/authSlice';
 import Marginer from '../Marginer/Marginer';
+import { ToastContainer, toast } from 'react-toastify';
 
 export function LoginForm() {
-   const history = useHistory();
+   const navigate = useNavigate();
    const dispatch = useDispatch();
    const user = useSelector(selectUser);
 
@@ -25,14 +26,16 @@ export function LoginForm() {
 
    const loginUser = async () => {
       if (user === null) {
-         dispatch(userLogin(loginInfo))
-            .unwrap()
-            .then((res) => {
-               res.token && history.push('/');
-            })
-            .catch((err) => {
-               console.log('Something went wrong');
-            });
+         try {
+            const authUser = await dispatch(userLogin(loginInfo)).unwrap();
+            toast.success('Successfully Login 👌');
+            setTimeout(() => {
+               authUser.token && navigate('/');
+            }, 1000);
+         } catch (err) {
+            toast.error('Login Failed');
+            console.log('Something went wrong');
+         }
       }
    };
    const changeHandler = (e) => setLoginInfo({ ...loginInfo, [e.target.name]: e.target.value });
@@ -55,18 +58,16 @@ export function LoginForm() {
                placeholder="Password"
             />
          </FormContainer>
-
          <Marginer direction="vertical" margin={10} />
          <MutedLink to="/">Forget your password?</MutedLink>
-
          <Marginer direction="vertical" margin="1.6em" />
          <SubmitButton type="submit" onClick={loginUser}>
             Sign in
          </SubmitButton>
-
          <Marginer direction="vertical" margin="1em" />
          <MutedLink to="/">Don't have an account?</MutedLink>
          <BoldLink to="/SignUp">Sign up</BoldLink>
+         <ToastContainer autoClose={2000} />
       </BoxContainer>
    );
 }

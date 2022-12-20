@@ -8,13 +8,13 @@ import {
    SubmitButton,
 } from './common.styles';
 
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { registerUser } from '../../features/auth/authActions';
 import Marginer from '../Marginer/Marginer';
 
 export function SignUpForm() {
-   const history = useHistory();
+   const history = useNavigate();
    const dispatch = useDispatch();
 
    const [userInfo, setUserInfo] = useState({
