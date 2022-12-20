@@ -3,9 +3,9 @@ import api from './../../API/api';
 
 export const userLogin = createAsyncThunk('user/login', async (loginInfo, { rejectWithValue }) => {
    try {
-   const { data } = await api.post(`users/login`, loginInfo);
-   localStorage.setItem('userToken', data.token);
-   return data;
+      const { data } = await api.post(`users/login`, loginInfo);
+      localStorage.setItem('userToken', data.token);
+      return data;
    } catch (error) {
       // return custom error message from API if any
       if (error.response && error.response.data.message) {
