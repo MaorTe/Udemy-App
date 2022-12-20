@@ -8,8 +8,8 @@ import {
    getCoursesError,
    getCoursesStatus,
    selectAllCourses,
-   fetchCourses,
 } from '../../features/courses/coursesSlice';
+import { fetchCourses } from './../../features/courses/coursesActions';
 import { selectAllFavoriteCourses, selectfavCoursesIds } from '../../features/users/usersSlice';
 import { fetchUserFavoriteCourses } from '../../features/users/usersActions';
 import { getUserStatus } from '../../features/auth/authSlice';

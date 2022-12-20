@@ -1,32 +1,11 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import api from '../../API/api';
+import { createSlice } from '@reduxjs/toolkit';
+import { addVideo, fetchVideos } from './videoActions';
 
 const initialState = {
    videos: [],
    status: 'idle',
    error: null,
 };
-
-const userToken = localStorage.getItem('userToken');
-// Thunk functions
-
-export const addVideo = createAsyncThunk('videos/addNewVideo', async (videoInfo) => {
-   const response = await api.post('/video/addvideo', videoInfo, {
-      headers: { Authorization: userToken },
-   });
-   return response.data;
-});
-
-export const fetchVideos = createAsyncThunk('videos/fetchVideos', async (courseId) => {
-   // try {
-   const response = await api.get(`/video/courses/${courseId}`, {
-      headers: { Authorization: userToken },
-   });
-   return response.data;
-   // } catch (err) {
-   //    return rejectWithValue(err.response.data);
-   // }
-});
 
 // state slice
 const videosSlice = createSlice({

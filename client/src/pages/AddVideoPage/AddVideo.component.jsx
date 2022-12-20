@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import * as S from './AddVideo.style';
 import { useParams } from 'react-router';
 import { useSelector } from 'react-redux';
-import { addVideo, videosStatus, videosError } from '../../features/videos/videosSlice';
+import { videosStatus, videosError } from '../../features/videos/videosSlice';
+import { addVideo } from './../../features/videos/videoActions';
 import { useAuth } from './../../features/auth/useAuth';
 import Marginer from '../../components/Marginer/Marginer';
 
