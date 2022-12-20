@@ -12,9 +12,10 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { registerUser } from '../../features/auth/authActions';
 import Marginer from '../../components/Marginer/Marginer';
+import { ToastContainer, toast } from 'react-toastify';
 
 export function SignUpForm() {
-   const history = useNavigate();
+   const navigate = useNavigate();
    const dispatch = useDispatch();
 
    const [userInfo, setUserInfo] = useState({
@@ -25,9 +26,17 @@ export function SignUpForm() {
    });
 
    const createUser = async () => {
-      dispatch(registerUser(userInfo));
-      //redirect to SignIn
-      history.push('/SignIn');
+      try {
+         const userRegister = await dispatch(registerUser(userInfo)).unwrap();
+         toast.success('Successfully register 👌');
+         setTimeout(() => {
+            //redirect to SignIn
+            userRegister && navigate('/SignIn');
+         }, 1000);
+      } catch (err) {
+         toast.error('Register Failed');
+         console.log(err);
+      }
    };
 
    const changeHandler = (e) => setUserInfo({ ...userInfo, [e.target.name]: e.target.value });
@@ -73,6 +82,7 @@ export function SignUpForm() {
          <Marginer direction="vertical" margin="1em" />
          <MutedLink to="/">Already have an account?</MutedLink>
          <BoldLink to="/SignIn">Sign in</BoldLink>
+         <ToastContainer autoClose={2000} />
       </BoxContainer>
    );
 }
