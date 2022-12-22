@@ -39,7 +39,7 @@ const Video = () => {
    const [videoId, setVideoId] = useState(null);
    const [newComment, setNewComment] = useState('');
 
-   const [user, userToken, dispatch] = useAuth();
+   const [user, , dispatch] = useAuth();
 
    //fetch videos of the chosen course
    useEffect(() => {
@@ -140,7 +140,7 @@ const Video = () => {
                playing={false}
                controls={true}></ReactPlayer>
          ) : (
-            <S.UserLoginMessage>Please sign in to see content</S.UserLoginMessage>
+            <S.UserAuthMessage>Please sign in to see content</S.UserAuthMessage>
          )}
       </S.VideoPageContainer>
    );
@@ -168,45 +168,26 @@ const Video = () => {
    );
 
    const courseAbout = () => (
-      <S.LowerPageContainer>
-         <h2
-            style={{
-               borderBottom: '1px solid black',
-               paddingBottom: '5px',
-               margin: '10px 0',
-            }}>
-            About this course
-         </h2>
-         <p
-            style={{
-               width: '80%',
-               marginBottom: '1rem',
-            }}>
-            {courseDesc}
-         </p>
-      </S.LowerPageContainer>
+      <S.CourseAboutContainer>
+         <S.CourseAboutTitle>About this course</S.CourseAboutTitle>
+         <S.CourseAboutDesc>{courseDesc}</S.CourseAboutDesc>
+      </S.CourseAboutContainer>
    );
 
    const findVideoTitle = () => {
       const found = videosList.find((video) => videoId === video._id);
       return found?.videoTitle;
    };
+
+   // render mobile or pc version
    return window.innerWidth < 650 ? (
       <>
-         <h2
-            style={{
-               background: 'black',
-               color: 'white',
-               textAlign: 'center',
-               padding: '15px 2px',
-            }}>
-            {findVideoTitle()}
-         </h2>
+         <S.VideoTitleMobile>{findVideoTitle()}</S.VideoTitleMobile>
          {user ? (
             videoContainer()
          ) : (
             <div style={{ height: '220px' }}>
-               <S.UserLoginMessage>Please sign in to see content</S.UserLoginMessage>
+               <S.UserAuthMessage>Please sign in to see content</S.UserAuthMessage>
             </div>
          )}
          <VideoMenu

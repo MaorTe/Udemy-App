@@ -40,7 +40,7 @@ export const UpperPageContainer = styled.div`
    grid-row-gap: 0px;
    height: 92vh;
 `;
-export const LowerPageContainer = styled.div`
+export const CourseAboutContainer = styled.div`
    display: flex;
    flex-direction: column;
    justify-content: flex-start;
@@ -86,7 +86,7 @@ const anim_lineUp = keyframes`
 	  transform: translateY(0%);
 	}`;
 
-export const UserLoginMessage = styled.h2`
+export const UserAuthMessage = styled.h2`
    width: 400px;
    /* height: 600px; */
    /*Can also be fixed*/
@@ -108,6 +108,22 @@ export const UserLoginMessage = styled.h2`
       height: 357px;
       z-index: -1;
    }
+`;
+
+export const VideoTitleMobile = styled.h2`
+   background: black;
+   color: white;
+   text-align: center;
+   padding: 15px 2px;
+`;
+export const CourseAboutTitle = styled.h2`
+   border-bottom: 1px solid black;
+   padding-bottom: 5px;
+   margin: 10px 0;
+`;
+export const CourseAboutDesc = styled.p`
+   width: 80%;
+   marginbottom: 1rem;
 `;
 
 export const videosMenuTitle = styled.h3`
