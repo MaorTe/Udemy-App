@@ -39,7 +39,7 @@ const Video = () => {
    const [videoId, setVideoId] = useState(null);
    const [newComment, setNewComment] = useState('');
 
-   const [user, , dispatch] = useAuth();
+   const [user, userToken, dispatch] = useAuth();
 
    //fetch videos of the chosen course
    useEffect(() => {

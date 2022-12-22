@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux';
 import { isLoggedIn, isUserAdmin, logout } from '../../features/auth/authSlice';
 import { useSelector } from 'react-redux';
 
-const Navbar = ({ user, userToken }) => {
+const Navbar = ({ user }) => {
    const dispatch = useDispatch();
    const isAdmin = useSelector(isUserAdmin);
    const isLogged = useSelector(isLoggedIn);
@@ -29,7 +29,7 @@ const Navbar = ({ user, userToken }) => {
          <S.ul>
             {isLogged ? (
                width < 650 ? (
-                  <HamburgerMenu isAdmin={isAdmin} userToken={userToken} />
+                  <HamburgerMenu isAdmin={isAdmin} />
                ) : (
                   <>
                      <S.li>

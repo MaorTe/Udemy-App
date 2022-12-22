@@ -17,7 +17,6 @@ router.delete('/:videoId/:commentId', auth, commentController.deleteComment);
 //             path: 'comments',
 //             populate: { path: 'owner', select: 'name avatar-_id' },
 //          })
-//          .execPopulate();
 //       res.send(req.user.courses);
 //    } catch (e) {
 //       res.status(500).send();
@@ -51,7 +50,6 @@ router.delete('/:videoId/:commentId', auth, commentController.deleteComment);
 // 					sort,
 // 				},
 // 			})
-// 			.execPopulate();
 // 		res.send(req.user.tasks);
 // 	} catch (e) {
 // 		res.status(500).send();

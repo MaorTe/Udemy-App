@@ -1,40 +1,24 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import api from './../../API/api';
+import axiosInstance from './../../API/api';
 
-export const userToken = localStorage.getItem('userToken');
 // Thunk functions
 export const fetchUserFavoriteCourses = createAsyncThunk(
    'user/fetchUserFavoriteCourses',
    async () => {
-      if (userToken) {
-         const response = await api.get('/users/mycourses', {
-            headers: { Authorization: userToken },
-         });
-         console.log(response);
-         return response.data;
-      }
+      // if (userToken) {
+      const response = await axiosInstance.get('/users/mycourses');
+      return response.data;
+      // }
    },
 );
 
 export const addFavoriteCourse = createAsyncThunk('user/addFavoriteCourse', async (id) => {
-   const response = await api.post(
-      '/users/addcourse',
-      { id },
-      {
-         headers: { Authorization: userToken },
-      },
-   );
+   const response = await axiosInstance.post('/users/addcourse', { id });
    return response.data;
 });
 
 export const removeFavoriteCourse = createAsyncThunk('user/removeFavoriteCourse', async (id) => {
-   const response = await api.patch(
-      '/users/deletecourse',
-      { id },
-      {
-         headers: { Authorization: userToken },
-      },
-   );
+   const response = await axiosInstance.patch('/users/deletecourse', { id });
    return response.data;
 });
 
@@ -42,7 +26,7 @@ export const fileUpload = createAsyncThunk('user/profilePicture', async (selecte
    const fd = new FormData();
    fd.append('avatar', selectedFile);
 
-   const response = await api.post(
+   const response = await axiosInstance.post(
       `/users/special/me/avatar`,
       fd,
       // TODO: progress-bar
@@ -57,7 +41,6 @@ export const fileUpload = createAsyncThunk('user/profilePicture', async (selecte
       // },
       {
          headers: {
-            Authorization: userToken,
             'Content-Type': 'multipart/form-data',
          },
       },
@@ -68,11 +51,7 @@ export const fileUpload = createAsyncThunk('user/profilePicture', async (selecte
 // TODO: deleteUser
 // export const deleteUser = createAsyncThunk('user/removeUser', async () => {
 //    try {
-//       const data = await api.delete(`/users/me/avatar`, {
-//          headers: {
-//             Authorization: userToken,
-//          },
-//       });
+//       const data = await axiosInstance.delete(`/users/me/avatar`);
 //       return data.response;
 //    } catch (e) {
 //       console.log(e.message);

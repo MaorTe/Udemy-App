@@ -1,9 +1,9 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import api from './../../API/api';
+import axiosInstance from './../../API/api';
 
 export const userLogin = createAsyncThunk('user/login', async (loginInfo, { rejectWithValue }) => {
    try {
-      const { data } = await api.post(`users/login`, loginInfo);
+      const { data } = await axiosInstance.post(`users/login`, loginInfo);
       localStorage.setItem('userToken', data.token);
       return data;
    } catch (error) {
@@ -20,7 +20,7 @@ export const registerUser = createAsyncThunk(
    'user/register',
    async (userInfo, { rejectWithValue }) => {
       // try {
-      const response = await api.post(`users/register`, userInfo);
+      const response = await axiosInstance.post(`users/register`, userInfo);
       return response;
       // } catch (error) {
       //    if (error.response && error.response.data.message) {
@@ -33,8 +33,6 @@ export const registerUser = createAsyncThunk(
 );
 
 export const fetchUser = createAsyncThunk('user/fetchUser', async (tag) => {
-   const response = await api.get('users/me', {
-      headers: { Authorization: localStorage.getItem('userToken') },
-   });
+   const response = await axiosInstance.get('users/me');
    return response.data;
 });

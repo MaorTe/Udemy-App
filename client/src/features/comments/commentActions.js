@@ -1,13 +1,10 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import api from './../../API/api';
+import axiosInstance from './../../API/api';
 
-const userToken = localStorage.getItem('userToken');
 // Thunk functions
 export const fetchComments = createAsyncThunk('comments/fetchComments', async (videoId) => {
    if (videoId) {
-      const response = await api.get(`comments/${videoId}`, {
-         headers: { Authorization: userToken },
-      });
+      const response = await axiosInstance.get(`comments/${videoId}`);
       return response.data;
    }
 });
@@ -15,13 +12,10 @@ export const fetchComments = createAsyncThunk('comments/fetchComments', async (v
 export const addComment = createAsyncThunk(
    'comments/addComment',
    async ({ newComment, videoId }) => {
-      const response = await api.post(
-         `comments/newcomment`,
-         { content: newComment, videoId: videoId },
-         {
-            headers: { Authorization: userToken },
-         },
-      );
+      const response = await axiosInstance.post(`comments/newcomment`, {
+         content: newComment,
+         videoId: videoId,
+      });
       return response.data;
    },
 );
@@ -29,13 +23,7 @@ export const addComment = createAsyncThunk(
 export const editComment = createAsyncThunk(
    'comments/editComment',
    async ({ videoId, commentId, content }) => {
-      const response = await api.patch(
-         `comments/${videoId}`,
-         { content, commentId },
-         {
-            headers: { Authorization: userToken },
-         },
-      );
+      const response = await axiosInstance.patch(`comments/${videoId}`, { content, commentId });
       return response.data;
    },
 );
@@ -43,9 +31,7 @@ export const editComment = createAsyncThunk(
 export const deleteComment = createAsyncThunk(
    'comments/deleteComment',
    async ({ videoId, commentId }) => {
-      const response = await api.delete(`comments/${videoId}/${commentId}`, {
-         headers: { Authorization: userToken },
-      });
+      const response = await axiosInstance.delete(`comments/${videoId}/${commentId}`);
       return response.data;
    },
 );

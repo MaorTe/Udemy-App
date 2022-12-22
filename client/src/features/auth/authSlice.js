@@ -73,6 +73,7 @@ const authSlice = createSlice({
             state.success = true;
             state.userInfo = payload;
             state.isAdmin = payload.userRole === 'admin';
+            state.userToken = localStorage.getItem('userToken');
          })
          .addCase(fetchUser.rejected, (state, action) => {
             state.status = 'failed';

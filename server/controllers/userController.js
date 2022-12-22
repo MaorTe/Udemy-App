@@ -79,7 +79,6 @@ const getUserFavoriteCourses = async (req, res) => {
       const cl = await req.user.populate({
          path: 'courses.courseId',
       });
-      console.log(req.user.courses);
       res.send(req.user.courses);
    } catch (e) {
       res.status(500).send(e);

@@ -4,6 +4,7 @@ import coursesReducer from '../features/courses/coursesSlice';
 import usersReducer from '../features/users/usersSlice';
 import videosReducer from './../features/videos/videosSlice';
 import commentsReducer from './../features/comments/commentsSlice';
+import { listenerMiddleware } from './middleware';
 
 export const store = configureStore({
    reducer: {
@@ -13,4 +14,5 @@ export const store = configureStore({
       videos: videosReducer,
       comments: commentsReducer,
    },
+   middleware: (getDefaultMiddleware) => [...getDefaultMiddleware(), listenerMiddleware.middleware],
 });

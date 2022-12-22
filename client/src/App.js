@@ -14,12 +14,12 @@ import SignIn from './pages/SignIn.component';
 import useAuth from './features/auth/useAuth';
 
 function App() {
-   const [user, userToken] = useAuth();
+   const [user] = useAuth();
    const isAdmin = useSelector(isUserAdmin);
 
    return (
       <div>
-         <Navbar user={user} userToken={userToken} />
+         <Navbar user={user} />
          <Routes>
             <Route exact path="/SignIn" element={<SignIn />} />
             <Route exact path="/Profile" element={<Profile />} />
