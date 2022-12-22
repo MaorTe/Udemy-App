@@ -76,12 +76,9 @@ const deleteFavoriteCourse = async (req, res) => {
 
 const getUserFavoriteCourses = async (req, res) => {
    try {
-      const cl = await req.user
-         .populate({
-            path: 'courses.courseId',
-         })
-         .execPopulate();
-      console.log(cl);
+      const cl = await req.user.populate({
+         path: 'courses.courseId',
+      });
       console.log(req.user.courses);
       res.send(req.user.courses);
    } catch (e) {
