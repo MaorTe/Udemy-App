@@ -81,12 +81,13 @@ const getUserFavoriteCourses = async (req, res) => {
             path: 'courses.courseId',
          })
          .execPopulate();
+      console.log(cl);
+      console.log(req.user.courses);
       res.send(req.user.courses);
    } catch (e) {
-      res.status(500).send();
+      res.status(500).send(e);
    }
 };
-
 //after login/signup the client takes this auth token and providing it with the request its trying to perform
 const validateUserToken = async (req, res) => {
    res.send(req.user);

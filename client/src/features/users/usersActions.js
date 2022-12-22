@@ -10,6 +10,7 @@ export const fetchUserFavoriteCourses = createAsyncThunk(
          const response = await api.get('/users/mycourses', {
             headers: { Authorization: userToken },
          });
+         console.log(response);
          return response.data;
       }
    },

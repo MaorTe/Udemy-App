@@ -13,14 +13,6 @@ const commentsSlice = createSlice({
    initialState,
    reducers: {
       resetComments: (state) => initialState,
-      courseAdded: {
-         reducer(state, action) {
-            state.push(action.payload);
-         },
-         prepare({ courseImage, courseName, courseDescription, tag }) {
-            return { payload: { courseImage, courseName, courseDescription, tag } };
-         },
-      },
    },
    extraReducers(builder) {
       builder
@@ -78,6 +70,6 @@ export const commentsStatus = (state) => state.comments.status;
 export const commentsError = (state) => state.comments.error;
 export const selectAllComments = (state) => state.comments.comments;
 
-export const { courseAdded, resetComments } = commentsSlice.actions;
+export const { resetComments } = commentsSlice.actions;
 
 export default commentsSlice.reducer;
