@@ -4,7 +4,7 @@ import { isUserAdmin } from './features/auth/authSlice';
 import Navbar from './components/NavBar/Navbar.component';
 import NotFound from './pages/NotFound/NotFound.component';
 import Homepage from './pages/Homepage/Homepage.component';
-import Courses from './pages/FavCourses/FavCourses.component';
+import FavoriteCourses from './pages/FavCourses/FavCourses.component';
 import Profile from './pages/Profile/Profile.component';
 import Video from './pages/VideoPage/Video.component';
 import AddVideo from './pages/AddVideoPage/AddVideo.component';
@@ -25,7 +25,7 @@ function App() {
             <Route exact path="/Profile" element={<Profile />} />
             <Route exact path="/" element={<Homepage />} />
             <Route exact path="/SignUp" element={<SignUp />} />
-            <Route exact path="/Courses" element={<Courses />} />
+            <Route exact path="/Courses" element={<FavoriteCourses />} />
             <Route exact path="/Courses/:courseName/Videos/:courseId" element={<Video />} />
             {isAdmin ? (
                <>

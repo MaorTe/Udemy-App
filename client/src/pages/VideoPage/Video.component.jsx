@@ -49,6 +49,7 @@ const Video = () => {
 
    //---------------Get comment---------------
    useEffect(() => {
+      console.log(videoId);
       videoStatus === 'succeeded' && videoId && dispatch(fetchComments(videoId));
    }, [videoId, dispatch, videoStatus]);
 
@@ -150,7 +151,7 @@ const Video = () => {
          <S.videosMenuTitle>Course content</S.videosMenuTitle>
          {user ? (
             videosList.map((video) => (
-               <div key={videosList._id + video.videoTitle}>
+               <div key={video._id + video.videoTitle}>
                   <S.VideoLinkBtn onClick={() => showNewVideo(video)}>
                      {video.videoTitle}
                   </S.VideoLinkBtn>

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import CourseCard from '../../components/CourseCard/CourseCard.component';
 import * as S from './FavCourses.style';
 import { fetchUserFavoriteCourses } from '../../features/users/usersActions';
@@ -8,19 +8,18 @@ import {
    selectAllFavoriteCourses,
    selectfavCoursesIds,
 } from '../../features/users/usersSlice';
-import { useAuth } from '../../features/auth/useAuth';
 import { getUserStatus } from '../../features/auth/authSlice';
 
-const Courses = () => {
-   const [, userToken, dispatch] = useAuth();
+const FavoriteCourses = () => {
+   const dispatch = useDispatch();
    const favCourses = useSelector(selectAllFavoriteCourses);
    const favCoursesIds = useSelector(selectfavCoursesIds);
    const usersStatus = useSelector(getUserStatus);
    const error = useSelector(userError);
 
    useEffect(() => {
-      userToken && dispatch(fetchUserFavoriteCourses());
-   }, [dispatch, favCoursesIds, userToken]);
+      dispatch(fetchUserFavoriteCourses());
+   }, [dispatch, favCoursesIds]);
 
    const favoriteCoursesContent = () => {
       if (usersStatus === 'loading') <div class="loader">Loading...</div>;
@@ -39,4 +38,4 @@ const Courses = () => {
    return <S.GridContainer>{favoriteCoursesContent()}</S.GridContainer>;
 };
 
-export default Courses;
+export default FavoriteCourses;

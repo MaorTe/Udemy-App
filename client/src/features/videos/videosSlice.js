@@ -19,7 +19,7 @@ const videosSlice = createSlice({
          })
          .addCase(addVideo.fulfilled, (state, action) => {
             state.status = 'succeeded';
-            state.videos = action.payload;
+            state.videos.push(action.payload);
          })
          .addCase(addVideo.rejected, (state, action) => {
             state.status = 'failed';

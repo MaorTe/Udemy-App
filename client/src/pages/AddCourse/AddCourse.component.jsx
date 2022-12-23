@@ -1,15 +1,13 @@
 import React, { useState } from 'react';
 import * as S from './AddCourse.style';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { getCoursesStatus, getCoursesError } from '../../features/courses/coursesSlice';
-
-import { useAuth } from './../../features/auth/useAuth';
-import Marginer from '../../components/Marginer/Marginer';
 import { addCourse } from '../../features/courses/coursesActions';
+import { ToastContainer, toast } from 'react-toastify';
+import Marginer from '../../components/Marginer/Marginer';
 
 const AddCourse = () => {
-   const [, , dispatch] = useAuth();
-
+   const dispatch = useDispatch();
    const courseStatus = useSelector(getCoursesStatus);
    const error = useSelector(getCoursesError);
 
@@ -28,7 +26,20 @@ const AddCourse = () => {
    ].every(Boolean);
 
    const addNewCourse = () => {
-      dispatch(addCourse(courseInfo));
+      dispatch(addCourse(courseInfo))
+         .unwrap()
+         .then((res) => {
+            toast.success('Successfully added course');
+            setCourseInfo({
+               courseImage: '',
+               courseName: '',
+               courseDescription: '',
+               tag: '',
+            });
+         })
+         .catch((error) => {
+            toast.error('Failed to add course');
+         });
    };
 
    const changeHandler = (e) => setCourseInfo({ ...courseInfo, [e.target.name]: e.target.value });
@@ -70,6 +81,7 @@ const AddCourse = () => {
          <S.SubmitButton type="submit" disabled={!canSave} onClick={() => addNewCourse()}>
             Create Course
          </S.SubmitButton>
+         <ToastContainer autoClose={2000} />
       </S.BoxContainer>
    );
 };

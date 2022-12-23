@@ -40,7 +40,7 @@ const coursesSlice = createSlice({
          })
          .addCase(addCourse.fulfilled, (state, action) => {
             state.status = 'succeeded';
-            state.courses = action.payload;
+            state.courses.push(action.payload);
          })
          .addCase(addCourse.rejected, (state, action) => {
             state.status = 'failed';

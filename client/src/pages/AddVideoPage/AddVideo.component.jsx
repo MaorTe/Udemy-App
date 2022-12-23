@@ -1,15 +1,14 @@
 import React, { useState } from 'react';
 import * as S from './AddVideo.style';
 import { useParams } from 'react-router';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { videosStatus, videosError } from '../../features/videos/videosSlice';
 import { addVideo } from './../../features/videos/videoActions';
-import { useAuth } from './../../features/auth/useAuth';
+import { ToastContainer, toast } from 'react-toastify';
 import Marginer from '../../components/Marginer/Marginer';
-
 const AddVideo = () => {
    const { courseId } = useParams();
-   const [, , dispatch] = useAuth();
+   const dispatch = useDispatch();
 
    const videoStatus = useSelector(videosStatus);
    const error = useSelector(videosError);
@@ -21,8 +20,28 @@ const AddVideo = () => {
       courseId: courseId,
    });
 
+   const canSave = [
+      videoInfo.videoLink,
+      videoInfo.videoTitle,
+      videoInfo.videoDescription,
+      videoInfo.courseId,
+   ].every(Boolean);
+
    const addNewVideo = async () => {
-      dispatch(addVideo(videoInfo));
+      dispatch(addVideo(videoInfo))
+         .unwrap()
+         .then((res) => {
+            toast.success('Successfully added video');
+            setVideoInfo({
+               videoLink: '',
+               videoTitle: '',
+               videoDescription: '',
+               courseId: courseId,
+            });
+         })
+         .catch((error) => {
+            toast.error('Failed to add video');
+         });
    };
 
    const changeHandler = (e) => setVideoInfo({ ...videoInfo, [e.target.name]: e.target.value });
@@ -54,9 +73,10 @@ const AddVideo = () => {
             />
          </S.FormContainer>
          <Marginer direction="vertical" margin={10} />
-         <S.SubmitButton type="submit" onClick={() => addNewVideo()}>
+         <S.SubmitButton type="submit" disabled={!canSave} onClick={() => addNewVideo()}>
             Create Video
          </S.SubmitButton>
+         <ToastContainer autoClose={2000} />
       </S.BoxContainer>
    );
 };
