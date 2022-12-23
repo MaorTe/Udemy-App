@@ -11,7 +11,9 @@ const initialState = {
 const videosSlice = createSlice({
    name: 'videos',
    initialState,
-   reducers: {},
+   reducers: {
+      resetVideoId: (state) => (state.videos.videos[0] = null),
+   },
    extraReducers(builder) {
       builder
          .addCase(addVideo.pending, (state, action) => {
@@ -45,6 +47,6 @@ export const videosError = (state) => state.videos.error;
 export const selectAllVideos = (state) => state.videos.videos;
 export const selectVideoId = (state) => state.videos.videos[0]?._id;
 
-// export const {} = videosSlice.actions;
+export const { resetVideoId } = videosSlice.actions;
 
 export default videosSlice.reducer;

@@ -5,7 +5,13 @@ import { useLocation, useParams } from 'react-router';
 import Comment from '../../components/Comment/Comment.component';
 import VideoMenu from './../../components/VideoMenuBar/VideoMenu.component';
 import { useSelector } from 'react-redux';
-import { selectAllVideos, videosStatus, selectVideoId } from '../../features/videos/videosSlice';
+import {
+   selectAllVideos,
+   videosStatus,
+   selectVideoId,
+   resetVideos,
+   resetVideoId,
+} from '../../features/videos/videosSlice';
 import { fetchVideos } from '../../features/videos/videoActions';
 import {
    addComment,
@@ -16,6 +22,7 @@ import {
 import {
    commentsError,
    commentsStatus,
+   resetComments,
    selectAllComments,
 } from '../../features/comments/commentsSlice';
 import { ToastContainer, toast } from 'react-toastify';
@@ -49,8 +56,11 @@ const Video = () => {
 
    //---------------Get comment---------------
    useEffect(() => {
-      console.log(videoId);
       videoStatus === 'succeeded' && videoId && dispatch(fetchComments(videoId));
+
+      return () => {
+         dispatch(resetComments());
+      };
    }, [videoId, dispatch, videoStatus]);
 
    //---------------Add new comment---------------

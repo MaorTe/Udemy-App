@@ -3,10 +3,8 @@ import axiosInstance from './../../API/api';
 
 // Thunk functions
 export const fetchComments = createAsyncThunk('comments/fetchComments', async (videoId) => {
-   if (videoId) {
-      const response = await axiosInstance.get(`comments/${videoId}`);
-      return response.data;
-   }
+   const response = await axiosInstance.get(`comments/${videoId}`);
+   return response.data;
 });
 
 export const addComment = createAsyncThunk(
