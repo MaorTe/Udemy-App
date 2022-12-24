@@ -5,10 +5,8 @@ import axiosInstance from './../../API/api';
 export const fetchUserFavoriteCourses = createAsyncThunk(
    'user/fetchUserFavoriteCourses',
    async () => {
-      // if (userToken) {
       const response = await axiosInstance.get('/users/mycourses');
       return response.data;
-      // }
    },
 );
 

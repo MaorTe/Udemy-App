@@ -171,13 +171,15 @@ export const PostCommentBtn = styled.button`
    border: none;
    outline: none;
    border-radius: 10px;
-   background: ${({ user }) => (user ? '#384a68' : 'gray')};
+   background: ${({ user, videoId, newComment }) =>
+      newComment && videoId && user ? '#384a68' : 'gray'};
    color: #fff;
    transition: 0.3s all;
    /* width: 120px; */
    margin: 10px 0px 22px;
    &:hover {
-      box-shadow: ${({ user }) => (user ? '0px 0px 8px 0px #333' : 'none')};
+      box-shadow: ${({ user, videoId, newComment }) =>
+         newComment && videoId && user ? '0px 0px 8px 0px #333' : 'none'};
    }
 `;
 export const ControlsWrapper = styled.div`

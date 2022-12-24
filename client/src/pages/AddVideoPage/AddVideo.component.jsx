@@ -1,17 +1,13 @@
 import React, { useState } from 'react';
 import * as S from './AddVideo.style';
 import { useParams } from 'react-router';
-import { useSelector, useDispatch } from 'react-redux';
-import { videosStatus, videosError } from '../../features/videos/videosSlice';
+import { useDispatch } from 'react-redux';
 import { addVideo } from './../../features/videos/videoActions';
 import { ToastContainer, toast } from 'react-toastify';
 import Marginer from '../../components/Marginer/Marginer';
 const AddVideo = () => {
    const { courseId } = useParams();
    const dispatch = useDispatch();
-
-   const videoStatus = useSelector(videosStatus);
-   const error = useSelector(videosError);
 
    const [videoInfo, setVideoInfo] = useState({
       videoLink: '',

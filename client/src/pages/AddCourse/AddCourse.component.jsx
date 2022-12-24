@@ -1,15 +1,12 @@
 import React, { useState } from 'react';
 import * as S from './AddCourse.style';
-import { useSelector, useDispatch } from 'react-redux';
-import { getCoursesStatus, getCoursesError } from '../../features/courses/coursesSlice';
+import { useDispatch } from 'react-redux';
 import { addCourse } from '../../features/courses/coursesActions';
 import { ToastContainer, toast } from 'react-toastify';
 import Marginer from '../../components/Marginer/Marginer';
 
 const AddCourse = () => {
    const dispatch = useDispatch();
-   const courseStatus = useSelector(getCoursesStatus);
-   const error = useSelector(getCoursesError);
 
    const [courseInfo, setCourseInfo] = useState({
       courseImage: '',

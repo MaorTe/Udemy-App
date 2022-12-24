@@ -12,11 +12,12 @@ import {
 import { fetchCourses } from './../../features/courses/coursesActions';
 import { selectAllFavoriteCourses, selectfavCoursesIds } from '../../features/users/usersSlice';
 import { fetchUserFavoriteCourses } from '../../features/users/usersActions';
-import { getUserStatus } from '../../features/auth/authSlice';
+import { getUserStatus, token } from '../../features/auth/authSlice';
 
 const Carousel = ({ tag, width }) => {
    const dispatch = useDispatch();
    const userStatus = useSelector(getUserStatus);
+   const userToken = useSelector(token);
    const coursesList = useSelector(selectAllCourses);
    const favCourses = useSelector(selectAllFavoriteCourses);
    const favCoursesIds = useSelector(selectfavCoursesIds);
@@ -25,11 +26,11 @@ const Carousel = ({ tag, width }) => {
 
    useEffect(() => {
       dispatch(fetchCourses(tag));
-   }, [dispatch]);
+   }, [dispatch, tag]);
 
    useEffect(() => {
-      dispatch(fetchUserFavoriteCourses());
-   }, [dispatch, favCoursesIds]);
+      userToken && dispatch(fetchUserFavoriteCourses());
+   }, [dispatch, favCoursesIds, userToken]);
 
    const settings = {
       dots: true,

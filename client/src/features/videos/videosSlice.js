@@ -12,7 +12,7 @@ const videosSlice = createSlice({
    name: 'videos',
    initialState,
    reducers: {
-      resetVideoId: (state) => (state.videos.videos[0] = null),
+      resetVideos: (state) => initialState,
    },
    extraReducers(builder) {
       builder
@@ -45,8 +45,7 @@ const videosSlice = createSlice({
 export const videosStatus = (state) => state.videos.status;
 export const videosError = (state) => state.videos.error;
 export const selectAllVideos = (state) => state.videos.videos;
-export const selectVideoId = (state) => state.videos.videos[0]?._id;
 
-export const { resetVideoId } = videosSlice.actions;
+export const { resetVideos } = videosSlice.actions;
 
 export default videosSlice.reducer;

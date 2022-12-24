@@ -11,7 +11,6 @@ export function AccountBox() {
 
    //animation
    const [isExpanded, setExpanded] = useState(false);
-   const type = '';
    useEffect(() => {
       const type = location.pathname.slice(1);
       setActive(type);

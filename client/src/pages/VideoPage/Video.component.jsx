@@ -5,13 +5,7 @@ import { useLocation, useParams } from 'react-router';
 import Comment from '../../components/Comment/Comment.component';
 import VideoMenu from './../../components/VideoMenuBar/VideoMenu.component';
 import { useSelector } from 'react-redux';
-import {
-   selectAllVideos,
-   videosStatus,
-   selectVideoId,
-   resetVideos,
-   resetVideoId,
-} from '../../features/videos/videosSlice';
+import { selectAllVideos, videosStatus, resetVideos } from '../../features/videos/videosSlice';
 import { fetchVideos } from '../../features/videos/videoActions';
 import {
    addComment,
@@ -27,13 +21,12 @@ import {
 } from '../../features/comments/commentsSlice';
 import { ToastContainer, toast } from 'react-toastify';
 import { useAuth } from './../../features/auth/useAuth';
-import { isLoggedIn } from '../../features/auth/authSlice';
+import { token } from '../../features/auth/authSlice';
 
 const Video = () => {
-   const initialVideoId = useSelector(selectVideoId);
    const videosList = useSelector(selectAllVideos);
    const videoStatus = useSelector(videosStatus);
-   const isLogged = useSelector(isLoggedIn);
+   const userToken = useSelector(token);
 
    const commentsList = useSelector(selectAllComments);
    const commentStatus = useSelector(commentsStatus);
@@ -50,9 +43,20 @@ const Video = () => {
 
    //fetch videos of the chosen course
    useEffect(() => {
-      dispatch(fetchVideos(courseId));
-      setVideoId(initialVideoId);
-   }, [courseId, dispatch, initialVideoId]);
+      userToken &&
+         dispatch(fetchVideos(courseId))
+            .unwrap()
+            .then((res) => {
+               setVideoId(res[0]?._id);
+            })
+            .catch((error) => {
+               console.log(error.code);
+            });
+
+      return () => {
+         dispatch(resetVideos());
+      };
+   }, [courseId, dispatch, userToken]);
 
    //---------------Get comment---------------
    useEffect(() => {
@@ -65,6 +69,9 @@ const Video = () => {
 
    //---------------Add new comment---------------
    const addNewComment = async () => {
+      if (!newComment) {
+         return toast.success('Comment cant be empty');
+      }
       dispatch(addComment({ newComment, videoId }))
          .unwrap()
          .then((res) => {
@@ -107,7 +114,7 @@ const Video = () => {
    const commentsContent = () => {
       if (commentStatus === 'loading') {
          return <div className="loader">Loading...</div>;
-      } else if (commentStatus === 'succeeded') {
+      } else if (commentStatus === 'succeeded' || commentStatus === 'failed') {
          return commentsList?.map((comment) => (
             <Comment
                key={comment._id}
@@ -118,13 +125,13 @@ const Video = () => {
             />
          ));
       } else if (commentStatus === 'failed') {
-         return <p style={{ color: 'red' }}>{commentError && 'Something went wrong...'}}</p>;
+         return <p style={{ color: 'red' }}>{commentError && 'Something went wrong...'}</p>;
       }
    };
 
    const videoComments = () => (
       <S.CommentContainer>
-         <S.CommentsWrapper>{isLogged ? commentsContent() : ''}</S.CommentsWrapper>
+         <S.CommentsWrapper>{userToken ? commentsContent() : ''}</S.CommentsWrapper>
          {!user && <p>Comments only available while signed in</p>}
          <S.Commentbody
             cols="30"
@@ -134,7 +141,12 @@ const Video = () => {
             placeholder={user ? 'Add new comment' : ''}
             disabled={!user ? true : false}
          />
-         <S.PostCommentBtn onClick={addNewComment} disabled={!user ? true : false} user={user}>
+         <S.PostCommentBtn
+            onClick={addNewComment}
+            disabled={!newComment || !videoId || !user ? true : false}
+            user={user}
+            videoId={videoId}
+            newComment={newComment}>
             Post Comment
          </S.PostCommentBtn>
       </S.CommentContainer>
