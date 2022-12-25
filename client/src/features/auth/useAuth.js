@@ -3,14 +3,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchUser } from './authActions';
 import { selectUser, token } from './authSlice';
 
-export const useAuth = () => {
+export const useAuth = (init) => {
    const user = useSelector(selectUser);
    const userToken = useSelector(token);
    const dispatch = useDispatch();
 
    //fetch user to check for token
    useEffect(() => {
-      if (userToken) {
+      if (init && userToken) {
          dispatch(fetchUser());
       }
    }, [dispatch, userToken]);

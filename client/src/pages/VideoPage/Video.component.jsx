@@ -21,12 +21,14 @@ import {
 } from '../../features/comments/commentsSlice';
 import { ToastContainer, toast } from 'react-toastify';
 import { useAuth } from './../../features/auth/useAuth';
-import { token } from '../../features/auth/authSlice';
 
 const Video = () => {
    const videosList = useSelector(selectAllVideos);
    const videoStatus = useSelector(videosStatus);
-   const userToken = useSelector(token);
+
+   // const user = useSelector(selectUser);
+   // const userToken = useSelector(token);
+   // const dispatch = useDispatch();
 
    const commentsList = useSelector(selectAllComments);
    const commentStatus = useSelector(commentsStatus);
@@ -39,7 +41,7 @@ const Video = () => {
    const [videoId, setVideoId] = useState(null);
    const [newComment, setNewComment] = useState('');
 
-   const [user, , dispatch] = useAuth();
+   const [user, userToken, dispatch] = useAuth();
 
    //fetch videos of the chosen course
    useEffect(() => {

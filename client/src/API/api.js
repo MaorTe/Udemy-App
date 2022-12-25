@@ -1,7 +1,5 @@
 import axios from 'axios';
-
 // let HOST = window.location.origin;
-// baseURL: `${'http://localhost:3001'}/api`,
 
 const axiosInstance = axios.create({
    baseURL: `${process.env.REACT_APP_API_RENDER_URL || ''}/api`,
@@ -19,6 +17,19 @@ axiosInstance.interceptors.request.use(
       return config;
    },
    (error) => {
+      return Promise.reject(error);
+   },
+);
+
+axiosInstance.interceptors.response.use(
+   (response) => response,
+   (error) => {
+      if (error.response?.status === 401) {
+         console.log('You are not logged in');
+         localStorage.removeItem('userToken');
+         window.location.href = '/SignIn';
+         return Promise.reject(error);
+      }
       return Promise.reject(error);
    },
 );

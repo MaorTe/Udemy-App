@@ -23,7 +23,6 @@ const Carousel = ({ tag, width }) => {
    const favCoursesIds = useSelector(selectfavCoursesIds);
    const coursesStatus = useSelector(getCoursesStatus);
    const error = useSelector(getCoursesError);
-
    useEffect(() => {
       dispatch(fetchCourses(tag));
    }, [dispatch, tag]);

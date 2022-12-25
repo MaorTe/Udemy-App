@@ -7,7 +7,7 @@ import { fileUpload } from '../../features/users/usersActions';
 import { ToastContainer, toast } from 'react-toastify';
 
 const Profile = () => {
-   const [user, , dispatch] = useAuth();
+   const [user, userToken, dispatch] = useAuth();
    const userStatus = useSelector(getUserStatus);
 
    const [selectedFile, setSelectedFile] = useState(null);

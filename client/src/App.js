@@ -14,7 +14,7 @@ import SignIn from './pages/SignIn.component';
 import useAuth from './features/auth/useAuth';
 
 function App() {
-   const [user] = useAuth();
+   const [user] = useAuth('init');
    const isAdmin = useSelector(isUserAdmin);
 
    return (

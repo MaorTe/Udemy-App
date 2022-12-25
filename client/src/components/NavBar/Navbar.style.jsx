@@ -54,6 +54,15 @@ export const NavLink = styled(Link)`
       background: #201f32;
    }
 `;
+export const PlaceHolder = styled.span`
+   display: block;
+   padding: 20px;
+   text-decoration: none;
+   color: transparent;
+   font-size: 1rem;
+   font-size: 22px;
+   font-weight: 300;
+`;
 
 export const NavLinkLogo = styled(Link)`
    display: block;
