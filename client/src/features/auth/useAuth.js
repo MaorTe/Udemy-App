@@ -13,7 +13,7 @@ export const useAuth = (init) => {
       if (init && userToken) {
          dispatch(fetchUser());
       }
-   }, [dispatch, userToken]);
+   }, [dispatch, userToken, init]);
 
    return [user, userToken, dispatch];
 };
