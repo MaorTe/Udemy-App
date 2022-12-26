@@ -10,7 +10,7 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import { userLogin } from '../../features/auth/authActions';
 import { useNavigate } from 'react-router-dom';
-import { selectUser } from '../../features/auth/authSlice';
+import { selectUser, getUserStatus } from '../../features/auth/authSlice';
 import Marginer from '../../components/Marginer/Marginer';
 import { toast } from 'react-toastify';
 
@@ -18,6 +18,7 @@ export function LoginForm() {
    const navigate = useNavigate();
    const dispatch = useDispatch();
    const user = useSelector(selectUser);
+   const userStatus = useSelector(getUserStatus);
 
    const [loginInfo, setLoginInfo] = useState({
       email: '',
@@ -29,9 +30,7 @@ export function LoginForm() {
          try {
             const authUser = await dispatch(userLogin(loginInfo)).unwrap();
             toast.success('Successfully Login 👌');
-            setTimeout(() => {
-               authUser.token && navigate('/');
-            }, 1000);
+            authUser.token && navigate('/');
          } catch (err) {
             toast.error('Login Failed ❌');
             console.log('Login Failed');
@@ -39,6 +38,10 @@ export function LoginForm() {
       }
    };
    const changeHandler = (e) => setLoginInfo({ ...loginInfo, [e.target.name]: e.target.value });
+
+   if (userStatus === 'loading') {
+      return <div className="loader">Loading...</div>;
+   }
 
    return (
       <BoxContainer>

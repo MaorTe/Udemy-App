@@ -52,14 +52,17 @@ const authSlice = createSlice({
 
          // register user
          .addCase(registerUser.pending, (state) => {
+            state.status = 'loading';
             state.loading = true;
             state.error = null;
          })
          .addCase(registerUser.fulfilled, (state, { payload }) => {
+            state.status = 'succeeded';
             state.loading = false;
             state.success = true; // registration successful
          })
          .addCase(registerUser.rejected, (state, { payload }) => {
+            state.status = 'failed';
             state.loading = false;
             state.error = payload;
          })

@@ -9,14 +9,16 @@ import {
 } from './common.styles';
 
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { registerUser } from '../../features/auth/authActions';
 import Marginer from '../../components/Marginer/Marginer';
 import { toast } from 'react-toastify';
+import { getUserStatus } from '../../features/auth/authSlice';
 
 export function SignUpForm() {
    const navigate = useNavigate();
    const dispatch = useDispatch();
+   const userStatus = useSelector(getUserStatus);
 
    const [userInfo, setUserInfo] = useState({
       name: '',
@@ -38,6 +40,10 @@ export function SignUpForm() {
          console.log('Register Failed');
       }
    };
+
+   if (userStatus === 'loading') {
+      return <div className="loader">Loading...</div>;
+   }
 
    const changeHandler = (e) => setUserInfo({ ...userInfo, [e.target.name]: e.target.value });
    return (
