@@ -2,8 +2,8 @@ import { Link } from 'react-router-dom';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import FavCourseBtn from '../FavCourseBtn/FavCourseBtn.component';
 import * as S from './CourseCard.style';
-import MyLoader from '../MyLoader/MyLoader';
-import MyLoaderMobile from '../MyLoader/MyLoaderMobile';
+import Skeleton from '../Skeleton/Skeleton';
+import SkeletonMobile from '../Skeleton/SkeletonMobile';
 import React from 'react';
 import { isLoggedIn } from '../../features/auth/authSlice';
 import { useSelector } from 'react-redux';
@@ -33,7 +33,7 @@ const CourseCard = ({ isCourseExists, course }) => {
    ) : (
       <>
          <S.CardWrapper>
-            {window?.innerWidth <= 520 ? <MyLoaderMobile /> : <MyLoader />}
+            {window?.innerWidth <= 520 ? <SkeletonMobile /> : <Skeleton />}
          </S.CardWrapper>
       </>
    );

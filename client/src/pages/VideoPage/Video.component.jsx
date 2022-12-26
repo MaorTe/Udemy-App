@@ -3,7 +3,7 @@ import * as S from './Video.style';
 import ReactPlayer from 'react-player';
 import { useLocation, useParams } from 'react-router';
 import Comment from '../../components/Comment/Comment.component';
-import VideoMenu from './../../components/VideoMenuBar/VideoMenu.component';
+import VideoMenuMobile from '../../components/VideoMenuMobile/VideoMenuMobile.component';
 import { useSelector } from 'react-redux';
 import { selectAllVideos, videosStatus, resetVideos } from '../../features/videos/videosSlice';
 import { fetchVideos } from '../../features/videos/videoActions';
@@ -210,7 +210,7 @@ const Video = () => {
                <S.UserAuthMessage>Please sign in to see content</S.UserAuthMessage>
             </div>
          )}
-         <VideoMenu
+         <VideoMenuMobile
             videoComments={videoComments}
             courseContent={courseContent}
             courseAbout={courseAbout}

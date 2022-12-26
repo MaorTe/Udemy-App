@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import * as S from './VideoMenu.style';
+import * as S from './VideoMenuMobile.style';
 
-const VideoMenu = ({ videoComments, courseContent, courseAbout }) => {
+const VideoMenuMobile = ({ videoComments, courseContent, courseAbout }) => {
    const [active, setActive] = useState(1);
 
    return (
@@ -36,4 +36,4 @@ const VideoMenu = ({ videoComments, courseContent, courseAbout }) => {
    );
 };
 
-export default VideoMenu;
+export default VideoMenuMobile;

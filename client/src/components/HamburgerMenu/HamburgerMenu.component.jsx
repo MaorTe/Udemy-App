@@ -4,13 +4,13 @@ import { useDispatch } from 'react-redux';
 import { logout } from '../../features/auth/authSlice';
 
 export default function HamburgerMenu({ isAdmin }) {
-
    const dispatch = useDispatch();
    const [click, setClick] = useState(false);
-   const handleClick = () => setClick(!click);
+   const closeMenu = () => setClick((prev) => !prev);
+
    return (
       <>
-         <S.MenuLabel htmlFor="navi-toggle" onClick={handleClick}>
+         <S.MenuLabel htmlFor="navi-toggle" onClick={closeMenu}>
             <S.Icon clicked={click}>&nbsp;</S.Icon>
          </S.MenuLabel>
          <S.NavBackground clicked={click}>&nbsp;</S.NavBackground>
@@ -18,34 +18,36 @@ export default function HamburgerMenu({ isAdmin }) {
          <S.Navigation clicked={click}>
             <S.List>
                <li>
-                  <S.ItemLink onClick={handleClick} to="/">
+                  <S.ItemLink onClick={closeMenu} to="/">
                      Home
                   </S.ItemLink>
                </li>
                <li>
-                  <S.ItemLink onClick={handleClick} to="/Profile">
+                  <S.ItemLink onClick={closeMenu} to="/Profile">
                      Profile
                   </S.ItemLink>
                </li>
                {isAdmin && (
                   <li>
-                     <S.ItemLink onClick={handleClick} to="/Courses/AddCourse">
+                     <S.ItemLink onClick={closeMenu} to="/Courses/AddCourse">
                         Add Course
                      </S.ItemLink>
                   </li>
                )}
                <li>
-                  <S.ItemLink onClick={handleClick} to="/Courses">
+                  <S.ItemLink onClick={closeMenu} to="/Courses">
                      Courses
                   </S.ItemLink>
                </li>
                <li>
                   <S.ItemLink
                      onClick={() => {
-                        dispatch(logout());
-                        setClick(!click);
+                        closeMenu();
+                        setTimeout(() => {
+                           dispatch(logout());
+                        }, 1000);
                      }}
-                     to="/">
+                     to="/SignIn">
                      Logout
                   </S.ItemLink>
                </li>

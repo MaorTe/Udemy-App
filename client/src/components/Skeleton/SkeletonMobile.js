@@ -1,7 +1,7 @@
 import React from 'react';
 import ContentLoader from 'react-content-loader';
 
-const MyLoaderMobile = (props) => (
+const SkeletonMobile = (props) => (
    <ContentLoader
       speed={2}
       width={195}
@@ -15,4 +15,4 @@ const MyLoaderMobile = (props) => (
       <rect x="33" y="18" rx="2" ry="2" width="158" height="140" />
    </ContentLoader>
 );
-export default MyLoaderMobile;
+export default SkeletonMobile;
