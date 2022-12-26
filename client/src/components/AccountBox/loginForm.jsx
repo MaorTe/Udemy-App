@@ -12,7 +12,7 @@ import { userLogin } from '../../features/auth/authActions';
 import { useNavigate } from 'react-router-dom';
 import { selectUser } from '../../features/auth/authSlice';
 import Marginer from '../../components/Marginer/Marginer';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 
 export function LoginForm() {
    const navigate = useNavigate();
@@ -34,7 +34,7 @@ export function LoginForm() {
             }, 1000);
          } catch (err) {
             toast.error('Login Failed ❌');
-            console.log('Something went wrong');
+            console.log('Login Failed');
          }
       }
    };
@@ -67,7 +67,6 @@ export function LoginForm() {
          <Marginer direction="vertical" margin="1em" />
          <MutedLink to="/">Don't have an account?</MutedLink>
          <BoldLink to="/SignUp">Sign up</BoldLink>
-         <ToastContainer autoClose={2000} />
       </BoxContainer>
    );
 }

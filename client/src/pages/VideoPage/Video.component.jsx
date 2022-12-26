@@ -23,12 +23,9 @@ import { ToastContainer, toast } from 'react-toastify';
 import { useAuth } from './../../features/auth/useAuth';
 
 const Video = () => {
+   const [user, userToken, dispatch] = useAuth();
    const videosList = useSelector(selectAllVideos);
    const videoStatus = useSelector(videosStatus);
-
-   // const user = useSelector(selectUser);
-   // const userToken = useSelector(token);
-   // const dispatch = useDispatch();
 
    const commentsList = useSelector(selectAllComments);
    const commentStatus = useSelector(commentsStatus);
@@ -40,8 +37,6 @@ const Video = () => {
    const [showVideo, setShowVideo] = useState('');
    const [videoId, setVideoId] = useState(null);
    const [newComment, setNewComment] = useState('');
-
-   const [user, userToken, dispatch] = useAuth();
 
    //fetch videos of the chosen course
    useEffect(() => {

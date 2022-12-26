@@ -12,6 +12,8 @@ import AddCourse from './pages/AddCourse/AddCourse.component';
 import SignUp from './pages/SignUp.component';
 import SignIn from './pages/SignIn.component';
 import useAuth from './features/auth/useAuth';
+import ProtectedRoute from './utils/ProtectedRoute';
+import ProtectedAdminRoute from './utils/ProtectedAdminRoute';
 
 function App() {
    const [user] = useAuth('init');
@@ -22,19 +24,20 @@ function App() {
          <Navbar user={user} />
          <Routes>
             <Route exact path="/SignIn" element={<SignIn />} />
-            <Route exact path="/Profile" element={<Profile />} />
             <Route exact path="/" element={<Homepage />} />
             <Route exact path="/SignUp" element={<SignUp />} />
-            <Route exact path="/Courses" element={<FavoriteCourses />} />
             <Route exact path="/Courses/:courseName/Videos/:courseId" element={<Video />} />
-            {isAdmin ? (
-               <>
+
+            <Route element={<ProtectedRoute />}>
+               <Route exact path="/Profile" element={<Profile />} />
+               <Route exact path="/Courses" element={<FavoriteCourses />} />
+
+               <Route element={<ProtectedAdminRoute />}>
                   <Route exact path="/Courses/Videos/AddVideo/:courseId" element={<AddVideo />} />
                   <Route exact path="/Courses/AddCourse" element={<AddCourse />} />
-               </>
-            ) : (
-               <Route path="/" element={<Navigate replace to="/" />} />
-            )}
+               </Route>
+            </Route>
+
             <Route path="*" element={<NotFound />} />
          </Routes>
       </div>

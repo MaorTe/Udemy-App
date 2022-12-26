@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import * as S from './index.style';
 import { LoginForm } from './loginForm';
 import { SignUpForm } from './signupForm';
 import { useLocation } from 'react-router-dom';
-import * as S from './index.style';
+import { ToastContainer, toast } from 'react-toastify';
 
 export function AccountBox() {
    const location = useLocation();
@@ -38,33 +39,36 @@ export function AccountBox() {
    }, [preActive]);
 
    return (
-      <S.BoxContainer>
-         <S.TopContainer>
-            <S.BackDrop
-               initial={false}
-               animate={isExpanded ? 'expanded' : 'collapsed'}
-               variants={S.backdropVariants}
-               transition={S.expandingTransition}
-            />
-            <S.HeaderContainer>
-               <S.HeaderText>{active === 'SignIn' ? 'Welcome' : 'Create'}</S.HeaderText>
-               <S.HeaderText>{active === 'SignIn' ? 'Back' : 'Account'}</S.HeaderText>
-               <S.SmallText>
-                  {active === 'SignIn'
-                     ? 'Please sign in to continue!'
-                     : 'Please sign up to continue!'}
-               </S.SmallText>
-            </S.HeaderContainer>
-         </S.TopContainer>
-         <S.InnerContainer>
-            {active === 'SignIn' ? (
-               <LoginForm switchToSignIn={switchToSignIn} />
-            ) : active === 'SignUp' ? (
-               <SignUpForm />
-            ) : (
-               ''
-            )}
-         </S.InnerContainer>
-      </S.BoxContainer>
+      <>
+         <S.BoxContainer>
+            <S.TopContainer>
+               <S.BackDrop
+                  initial={false}
+                  animate={isExpanded ? 'expanded' : 'collapsed'}
+                  variants={S.backdropVariants}
+                  transition={S.expandingTransition}
+               />
+               <S.HeaderContainer>
+                  <S.HeaderText>{active === 'SignIn' ? 'Welcome' : 'Create'}</S.HeaderText>
+                  <S.HeaderText>{active === 'SignIn' ? 'Back' : 'Account'}</S.HeaderText>
+                  <S.SmallText>
+                     {active === 'SignIn'
+                        ? 'Please sign in to continue!'
+                        : 'Please sign up to continue!'}
+                  </S.SmallText>
+               </S.HeaderContainer>
+            </S.TopContainer>
+            <S.InnerContainer>
+               {active === 'SignIn' ? (
+                  <LoginForm switchToSignIn={switchToSignIn} />
+               ) : active === 'SignUp' ? (
+                  <SignUpForm />
+               ) : (
+                  ''
+               )}
+            </S.InnerContainer>
+         </S.BoxContainer>
+         <ToastContainer autoClose={2000} />
+      </>
    );
 }

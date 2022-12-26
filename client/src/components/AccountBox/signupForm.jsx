@@ -12,7 +12,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { registerUser } from '../../features/auth/authActions';
 import Marginer from '../../components/Marginer/Marginer';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 
 export function SignUpForm() {
    const navigate = useNavigate();
@@ -28,14 +28,14 @@ export function SignUpForm() {
    const createUser = async () => {
       try {
          const userRegister = await dispatch(registerUser(userInfo)).unwrap();
-         toast.success('Successfully register 👌');
+         toast.success('Successfully Register 👌');
          setTimeout(() => {
             //redirect to SignIn
             userRegister && navigate('/SignIn');
          }, 1000);
       } catch (err) {
          toast.error('Register Failed');
-         console.log(err);
+         console.log('Register Failed');
       }
    };
 
@@ -82,7 +82,6 @@ export function SignUpForm() {
          <Marginer direction="vertical" margin="1em" />
          <MutedLink to="/">Already have an account?</MutedLink>
          <BoldLink to="/SignIn">Sign in</BoldLink>
-         <ToastContainer autoClose={2000} />
       </BoxContainer>
    );
 }

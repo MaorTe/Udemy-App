@@ -3,19 +3,12 @@ import logo from '../../img/logo.png';
 import * as S from './Navbar.style';
 import HamburgerMenu from './../HamburgerMenu/HamburgerMenu.component';
 import { useDispatch } from 'react-redux';
-import {
-   isLoggedIn,
-   token,
-   isUserAdmin,
-   logout,
-   getUserStatus,
-} from '../../features/auth/authSlice';
+import { isUserAdmin, logout, getUserStatus } from '../../features/auth/authSlice';
 import { useSelector } from 'react-redux';
 
 const Navbar = ({ user }) => {
    const dispatch = useDispatch();
    const isAdmin = useSelector(isUserAdmin);
-   const userToken = useSelector(token);
    const userStatus = useSelector(getUserStatus);
 
    const [width, setWidth] = useState(window.innerWidth);
@@ -46,7 +39,7 @@ const Navbar = ({ user }) => {
                   <S.NavLink to="/Courses">My Courses</S.NavLink>
                </S.li>
                <S.li>
-                  <S.NavLink to="/" onClick={() => dispatch(logout())}>
+                  <S.NavLink to="/SignIn" onClick={() => dispatch(logout())}>
                      Logout
                   </S.NavLink>
                </S.li>
