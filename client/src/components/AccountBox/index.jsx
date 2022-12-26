@@ -3,7 +3,7 @@ import * as S from './index.style';
 import { LoginForm } from './loginForm';
 import { SignUpForm } from './signupForm';
 import { useLocation } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 
 export function AccountBox() {
    const location = useLocation();

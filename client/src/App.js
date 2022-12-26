@@ -1,6 +1,4 @@
-import { Route, Routes, Navigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { isUserAdmin } from './features/auth/authSlice';
+import { Route, Routes } from 'react-router-dom';
 import Navbar from './components/NavBar/Navbar.component';
 import NotFound from './pages/NotFound/NotFound.component';
 import Homepage from './pages/Homepage/Homepage.component';
@@ -17,7 +15,6 @@ import ProtectedAdminRoute from './utils/ProtectedAdminRoute';
 
 function App() {
    const [user] = useAuth('init');
-   const isAdmin = useSelector(isUserAdmin);
 
    return (
       <div>
