@@ -16,21 +16,15 @@ export const userLogin = createAsyncThunk('user/login', async (loginInfo, { reje
    }
 });
 
-export const registerUser = createAsyncThunk(
-   'user/register',
-   async (userInfo, { rejectWithValue }) => {
-      // try {
-      const response = await axiosInstance.post(`users/register`, userInfo);
-      return response;
-      // } catch (error) {
-      //    if (error.response && error.response.data.message) {
-      //       return rejectWithValue(error.response.data.message);
-      //    } else {
-      //       return rejectWithValue(error.message);
-      //    }
-      // }
-   },
-);
+export const userLogout = createAsyncThunk('user/logout', async () => {
+   const response = await axiosInstance.post(`users/logout`);
+   return response;
+});
+
+export const registerUser = createAsyncThunk('user/register', async (userInfo) => {
+   const response = await axiosInstance.post(`users/register`, userInfo);
+   return response;
+});
 
 export const fetchUser = createAsyncThunk('user/fetchUser', async (tag) => {
    const response = await axiosInstance.get('users/me');

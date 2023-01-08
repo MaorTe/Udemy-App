@@ -3,8 +3,10 @@ import logo from '../../img/logo.png';
 import * as S from './Navbar.style';
 import HamburgerMenu from './../HamburgerMenu/HamburgerMenu.component';
 import { useDispatch } from 'react-redux';
-import { isUserAdmin, logout, getUserStatus } from '../../features/auth/authSlice';
 import { useSelector } from 'react-redux';
+import { isUserAdmin, logout, getUserStatus } from '../../features/auth/authSlice';
+import { userLogout } from '../../features/auth/authActions';
+import { toast } from 'react-toastify';
 
 const Navbar = ({ user }) => {
    const dispatch = useDispatch();
@@ -18,10 +20,20 @@ const Navbar = ({ user }) => {
       return () => window.removeEventListener('resize', updateWidth);
    }, []);
 
+   const logoutUser = async () => {
+      try {
+         const res = await dispatch(userLogout()).unwrap();
+         toast.success('Successfully Logout');
+         res && dispatch(logout());
+      } catch (err) {
+         toast.error('Logout Failed ❌');
+      }
+   };
+
    const userLinks = () =>
       user ? (
          width < 650 ? (
-            <HamburgerMenu isAdmin={isAdmin} />
+            <HamburgerMenu isAdmin={isAdmin} logoutUser={logoutUser} />
          ) : (
             <>
                <S.li>
@@ -39,7 +51,7 @@ const Navbar = ({ user }) => {
                   <S.NavLink to="/Courses">My Courses</S.NavLink>
                </S.li>
                <S.li>
-                  <S.NavLink to="/SignIn" onClick={() => dispatch(logout())}>
+                  <S.NavLink to="/SignIn" onClick={() => logoutUser()}>
                      Logout
                   </S.NavLink>
                </S.li>

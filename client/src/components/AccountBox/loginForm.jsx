@@ -33,7 +33,6 @@ export function LoginForm() {
             authUser.token && navigate('/');
          } catch (err) {
             toast.error('Login Failed ❌');
-            console.log('Login Failed');
          }
       }
    };

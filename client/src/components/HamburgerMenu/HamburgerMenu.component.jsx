@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import * as S from './HamburgerMenu.style';
 import { useDispatch } from 'react-redux';
-import { logout } from '../../features/auth/authSlice';
 
-export default function HamburgerMenu({ isAdmin }) {
+export default function HamburgerMenu({ isAdmin, logoutUser }) {
    const dispatch = useDispatch();
    const [click, setClick] = useState(false);
    const closeMenu = () => setClick((prev) => !prev);
@@ -44,7 +43,7 @@ export default function HamburgerMenu({ isAdmin }) {
                      onClick={() => {
                         closeMenu();
                         setTimeout(() => {
-                           dispatch(logout());
+                           logoutUser();
                         }, 1000);
                      }}
                      to="/SignIn">

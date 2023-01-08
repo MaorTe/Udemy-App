@@ -89,8 +89,10 @@ userSchema.methods.toJSON = function () {
 //methods accessible on the instances, called instance methods
 userSchema.methods.generateAuthToken = async function () {
    const user = this;
-   const token = jwt.sign({ _id: user._id.toString() }, 'thisismynewcourse');
-
+   const token = jwt.sign({ _id: user._id.toString() }, 'thisismynewcourse', {
+      expiresIn: '7 days',
+   });
+   // save multiple tokens in case a user wants to login from different devices
    user.tokens = user.tokens.concat({ token });
    await user.save();
 
